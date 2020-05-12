@@ -24,23 +24,63 @@ void led_init(void)
 
 
 uint8_t led_flag = 0;
+#if 0
 void led_display(void)
 {
-
-    
     led_flag++;
     if(led_flag == 1)
     {
-        LED0_Toggle;
+        LED0(1);
     }
     else if(led_flag == 2)
     {
-        LED1_Toggle;
+        LED1(1);
     }
     else if(led_flag == 3)
     {
-        LED2_Toggle;
+        LED2(1);
+    }
+    else if(led_flag == 4)
+    {
+        LED0(0);
+    }
+    else if(led_flag == 5)
+    {
+        LED1(0);
+    }
+    else if(led_flag == 6)
+    {
+        LED2(0);
         led_flag = 0;
     }
+
 }
 
+
+#else
+
+void led_display(void)
+{
+    led_flag++;
+    if(led_flag == 1)
+    {
+        LED0(1);
+    }
+    else if(led_flag == 2)
+    {
+        LED1(1);
+    }
+    else if(led_flag == 3)
+    {
+        LED0(0);
+    }
+    else if(led_flag == 4)
+    {
+        LED1(0);
+        led_flag = 0;
+    }
+
+
+}
+
+#endif
