@@ -7,7 +7,7 @@ void App_Run(void)
     if(gTask_Rrg.t_10ms == 0)
     {
         gTask_Rrg.t_10ms = Task_10ms;
-		//Tcp_Client();
+		Tcp_Client();
 		
     }
     if(gTask_Rrg.t_20ms == 0)

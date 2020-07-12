@@ -45,8 +45,14 @@ err_t tcp_client_recv(void *arg,struct tcp_pcb *tpcb,struct pbuf *p,err_t err)
             {
                 //判断要拷贝到TCP_CLIENT_RX_BUFSIZE中的数据是否大于TCP_CLIENT_RX_BUFSIZE的剩余空间，如果大于
                 //的话就只拷贝TCP_CLIENT_RX_BUFSIZE中剩余长度的数据，否则的话就拷贝所有的数据
-                if(q->len > (TCP_CLIENT_RX_BUFSIZE-data_len)) memcpy(tcp_client_recvbuf+data_len,q->payload,(TCP_CLIENT_RX_BUFSIZE-data_len));//拷贝数据
-                else memcpy(tcp_client_recvbuf+data_len,q->payload,q->len);
+                if(q->len > (TCP_CLIENT_RX_BUFSIZE-data_len)) 
+				{
+					memcpy(tcp_client_recvbuf+data_len,q->payload,(TCP_CLIENT_RX_BUFSIZE-data_len));//拷贝数据
+				}
+                else
+				{
+					memcpy(tcp_client_recvbuf+data_len,q->payload,q->len);
+				}
                 data_len += q->len;
                 if(data_len > TCP_CLIENT_RX_BUFSIZE) break; //超出TCP客户端接收数组,跳出
             }
@@ -190,10 +196,7 @@ void Tcp_Client(void)
     static uint16_t num = 0;
     static uint8_t connflag=0;
 	static uint8_t work_step = 0;
-	
-	
-	
-	
+
 	
 	if(work_step == 0)
 	{

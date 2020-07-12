@@ -1,0 +1,67 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: ¦ÌVision V5.29.0.0
+Copyright (C) 2019 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: A AA, AAA, LIC=BL22Z-JA1WJ-344ST-RA00K-CELBK-7AHBQ
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Professional  Version: 5.29.0.0
+Toolchain Path:  D:\Program Files (x86)\KEIL\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.06 update 6 (build 750)
+Assembler:       Armasm.exe V5.06 update 6 (build 750)
+Linker/Locator:  ArmLink.exe V5.06 update 6 (build 750)
+Library Manager: ArmAr.exe V5.06 update 6 (build 750)
+Hex Converter:   FromElf.exe V5.06 update 6 (build 750)
+CPU DLL:         SARMCM3.DLL V5.29.0.0
+Dialog DLL:      DCM.DLL V1.17.3.0
+Target DLL:      Segger\JL2CM3.dll V2.99.36.0
+Dialog DLL:      TCM.DLL V1.36.5.0
+ 
+<h2>Project:</h2>
+D:\FYF\GitHub\MyCode\stm32f4_ucosii_lwip_mqtt\USER\Template.uvprojx
+Project File Date:  07/12/2020
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 update 6 (build 750)', folder: 'D:\Program Files (x86)\KEIL\ARM\ARMCC\Bin'
+Build target 'Template'
+compiling mqtt_app.c...
+..\mqtt\app\mqtt_app.c(282): warning:  #111-D: statement is unreachable
+  	transport_close(mysock);
+..\mqtt\app\mqtt_app.c(323): warning:  #167-D: argument of type "const char *" is incompatible with parameter of type "const uint8_t *"
+  	hmac_sha1(device_secret, strlen(device_secret), content, strlen(content), buf, &len);
+..\mqtt\app\mqtt_app.c(323): warning:  #167-D: argument of type "const char *" is incompatible with parameter of type "const uint8_t *"
+  	hmac_sha1(device_secret, strlen(device_secret), content, strlen(content), buf, &len);
+..\mqtt\app\mqtt_app.c(323): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "uint8_t *"
+  	hmac_sha1(device_secret, strlen(device_secret), content, strlen(content), buf, &len);
+..\mqtt\app\mqtt_app.c(323): warning:  #167-D: argument of type "int *" is incompatible with parameter of type "size_t *"
+  	hmac_sha1(device_secret, strlen(device_secret), content, strlen(content), buf, &len);
+..\mqtt\app\mqtt_app.c(324): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "uint8_t *"
+  	HexToStr(password, buf, len);
+..\mqtt\app\mqtt_app.c(324): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "uint8_t *"
+  	HexToStr(password, buf, len);
+..\mqtt\app\mqtt_app.c: 7 warnings, 0 errors
+compiling main.c...
+linking...
+Program Size: Code=148912 RO-data=36556 RW-data=852 ZI-data=381188  
+FromELF: creating hex file...
+"..\OBJ\Template.axf" - 0 Error(s), 7 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: Keil
+                http://www.keil.com/pack/Keil.STM32F4xx_DFP.2.14.0.pack
+                Keil.STM32F4xx_DFP.2.14.0
+                STMicroelectronics STM32F4 Series Device Support, Drivers and Examples
+
+<h2>Collection of Component include folders:</h2>
+  .\RTE\_Template
+  D:\Program Files (x86)\KEIL\ARM\PACK\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
+
+<h2>Collection of Component Files used:</h2>
+Build Time Elapsed:  00:00:02
+</pre>
+</body>
+</html>
