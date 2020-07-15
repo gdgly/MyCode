@@ -1,0 +1,19 @@
+/*
+ * main.c
+ *
+ *  Created on: 2020年7月7日
+ *      Author: yufei.fan
+ */
+
+
+int main(void)
+{
+	//left_move();
+
+	//gps_test();
+	//test_pn_size();
+	test_priority_level();
+
+
+	return EXIT_SUCCESS;
+}

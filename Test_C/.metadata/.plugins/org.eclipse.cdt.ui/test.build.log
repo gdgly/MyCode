@@ -1,0 +1,14 @@
+17:12:54 **** Incremental Build of configuration Debug for project test ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\main.o" "..\\src\\main.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\priority_level_test.o" "..\\src\\priority_level_test.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\struct_size_test.o" "..\\src\\struct_size_test.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\left_move.o" "..\\src\\left_move.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\buff_test.o" "..\\src\\buff_test.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\test.o" "..\\src\\test.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\gps_test.o" "..\\src\\gps_test.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\sort_test.o" "..\\src\\sort_test.c" 
+gcc -o test.exe "src\\buff_test.o" "src\\gps_test.o" "src\\left_move.o" "src\\main.o" "src\\priority_level_test.o" "src\\sort_test.o" "src\\struct_size_test.o" "src\\test.o" 
+
+17:12:59 Build Finished. 0 errors, 0 warnings. (took 4s.343ms)
+

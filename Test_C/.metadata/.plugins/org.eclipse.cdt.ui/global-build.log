@@ -1,0 +1,255 @@
+14:51:50 **** Incremental Build of configuration Debug for project test ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\test.o" "..\\src\\test.c" 
+..\src\test.c:15:18: fatal error: test.h: No such file or directory
+ #include "test.h"
+                  ^
+compilation terminated.
+14:53:31 **** Incremental Build of configuration Debug for project test ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\test.o" "..\\src\\test.c" 
+..\src\test.c: In function 'buff_test':
+..\src\test.c:21:7: warning: unused variable 'test' [-Wunused-variable]
+  long test[100] = {0};
+       ^
+..\src\test.c: In function 'cal_max_diff':
+..\src\test.c:160:2: warning: implicit declaration of function 'float_sort_buff' [-Wimplicit-function-declaration]
+  float_sort_buff(result, size, 1);
+  ^
+gcc -o test.exe "src\\test.o" 
+src\test.o: In function `cal_max_diff':
+D:\FYF\Test_C\test\Debug/../src/test.c:160: undefined reference to `float_sort_buff'
+collect2.exe: error: ld returned 1 exit status
+14:53:53 **** Incremental Build of configuration Debug for project test ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\test.o" "..\\src\\test.c" 
+..\src\test.c: In function 'cal_max_diff':
+..\src\test.c:159:2: warning: implicit declaration of function 'float_sort_buff' [-Wimplicit-function-declaration]
+  float_sort_buff(result, size, 1);
+  ^
+gcc -o test.exe "src\\test.o" 
+src\test.o: In function `cal_max_diff':
+D:\FYF\Test_C\test\Debug/../src/test.c:159: undefined reference to `float_sort_buff'
+collect2.exe: error: ld returned 1 exit status
+14:54:40 **** Incremental Build of configuration Debug for project test ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\test.o" "..\\src\\test.c" 
+gcc -o test.exe "src\\test.o" 
+15:00:14 **** Incremental Build of configuration Debug for project test ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\test.o" "..\\src\\test.c" 
+gcc -o test.exe "src\\test.o" 
+Info: Nothing to build for test
+15:00:39 **** Incremental Build of configuration Debug for project test ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\test.o" "..\\src\\test.c" 
+gcc -o test.exe "src\\test.o" 
+Info: Nothing to build for test
+15:04:08 **** Incremental Build of configuration Debug for project test ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\test.o" "..\\src\\test.c" 
+gcc -o test.exe "src\\test.o" 
+Info: Nothing to build for test
+15:26:41 **** Incremental Build of configuration Debug for project test ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\test.o" "..\\src\\test.c" 
+gcc -o test.exe "src\\test.o" 
+Info: Nothing to build for test
+15:39:22 **** Incremental Build of configuration Debug for project test ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\test.o" "..\\src\\test.c" 
+gcc -o test.exe "src\\test.o" 
+Info: Nothing to build for test
+15:40:42 **** Incremental Build of configuration Debug for project test ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\test.o" "..\\src\\test.c" 
+gcc -o test.exe "src\\test.o" 
+Info: Nothing to build for test
+15:41:46 **** Incremental Build of configuration Debug for project test ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\test.o" "..\\src\\test.c" 
+gcc -o test.exe "src\\test.o" 
+Info: Nothing to build for test
+15:42:37 **** Incremental Build of configuration Debug for project test ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\test.o" "..\\src\\test.c" 
+gcc -o test.exe "src\\test.o" 
+Info: Nothing to build for test
+15:42:55 **** Incremental Build of configuration Debug for project test ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\test.o" "..\\src\\test.c" 
+gcc -o test.exe "src\\test.o" 
+Info: Nothing to build for test
+15:43:16 **** Incremental Build of configuration Debug for project test ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\test.o" "..\\src\\test.c" 
+gcc -o test.exe "src\\test.o" 
+Info: Nothing to build for test
+11:18:14 **** Incremental Build of configuration Debug for project test ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\test.o" "..\\src\\test.c" 
+..\src\test.c: In function 'test_pn_size':
+..\src\test.c:257:2: warning: too many arguments for format [-Wformat-extra-args]
+  printf("size_pn = \n", size_pn);
+  ^
+..\src\test.c: At top level:
+..\src\test.c:259:1: error: expected identifier or '(' before '}' token
+ }
+ ^
+11:18:21 **** Incremental Build of configuration Debug for project test ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\test.o" "..\\src\\test.c" 
+..\src\test.c: In function 'test_pn_size':
+..\src\test.c:257:2: warning: too many arguments for format [-Wformat-extra-args]
+  printf("size_pn = \n", size_pn);
+  ^
+gcc -o test.exe "src\\test.o" 
+11:18:35 **** Incremental Build of configuration Debug for project test ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\test.o" "..\\src\\test.c" 
+gcc -o test.exe "src\\test.o" 
+Info: Nothing to build for test
+11:19:17 **** Incremental Build of configuration Debug for project test ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\test.o" "..\\src\\test.c" 
+gcc -o test.exe "src\\test.o" 
+Info: Nothing to build for test
+11:19:37 **** Incremental Build of configuration Debug for project test ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\test.o" "..\\src\\test.c" 
+gcc -o test.exe "src\\test.o" 
+Info: Nothing to build for test
+11:19:56 **** Incremental Build of configuration Debug for project test ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\test.o" "..\\src\\test.c" 
+gcc -o test.exe "src\\test.o" 
+Info: Nothing to build for test
+11:20:24 **** Incremental Build of configuration Debug for project test ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\test.o" "..\\src\\test.c" 
+gcc -o test.exe "src\\test.o" 
+Info: Nothing to build for test
+11:20:47 **** Incremental Build of configuration Debug for project test ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\test.o" "..\\src\\test.c" 
+gcc -o test.exe "src\\test.o" 
+Info: Nothing to build for test
+11:21:10 **** Incremental Build of configuration Debug for project test ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\test.o" "..\\src\\test.c" 
+gcc -o test.exe "src\\test.o" 
+Info: Nothing to build for test
+11:21:50 **** Incremental Build of configuration Debug for project test ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\test.o" "..\\src\\test.c" 
+gcc -o test.exe "src\\test.o" 
+Info: Nothing to build for test
+11:22:41 **** Incremental Build of configuration Debug for project test ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\test.o" "..\\src\\test.c" 
+gcc -o test.exe "src\\test.o" 
+Info: Nothing to build for test
+16:50:36 **** Incremental Build of configuration Debug for project test ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\test.o" "..\\src\\test.c" 
+..\src\test.c: In function 'test_priority_level':
+..\src\test.c:274:6: warning: suggest parentheses around comparison in operand of '&' [-Wparentheses]
+  if(a&0x04 == 0x04)
+      ^
+gcc -o test.exe "src\\test.o" 
+Info: Nothing to build for test
+16:51:44 **** Incremental Build of configuration Debug for project test ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\test.o" "..\\src\\test.c" 
+..\src\test.c: In function 'test_priority_level':
+..\src\test.c:274:6: warning: suggest parentheses around comparison in operand of '&' [-Wparentheses]
+  if(a&0x04 == 0x04)
+      ^
+gcc -o test.exe "src\\test.o" 
+Info: Nothing to build for test
+16:53:23 **** Incremental Build of configuration Debug for project test ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\test.o" "..\\src\\test.c" 
+gcc -o test.exe "src\\test.o" 
+Info: Nothing to build for test
+16:57:32 **** Incremental Build of configuration Debug for project test ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\main.o" "..\\src\\main.c" 
+..\src\main.c: In function 'main':
+..\src\main.c:20:2: warning: implicit declaration of function 'test_priority_level' [-Wimplicit-function-declaration]
+  test_priority_level();
+  ^
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\test.o" "..\\src\\test.c" 
+gcc -o test.exe "src\\main.o" "src\\test.o" 
+16:58:03 **** Incremental Build of configuration Debug for project test ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\main.o" "..\\src\\main.c" 
+gcc -o test.exe "src\\main.o" "src\\test.o" 
+17:11:29 **** Incremental Build of configuration Debug for project test ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\gps_test.o" "..\\src\\gps_test.c" 
+..\src\gps_test.c: In function 'is_out_max_diff':
+..\src\gps_test.c:33:2: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+  printf("left = %f\n", left);
+  ^
+..\src\gps_test.c:33:2: warning: incompatible implicit declaration of built-in function 'printf'
+..\src\gps_test.c: In function 'gps_test':
+..\src\gps_test.c:56:2: warning: incompatible implicit declaration of built-in function 'printf'
+  printf("%d\n", cal_data);
+  ^
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\priority_level_test.o" "..\\src\\priority_level_test.c" 
+..\src\priority_level_test.c: In function 'test_priority_level':
+..\src\priority_level_test.c:17:3: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+   printf("== > &");
+   ^
+..\src\priority_level_test.c:17:3: warning: incompatible implicit declaration of built-in function 'printf'
+..\src\priority_level_test.c:21:3: warning: incompatible implicit declaration of built-in function 'printf'
+   printf("& > ==");
+   ^
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\main.o" "..\\src\\main.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\left_move.o" "..\\src\\left_move.c" 
+..\src\left_move.c: In function 'left_move':
+..\src\left_move.c:93:3: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+   printf("%08x", H);
+   ^
+..\src\left_move.c:93:3: warning: incompatible implicit declaration of built-in function 'printf'
+..\src\left_move.c:107:2: warning: incompatible implicit declaration of built-in function 'printf'
+  printf("%08x", H);
+  ^
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\test.o" "..\\src\\test.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\struct_size_test.o" "..\\src\\struct_size_test.c" 
+..\src\struct_size_test.c: In function 'pn_size_test':
+..\src\struct_size_test.c:43:2: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+  printf("size_pn = %d\n", size_pn);
+  ^
+..\src\struct_size_test.c:43:2: warning: incompatible implicit declaration of built-in function 'printf'
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\buff_test.o" "..\\src\\buff_test.c" 
+..\src\buff_test.c: In function 'buff_test':
+..\src\buff_test.c:19:2: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+  printf("size = %d\n", size);
+  ^
+..\src\buff_test.c:19:2: warning: incompatible implicit declaration of built-in function 'printf'
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\sort_test.o" "..\\src\\sort_test.c" 
+gcc -o test.exe "src\\buff_test.o" "src\\gps_test.o" "src\\left_move.o" "src\\main.o" "src\\priority_level_test.o" "src\\sort_test.o" "src\\struct_size_test.o" "src\\test.o" 
+17:12:09 **** Incremental Build of configuration Debug for project test ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\left_move.o" "..\\src\\left_move.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\priority_level_test.o" "..\\src\\priority_level_test.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\buff_test.o" "..\\src\\buff_test.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\gps_test.o" "..\\src\\gps_test.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\test.o" "..\\src\\test.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\sort_test.o" "..\\src\\sort_test.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\struct_size_test.o" "..\\src\\struct_size_test.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\main.o" "..\\src\\main.c" 
+gcc -o test.exe "src\\buff_test.o" "src\\gps_test.o" "src\\left_move.o" "src\\main.o" "src\\priority_level_test.o" "src\\sort_test.o" "src\\struct_size_test.o" "src\\test.o" 
+17:12:54 **** Incremental Build of configuration Debug for project test ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\main.o" "..\\src\\main.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\priority_level_test.o" "..\\src\\priority_level_test.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\struct_size_test.o" "..\\src\\struct_size_test.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\left_move.o" "..\\src\\left_move.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\buff_test.o" "..\\src\\buff_test.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\test.o" "..\\src\\test.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\gps_test.o" "..\\src\\gps_test.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -std=c99 -o "src\\sort_test.o" "..\\src\\sort_test.c" 
+gcc -o test.exe "src\\buff_test.o" "src\\gps_test.o" "src\\left_move.o" "src\\main.o" "src\\priority_level_test.o" "src\\sort_test.o" "src\\struct_size_test.o" "src\\test.o" 
