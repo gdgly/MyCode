@@ -1,0 +1,107 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: ¦ÌVision V5.27.1.0
+Copyright (C) 2019 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: A AA, AAA, LIC=NHY30-BEJWY-ILKCB-2TK84-LF284-81ISS
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Professional  Version: 5.27.1.0
+Toolchain Path:  C:\Keil_v5\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.06 update 6 (build 750)
+Assembler:       Armasm.exe V5.06 update 6 (build 750)
+Linker/Locator:  ArmLink.exe V5.06 update 6 (build 750)
+Library Manager: ArmAr.exe V5.06 update 6 (build 750)
+Hex Converter:   FromElf.exe V5.06 update 6 (build 750)
+CPU DLL:         SARMCM3.DLL V5.27.1.0
+Dialog DLL:      DCM.DLL V1.17.2.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.6.0
+Dialog DLL:      TCM.DLL V1.36.1.0
+ 
+<h2>Project:</h2>
+D:\FYF\my_code\F767_LWIP_MQTT\MDK-ARM\F767_LWIP.uvprojx
+Project File Date:  07/15/2020
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 update 6 (build 750)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
+Build target 'F767_LWIP'
+compiling infra_compat.c...
+compiling infra_cjson.c...
+compiling mqtt_api.c...
+..\IotSdk\mqtt\mqtt_api.c(2): error:  #5: cannot open source input file "infra_types.h": No such file or directory
+  #include "infra_types.h"
+..\IotSdk\mqtt\mqtt_api.c: 0 warnings, 1 error
+compiling iotx_mqtt_client.c...
+..\IotSdk\mqtt\impl\mqtt_internal.h(13): error:  #5: cannot open source input file "infra_state.h": No such file or directory
+  #include "infra_state.h"
+..\IotSdk\mqtt\impl\iotx_mqtt_client.c: 0 warnings, 1 error
+compiling infra_mem_stats.c...
+compiling infra_aes.c...
+..\IotSdk\infra\infra_types.h(18): error:  #256: invalid redeclaration of type name "uint64_t"  (declared at line 65 of "C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h")
+      typedef unsigned long int   uint64_t;
+..\IotSdk\infra\infra_types.h(19): error:  #256: invalid redeclaration of type name "int64_t"  (declared at line 59 of "C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h")
+      typedef signed long int     int64_t;
+..\IotSdk\infra\infra_aes.c: 0 warnings, 2 errors
+compiling infra_md5.c...
+compiling infra_json_parser.c...
+compiling infra_httpc.c...
+compiling infra_log.c...
+..\IotSdk\infra\infra_log.h(6): error:  #5: cannot open source input file "wrappers.h": No such file or directory
+  #include "wrappers.h"
+..\IotSdk\infra\infra_log.c: 0 warnings, 1 error
+compiling infra_defs.c...
+compiling user_task.c...
+..\IotSdk\mqtt\mqtt_api.h(12): error:  #5: cannot open source input file "infra_types.h": No such file or directory
+  #include "infra_types.h"
+..\UserApp\user_task.c: 0 warnings, 1 error
+compiling infra_preauth.c...
+compiling infra_sha1.c...
+compiling infra_net.c...
+compiling infra_prt_nwk_payload.c...
+compiling infra_report.c...
+compiling infra_sha256.c...
+compiling infra_string.c...
+..\IotSdk\infra\infra_string.c(188): error:  #20: identifier "int32_t" is undefined
+  int32_t infra_json_value(const char *input, uint32_t input_len, const char *key, uint32_t key_len, char **value, uint32_t *value_len)
+..\IotSdk\infra\infra_string.c(188): error:  #20: identifier "uint32_t" is undefined
+  int32_t infra_json_value(const char *input, uint32_t input_len, const char *key, uint32_t key_len, char **value, uint32_t *value_len)
+..\IotSdk\infra\infra_string.c(188): error:  #20: identifier "uint32_t" is undefined
+  int32_t infra_json_value(const char *input, uint32_t input_len, const char *key, uint32_t key_len, char **value, uint32_t *value_len)
+..\IotSdk\infra\infra_string.c(188): error:  #20: identifier "uint32_t" is undefined
+  int32_t infra_json_value(const char *input, uint32_t input_len, const char *key, uint32_t key_len, char **value, uint32_t *value_len)
+..\IotSdk\infra\infra_string.c(190): error:  #20: identifier "uint32_t" is undefined
+      uint32_t idx = 0;
+..\IotSdk\infra\infra_string.c(196): warning:  #223-D: function "memcmp" declared implicitly
+          if (memcmp(&input[idx], key, key_len) == 0) {
+..\IotSdk\infra\infra_string.c: 1 warning, 5 errors
+compiling infra_timer.c...
+"F767_LWIP\F767_LWIP.axf" - 11 Error(s), 1 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.5.7.0.pack
+                ARM.CMSIS.5.7.0
+                CMSIS (Cortex Microcontroller Software Interface Standard)
+   * Component: CORE Version: 5.4.0
+
+Package Vendor: Keil
+                https://www.keil.com/pack/Keil.STM32F7xx_DFP.2.12.0.pack
+                Keil.STM32F7xx_DFP.2.12.0
+                STMicroelectronics STM32F7 Series Device Support, Drivers and Examples
+
+<h2>Collection of Component include folders:</h2>
+  .\RTE\_F767_LWIP
+  C:\Users\yufei.fan\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include
+  C:\Users\yufei.fan\AppData\Local\Arm\Packs\Keil\STM32F7xx_DFP\2.12.0\Drivers\CMSIS\Device\ST\STM32F7xx\Include
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:5.4.0
+Target not created.
+Build Time Elapsed:  00:00:04
+</pre>
+</body>
+</html>
