@@ -254,7 +254,6 @@ void USART3_IRQHandler(void)
 
 		HAL_UART_DMAStop(&huart3);
 		
-		//if(rx_len > 0 && rx_len < UART_DMA_BUFF_MAX)
 		if(rx_len > 0) 
 		{
 			my_fifo_put(&gFifoTx, gTcpReg.dma_buff, rx_len);

@@ -6,8 +6,6 @@
 #include "printf.h"
 #include "kfifo.h"
 
-#include "mqtt_api.h"
-
 
 USER_TASK_TYPE gTask;
 
@@ -109,6 +107,7 @@ void task_test_c_entry(void)
 {
 	task_cnt++;
 	printf("%s %04X\r\n", __func__, task_cnt);
+    printf("my_printf: Hello World\r\n");
 }
 
 

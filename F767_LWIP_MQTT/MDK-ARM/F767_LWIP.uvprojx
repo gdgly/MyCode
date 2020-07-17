@@ -312,7 +312,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>1</Optim>
+            <Optim>4</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F767xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../LWIP/App;../LWIP/Target;../Middlewares/Third_Party/LwIP/src/include;../Middlewares/Third_Party/LwIP/system;../Drivers/STM32F7xx_HAL_Driver/Inc;../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/LwIP/src/include/netif/ppp;../Drivers/CMSIS/Device/ST/STM32F7xx/Include;../Middlewares/Third_Party/LwIP/src/include/lwip;../Middlewares/Third_Party/LwIP/src/include/lwip/apps;../Middlewares/Third_Party/LwIP/src/include/lwip/priv;../Middlewares/Third_Party/LwIP/src/include/lwip/prot;../Middlewares/Third_Party/LwIP/src/include/netif;../Middlewares/Third_Party/LwIP/src/include/compat/posix;../Middlewares/Third_Party/LwIP/src/include/compat/posix/arpa;../Middlewares/Third_Party/LwIP/src/include/compat/posix/net;../Middlewares/Third_Party/LwIP/src/include/compat/posix/sys;../Middlewares/Third_Party/LwIP/src/include/compat/stdc;../Middlewares/Third_Party/LwIP/system/arch;../Drivers/CMSIS/Include;..\UserApp;..\UserBsp;..\IotSdk\mqtt\impl;..\IotSdk\mqtt</IncludePath>
+              <IncludePath>../Core/Inc;../LWIP/App;../LWIP/Target;../Middlewares/Third_Party/LwIP/src/include;../Middlewares/Third_Party/LwIP/system;../Drivers/STM32F7xx_HAL_Driver/Inc;../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/LwIP/src/include/netif/ppp;../Drivers/CMSIS/Device/ST/STM32F7xx/Include;../Middlewares/Third_Party/LwIP/src/include/lwip;../Middlewares/Third_Party/LwIP/src/include/lwip/apps;../Middlewares/Third_Party/LwIP/src/include/lwip/priv;../Middlewares/Third_Party/LwIP/src/include/lwip/prot;../Middlewares/Third_Party/LwIP/src/include/netif;../Middlewares/Third_Party/LwIP/src/include/compat/posix;../Middlewares/Third_Party/LwIP/src/include/compat/posix/arpa;../Middlewares/Third_Party/LwIP/src/include/compat/posix/net;../Middlewares/Third_Party/LwIP/src/include/compat/posix/sys;../Middlewares/Third_Party/LwIP/src/include/compat/stdc;../Middlewares/Third_Party/LwIP/system/arch;../Drivers/CMSIS/Include;..\UserApp;..\UserBsp</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1016,191 +1016,6 @@
               <FileName>tool.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\UserBsp\tool.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>IotSdk</GroupName>
-          <Files>
-            <File>
-              <FileName>mqtt_api.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\IotSdk\mqtt\mqtt_api.c</FilePath>
-            </File>
-            <File>
-              <FileName>mqtt_api.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\IotSdk\mqtt\mqtt_api.h</FilePath>
-            </File>
-            <File>
-              <FileName>mqtt_wrapper.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\IotSdk\mqtt\mqtt_wrapper.h</FilePath>
-            </File>
-            <File>
-              <FileName>iotx_mqtt_client.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\IotSdk\mqtt\impl\iotx_mqtt_client.c</FilePath>
-            </File>
-            <File>
-              <FileName>iotx_mqtt_client.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\IotSdk\mqtt\impl\iotx_mqtt_client.h</FilePath>
-            </File>
-            <File>
-              <FileName>iotx_mqtt_config.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\IotSdk\mqtt\impl\iotx_mqtt_config.h</FilePath>
-            </File>
-            <File>
-              <FileName>mqtt_internal.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\IotSdk\mqtt\impl\mqtt_internal.h</FilePath>
-            </File>
-            <File>
-              <FileName>MQTTConnect.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\IotSdk\mqtt\impl\MQTTConnect.h</FilePath>
-            </File>
-            <File>
-              <FileName>MQTTConnectClient.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\IotSdk\mqtt\impl\MQTTConnectClient.c</FilePath>
-            </File>
-            <File>
-              <FileName>MQTTDeserializePublish.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\IotSdk\mqtt\impl\MQTTDeserializePublish.c</FilePath>
-            </File>
-            <File>
-              <FileName>MQTTPacket.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\IotSdk\mqtt\impl\MQTTPacket.c</FilePath>
-            </File>
-            <File>
-              <FileName>MQTTPacket.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\IotSdk\mqtt\impl\MQTTPacket.h</FilePath>
-            </File>
-            <File>
-              <FileName>MQTTPublish.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\IotSdk\mqtt\impl\MQTTPublish.h</FilePath>
-            </File>
-            <File>
-              <FileName>MQTTSerializePublish.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\IotSdk\mqtt\impl\MQTTSerializePublish.c</FilePath>
-            </File>
-            <File>
-              <FileName>MQTTSubscribe.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\IotSdk\mqtt\impl\MQTTSubscribe.h</FilePath>
-            </File>
-            <File>
-              <FileName>MQTTSubscribeClient.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\IotSdk\mqtt\impl\MQTTSubscribeClient.c</FilePath>
-            </File>
-            <File>
-              <FileName>MQTTUnsubscribe.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\IotSdk\mqtt\impl\MQTTUnsubscribe.h</FilePath>
-            </File>
-            <File>
-              <FileName>MQTTUnsubscribeClient.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\IotSdk\mqtt\impl\MQTTUnsubscribeClient.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>IotInfra</GroupName>
-          <Files>
-            <File>
-              <FileName>infra_aes.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\IotSdk\infra\infra_aes.c</FilePath>
-            </File>
-            <File>
-              <FileName>infra_cjson.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\IotSdk\infra\infra_cjson.c</FilePath>
-            </File>
-            <File>
-              <FileName>infra_compat.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\IotSdk\infra\infra_compat.c</FilePath>
-            </File>
-            <File>
-              <FileName>infra_defs.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\IotSdk\infra\infra_defs.c</FilePath>
-            </File>
-            <File>
-              <FileName>infra_httpc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\IotSdk\infra\infra_httpc.c</FilePath>
-            </File>
-            <File>
-              <FileName>infra_json_parser.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\IotSdk\infra\infra_json_parser.c</FilePath>
-            </File>
-            <File>
-              <FileName>infra_log.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\IotSdk\infra\infra_log.c</FilePath>
-            </File>
-            <File>
-              <FileName>infra_md5.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\IotSdk\infra\infra_md5.c</FilePath>
-            </File>
-            <File>
-              <FileName>infra_mem_stats.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\IotSdk\infra\infra_mem_stats.c</FilePath>
-            </File>
-            <File>
-              <FileName>infra_net.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\IotSdk\infra\infra_net.c</FilePath>
-            </File>
-            <File>
-              <FileName>infra_preauth.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\IotSdk\infra\infra_preauth.c</FilePath>
-            </File>
-            <File>
-              <FileName>infra_prt_nwk_payload.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\IotSdk\infra\infra_prt_nwk_payload.c</FilePath>
-            </File>
-            <File>
-              <FileName>infra_report.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\IotSdk\infra\infra_report.c</FilePath>
-            </File>
-            <File>
-              <FileName>infra_sha1.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\IotSdk\infra\infra_sha1.c</FilePath>
-            </File>
-            <File>
-              <FileName>infra_sha256.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\IotSdk\infra\infra_sha256.c</FilePath>
-            </File>
-            <File>
-              <FileName>infra_string.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\IotSdk\infra\infra_string.c</FilePath>
-            </File>
-            <File>
-              <FileName>infra_timer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\IotSdk\infra\infra_timer.c</FilePath>
             </File>
           </Files>
         </Group>

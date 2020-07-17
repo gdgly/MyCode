@@ -11,7 +11,7 @@ uint8_t tcp_client_sendbuf[] = "NUCLEO STM32F767ZI TCP Client Is Online\r\n";
 
 USER_TCP_TYPE gTcpReg = {0};
 
-uint8_t print_buff[100] = {0};
+uint8_t recv_buff[100] = {0};
 uint8_t send_buff[100] = {0};
 
 
@@ -57,7 +57,7 @@ err_t tcp_client_recv(void *arg,struct tcp_pcb *tpcb,struct pbuf *p,err_t err)
 void tcp_client_error(void *arg,err_t err)
 {
 	gTcpReg.is_connect = 0;
-    printf("%s  %d\r\n", __func__, __LINE__);
+    my_printf("%s  %d\r\n", __func__, __LINE__);
 }
 //lwIP tcp_poll的回调函数
 err_t tcp_client_poll(void *arg, struct tcp_pcb *tpcb)
@@ -173,16 +173,16 @@ void task_tcp_client(void)
 			if(gTcpReg.connect_stat == 0)
 			{
 				gTcpReg.connect_stat = 1;
-				printf("\r\n%s\r\n", "ConnectSuccess");
+				my_printf("\r\n%s\r\n", "ConnectSuccess");
 			}
 
 			//有数据接收
 			while(my_fifo_len(&gFifoRx) > 0)
 			{
 				uint8_t get_len = 0;
-				get_len = my_fifo_get(&gFifoRx, print_buff, sizeof(print_buff));
+				get_len = my_fifo_get(&gFifoRx, recv_buff, sizeof(recv_buff));
 
-				my_printf(print_buff, get_len);
+				print_buff(recv_buff, get_len);
 			}
 			
 			send_data_poll(tcp_pcb);
@@ -193,7 +193,7 @@ void task_tcp_client(void)
 			if(gTcpReg.connect_stat == 1)
 			{
 				gTcpReg.connect_stat = 0;
-				printf("\r\n%s\r\n", "Disconnected");
+				my_printf("\r\n%s\r\n", "Disconnected");
 			}
 		}
 

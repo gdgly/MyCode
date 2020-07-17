@@ -6,8 +6,13 @@
 #include "usart.h"
 #include "main.h"
 #include "stdio.h"
+#include "stdlib.h"
+#include "stdarg.h"
+#include "string.h"
 
-void my_printf(uint8_t * buff, uint16_t len);
+void print_buff(uint8_t * buff, uint16_t len);
+void my_printf(const char *format, ...);
+
 
 #endif
 
