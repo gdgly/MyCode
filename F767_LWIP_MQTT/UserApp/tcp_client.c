@@ -57,7 +57,7 @@ err_t tcp_client_recv(void *arg,struct tcp_pcb *tpcb,struct pbuf *p,err_t err)
 void tcp_client_error(void *arg,err_t err)
 {
 	gTcpReg.is_connect = 0;
-    my_printf("%s  %d\r\n", __func__, __LINE__);
+    printf("%s  %d\r\n", __func__, __LINE__);
 }
 //lwIP tcp_poll的回调函数
 err_t tcp_client_poll(void *arg, struct tcp_pcb *tpcb)
@@ -173,7 +173,7 @@ void task_tcp_client(void)
 			if(gTcpReg.connect_stat == 0)
 			{
 				gTcpReg.connect_stat = 1;
-				my_printf("\r\n%s\r\n", "ConnectSuccess");
+				printf("\r\n%s\r\n", "ConnectSuccess");
 			}
 
 			//有数据接收
@@ -193,7 +193,7 @@ void task_tcp_client(void)
 			if(gTcpReg.connect_stat == 1)
 			{
 				gTcpReg.connect_stat = 0;
-				my_printf("\r\n%s\r\n", "Disconnected");
+				printf("\r\n%s\r\n", "Disconnected");
 			}
 		}
 

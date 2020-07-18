@@ -118,6 +118,16 @@
 "f767_lwip\kfifo.o"
 "f767_lwip\printf.o"
 "f767_lwip\tool.o"
+"f767_lwip\mqttconnectclient.o"
+"f767_lwip\mqttconnectserver.o"
+"f767_lwip\mqttdeserializepublish.o"
+"f767_lwip\mqttformat.o"
+"f767_lwip\mqttpacket.o"
+"f767_lwip\mqttserializepublish.o"
+"f767_lwip\mqttsubscribeclient.o"
+"f767_lwip\mqttsubscribeserver.o"
+"f767_lwip\mqttunsubscribeclient.o"
+"f767_lwip\mqttunsubscribeserver.o"
 --library_type=microlib --strict --scatter "F767_LWIP\F767_LWIP.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

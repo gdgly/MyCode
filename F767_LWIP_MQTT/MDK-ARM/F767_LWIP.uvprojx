@@ -16,9 +16,9 @@
         <TargetCommonOption>
           <Device>STM32F767ZITx</Device>
           <Vendor>STMicroelectronics</Vendor>
-          <PackID>Keil.STM32F7xx_DFP.2.12.0</PackID>
-          <PackURL>https://www.keil.com/pack/</PackURL>
-          <Cpu>IRAM(0x20000000-0x2007FFFF) IROM(0x8000000-0x81FFFFF)  CLOCK(12000000) FPU3(DFPU) CPUTYPE("Cortex-M7") ELITTLE</Cpu>
+          <PackID>Keil.STM32F7xx_DFP.2.11.0</PackID>
+          <PackURL>http://www.keil.com/pack</PackURL>
+          <Cpu>IRAM(0x20000000-0x2007FFFF) IROM(0x8000000-0x81FFFFF)   CLOCK(12000000) FPU3(DFPU) CPUTYPE("Cortex-M7") ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
           <StartupFile></StartupFile>
           <FlashDriverDll></FlashDriverDll>
@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F767xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../LWIP/App;../LWIP/Target;../Middlewares/Third_Party/LwIP/src/include;../Middlewares/Third_Party/LwIP/system;../Drivers/STM32F7xx_HAL_Driver/Inc;../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/LwIP/src/include/netif/ppp;../Drivers/CMSIS/Device/ST/STM32F7xx/Include;../Middlewares/Third_Party/LwIP/src/include/lwip;../Middlewares/Third_Party/LwIP/src/include/lwip/apps;../Middlewares/Third_Party/LwIP/src/include/lwip/priv;../Middlewares/Third_Party/LwIP/src/include/lwip/prot;../Middlewares/Third_Party/LwIP/src/include/netif;../Middlewares/Third_Party/LwIP/src/include/compat/posix;../Middlewares/Third_Party/LwIP/src/include/compat/posix/arpa;../Middlewares/Third_Party/LwIP/src/include/compat/posix/net;../Middlewares/Third_Party/LwIP/src/include/compat/posix/sys;../Middlewares/Third_Party/LwIP/src/include/compat/stdc;../Middlewares/Third_Party/LwIP/system/arch;../Drivers/CMSIS/Include;..\UserApp;..\UserBsp</IncludePath>
+              <IncludePath>../Core/Inc;    ../LWIP/App;    ../LWIP/Target;    ../Middlewares/Third_Party/LwIP/src/include;    ../Middlewares/Third_Party/LwIP/system;    ../Drivers/STM32F7xx_HAL_Driver/Inc;    ../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy;    ../Middlewares/Third_Party/LwIP/src/include/netif/ppp;    ../Drivers/CMSIS/Device/ST/STM32F7xx/Include;    ../Middlewares/Third_Party/LwIP/src/include/lwip;    ../Middlewares/Third_Party/LwIP/src/include/lwip/apps;    ../Middlewares/Third_Party/LwIP/src/include/lwip/priv;    ../Middlewares/Third_Party/LwIP/src/include/lwip/prot;    ../Middlewares/Third_Party/LwIP/src/include/netif;    ../Middlewares/Third_Party/LwIP/src/include/compat/posix;    ../Middlewares/Third_Party/LwIP/src/include/compat/posix/arpa;    ../Middlewares/Third_Party/LwIP/src/include/compat/posix/net;    ../Middlewares/Third_Party/LwIP/src/include/compat/posix/sys;    ../Middlewares/Third_Party/LwIP/src/include/compat/stdc;    ../Middlewares/Third_Party/LwIP/system/arch;    ../Drivers/CMSIS/Include;    ..\UserApp;    ..\UserBsp;    ..\MQTTPacket</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1016,6 +1016,61 @@
               <FileName>tool.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\UserBsp\tool.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>MqttPack</GroupName>
+          <Files>
+            <File>
+              <FileName>MQTTConnectClient.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MQTTPacket\MQTTConnectClient.c</FilePath>
+            </File>
+            <File>
+              <FileName>MQTTConnectServer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MQTTPacket\MQTTConnectServer.c</FilePath>
+            </File>
+            <File>
+              <FileName>MQTTDeserializePublish.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MQTTPacket\MQTTDeserializePublish.c</FilePath>
+            </File>
+            <File>
+              <FileName>MQTTFormat.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MQTTPacket\MQTTFormat.c</FilePath>
+            </File>
+            <File>
+              <FileName>MQTTPacket.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MQTTPacket\MQTTPacket.c</FilePath>
+            </File>
+            <File>
+              <FileName>MQTTSerializePublish.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MQTTPacket\MQTTSerializePublish.c</FilePath>
+            </File>
+            <File>
+              <FileName>MQTTSubscribeClient.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MQTTPacket\MQTTSubscribeClient.c</FilePath>
+            </File>
+            <File>
+              <FileName>MQTTSubscribeServer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MQTTPacket\MQTTSubscribeServer.c</FilePath>
+            </File>
+            <File>
+              <FileName>MQTTUnsubscribeClient.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MQTTPacket\MQTTUnsubscribeClient.c</FilePath>
+            </File>
+            <File>
+              <FileName>MQTTUnsubscribeServer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MQTTPacket\MQTTUnsubscribeServer.c</FilePath>
             </File>
           </Files>
         </Group>
