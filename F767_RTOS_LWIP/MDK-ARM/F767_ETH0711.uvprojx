@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F767xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;    ../LWIP/App;    ../LWIP/Target;    ../Middlewares/Third_Party/LwIP/src/include;    ../Middlewares/Third_Party/LwIP/system;    ../Drivers/STM32F7xx_HAL_Driver/Inc;    ../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy;    ../Middlewares/Third_Party/FreeRTOS/Source/include;    ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;    ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM7/r0p1;    ../Middlewares/Third_Party/LwIP/src/include/netif/ppp;    ../Drivers/CMSIS/Device/ST/STM32F7xx/Include;    ../Middlewares/Third_Party/LwIP/src/include/lwip;    ../Middlewares/Third_Party/LwIP/src/include/lwip/apps;    ../Middlewares/Third_Party/LwIP/src/include/lwip/priv;    ../Middlewares/Third_Party/LwIP/src/include/lwip/prot;    ../Middlewares/Third_Party/LwIP/src/include/netif;    ../Middlewares/Third_Party/LwIP/src/include/compat/posix;    ../Middlewares/Third_Party/LwIP/src/include/compat/posix/arpa;    ../Middlewares/Third_Party/LwIP/src/include/compat/posix/net;    ../Middlewares/Third_Party/LwIP/src/include/compat/posix/sys;    ../Middlewares/Third_Party/LwIP/src/include/compat/stdc;    ../Middlewares/Third_Party/LwIP/system/arch;    ../Drivers/CMSIS/Include;    ..\UserBsp;    ..\UserApp</IncludePath>
+              <IncludePath>../Core/Inc;../LWIP/App;../LWIP/Target;../Middlewares/Third_Party/LwIP/src/include;../Middlewares/Third_Party/LwIP/system;../Drivers/STM32F7xx_HAL_Driver/Inc;../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM7/r0p1;../Middlewares/Third_Party/LwIP/src/include/netif/ppp;../Drivers/CMSIS/Device/ST/STM32F7xx/Include;../Middlewares/Third_Party/LwIP/src/include/lwip;../Middlewares/Third_Party/LwIP/src/include/lwip/apps;../Middlewares/Third_Party/LwIP/src/include/lwip/priv;../Middlewares/Third_Party/LwIP/src/include/lwip/prot;../Middlewares/Third_Party/LwIP/src/include/netif;../Middlewares/Third_Party/LwIP/src/include/compat/posix;../Middlewares/Third_Party/LwIP/src/include/compat/posix/arpa;../Middlewares/Third_Party/LwIP/src/include/compat/posix/net;../Middlewares/Third_Party/LwIP/src/include/compat/posix/sys;../Middlewares/Third_Party/LwIP/src/include/compat/stdc;../Middlewares/Third_Party/LwIP/system/arch;../Drivers/CMSIS/Include;..\UserBsp;..\UserApp;..\MQTTPacket;..\cJSON</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1086,6 +1086,86 @@
               <FileName>tcp_client.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\UserApp\tcp_client.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>MqttPack</GroupName>
+          <Files>
+            <File>
+              <FileName>MQTTConnectClient.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MQTTPacket\MQTTConnectClient.c</FilePath>
+            </File>
+            <File>
+              <FileName>MQTTConnectServer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MQTTPacket\MQTTConnectServer.c</FilePath>
+            </File>
+            <File>
+              <FileName>MQTTDeserializePublish.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MQTTPacket\MQTTDeserializePublish.c</FilePath>
+            </File>
+            <File>
+              <FileName>MQTTFormat.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MQTTPacket\MQTTFormat.c</FilePath>
+            </File>
+            <File>
+              <FileName>MQTTPacket.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MQTTPacket\MQTTPacket.c</FilePath>
+            </File>
+            <File>
+              <FileName>MQTTSerializePublish.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MQTTPacket\MQTTSerializePublish.c</FilePath>
+            </File>
+            <File>
+              <FileName>MQTTSubscribeClient.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MQTTPacket\MQTTSubscribeClient.c</FilePath>
+            </File>
+            <File>
+              <FileName>MQTTSubscribeServer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MQTTPacket\MQTTSubscribeServer.c</FilePath>
+            </File>
+            <File>
+              <FileName>MQTTUnsubscribeClient.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MQTTPacket\MQTTUnsubscribeClient.c</FilePath>
+            </File>
+            <File>
+              <FileName>MQTTUnsubscribeServer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MQTTPacket\MQTTUnsubscribeServer.c</FilePath>
+            </File>
+            <File>
+              <FileName>transport.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MQTTPacket\transport.c</FilePath>
+            </File>
+            <File>
+              <FileName>mqttclient.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MQTTPacket\mqttclient.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>CJson</GroupName>
+          <Files>
+            <File>
+              <FileName>cJSON.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\cJSON\cJSON.c</FilePath>
+            </File>
+            <File>
+              <FileName>cJSON_Process.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\cJSON\cJSON_Process.c</FilePath>
             </File>
           </Files>
         </Group>

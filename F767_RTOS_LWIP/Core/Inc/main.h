@@ -32,6 +32,8 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "printf.h"
+#define PRINT_DEBUG	printf
 
 /* USER CODE END Includes */
 

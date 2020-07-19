@@ -25,9 +25,10 @@
 #include "cmsis_os.h"
 
 /* Private includes ----------------------------------------------------------*/
-/* USER CODE BEGIN Includes */     
+/* USER CODE BEGIN Includes */
 #include "printf.h"
 #include "tcp_client.h"
+#include "mqttclient.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -52,9 +53,9 @@
 /* Definitions for defaultTask */
 osThreadId_t defaultTaskHandle;
 const osThreadAttr_t defaultTask_attributes = {
-  .name = "defaultTask",
-  .priority = (osPriority_t) osPriorityNormal,
-  .stack_size = 256 * 4
+    .name = "defaultTask",
+    .priority = (osPriority_t) osPriorityNormal,
+    .stack_size = 256 * 4
 };
 
 /* Private function prototypes -----------------------------------------------*/
@@ -89,37 +90,34 @@ void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
   * @retval None
   */
 void MX_FREERTOS_Init(void) {
-  /* USER CODE BEGIN Init */
+    /* USER CODE BEGIN Init */
 
-  /* USER CODE END Init */
+    /* USER CODE END Init */
 
-  /* USER CODE BEGIN RTOS_MUTEX */
+    /* USER CODE BEGIN RTOS_MUTEX */
     /* add mutexes, ... */
-  /* USER CODE END RTOS_MUTEX */
+    /* USER CODE END RTOS_MUTEX */
 
-  /* USER CODE BEGIN RTOS_SEMAPHORES */
+    /* USER CODE BEGIN RTOS_SEMAPHORES */
     /* add semaphores, ... */
-  /* USER CODE END RTOS_SEMAPHORES */
+    /* USER CODE END RTOS_SEMAPHORES */
 
-  /* USER CODE BEGIN RTOS_TIMERS */
+    /* USER CODE BEGIN RTOS_TIMERS */
     /* start timers, add new ones, ... */
-  /* USER CODE END RTOS_TIMERS */
+    /* USER CODE END RTOS_TIMERS */
 
-  /* USER CODE BEGIN RTOS_QUEUES */
+    /* USER CODE BEGIN RTOS_QUEUES */
     /* add queues, ... */
-  /* USER CODE END RTOS_QUEUES */
+    /* USER CODE END RTOS_QUEUES */
 
-  /* Create the thread(s) */
-  /* creation of defaultTask */
-  defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
+    /* Create the thread(s) */
+    /* creation of defaultTask */
+    defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
 
-  /* USER CODE BEGIN RTOS_THREADS */
+    /* USER CODE BEGIN RTOS_THREADS */
     /* add threads, ... */
 
-    task_led_handle = osThreadNew(task_led_entry, NULL, &task_led_attributes);
-    task_test_c_handle = osThreadNew(task_test_c_entry, NULL, &task_test_c_attributes);
-
-  /* USER CODE END RTOS_THREADS */
+    /* USER CODE END RTOS_THREADS */
 
 }
 
@@ -132,16 +130,21 @@ void MX_FREERTOS_Init(void) {
 /* USER CODE END Header_StartDefaultTask */
 void StartDefaultTask(void *argument)
 {
-  /* init code for LWIP */
-  MX_LWIP_Init();
-  /* USER CODE BEGIN StartDefaultTask */
+    /* init code for LWIP */
+    MX_LWIP_Init();
+    /* USER CODE BEGIN StartDefaultTask */
+
+    mqtt_thread_init();
+
+    task_led_handle = osThreadNew(task_led_entry, NULL, &task_led_attributes);
+    task_test_c_handle = osThreadNew(task_test_c_entry, NULL, &task_test_c_attributes);
     /* Infinite loop */
     for(;;)
     {
         task_tcp_client();
         osDelay(1);
     }
-  /* USER CODE END StartDefaultTask */
+    /* USER CODE END StartDefaultTask */
 }
 
 /* Private application code --------------------------------------------------*/

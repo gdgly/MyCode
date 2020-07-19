@@ -6,7 +6,7 @@
 
 //TCP服务器发送数据内容
 
-uint8_t tcp_client_sendbuf[] = "NUCLEO STM32F767ZI TCP Client Is Online\r\n";
+uint8_t tcp_client_sendbuf[] = "NUCLEO STM32F767ZI TCP Client Is Online";
 
 
 USER_TCP_TYPE gTcpReg = {0};
@@ -123,7 +123,7 @@ ip_addr_t rmtipaddr;
 void task_tcp_client(void)
 {
     static uint16_t i = 0;
-    static uint16_t num = 0;
+    static uint32_t num = 0;
 
 	
 	if(gTcpReg.work_step == 0)
@@ -163,6 +163,10 @@ void task_tcp_client(void)
 			{
 				//发送心跳
 				my_fifo_put(&gFifoTx, tcp_client_sendbuf, sizeof(tcp_client_sendbuf));
+				
+				uint8_t temp[10] = {0};
+				sprintf((char*)temp, "%d\r\n", num);
+				my_fifo_put(&gFifoTx, temp, strlen((const char*)temp));
 
 				
 			}
