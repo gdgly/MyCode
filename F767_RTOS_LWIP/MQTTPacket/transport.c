@@ -71,11 +71,11 @@ to know the caller or other indicator (the socket id): int (*getfn)(unsigned cha
 static int mysock;
 
 /************************************************************************
-** º¯ÊıÃû³Æ: transport_sendPacketBuffer
-** º¯Êı¹¦ÄÜ: ÒÔTCP·½Ê½·¢ËÍÊı¾İ
-** Èë¿Ú²ÎÊı: unsigned char* buf£ºÊı¾İ»º³åÇø
-**           int buflen£ºÊı¾İ³¤¶È
-** ³ö¿Ú²ÎÊı: <0·¢ËÍÊı¾İÊ§°Ü
+** å‡½æ•°åç§°: transport_sendPacketBuffer
+** å‡½æ•°åŠŸèƒ½: ä»¥TCPæ–¹å¼å‘é€æ•°æ®
+** å…¥å£å‚æ•°: unsigned char* bufï¼šæ•°æ®ç¼“å†²åŒº
+**           int buflenï¼šæ•°æ®é•¿åº¦
+** å‡ºå£å‚æ•°: <0å‘é€æ•°æ®å¤±è´¥
 ************************************************************************/
 int32_t transport_sendPacketBuffer( uint8_t* buf, int32_t buflen)
 {
@@ -85,16 +85,16 @@ int32_t transport_sendPacketBuffer( uint8_t* buf, int32_t buflen)
 }
 
 /************************************************************************
-** º¯ÊıÃû³Æ: transport_getdata
-** º¯Êı¹¦ÄÜ: ÒÔ×èÈûµÄ·½Ê½½ÓÊÕTCPÊı¾İ
-** Èë¿Ú²ÎÊı: unsigned char* buf£ºÊı¾İ»º³åÇø
-**           int count£ºÊı¾İ³¤¶È
-** ³ö¿Ú²ÎÊı: <=0½ÓÊÕÊı¾İÊ§°Ü
+** å‡½æ•°åç§°: transport_getdata
+** å‡½æ•°åŠŸèƒ½: ä»¥é˜»å¡çš„æ–¹å¼æ¥æ”¶TCPæ•°æ®
+** å…¥å£å‚æ•°: unsigned char* bufï¼šæ•°æ®ç¼“å†²åŒº
+**           int countï¼šæ•°æ®é•¿åº¦
+** å‡ºå£å‚æ•°: <=0æ¥æ”¶æ•°æ®å¤±è´¥
 ************************************************************************/
 int32_t transport_getdata(uint8_t* buf, int32_t count)
 {
     int32_t rc;
-    //Õâ¸öº¯ÊıÔÚÕâÀï²»×èÈû
+    //è¿™ä¸ªå‡½æ•°åœ¨è¿™é‡Œä¸é˜»å¡
     rc = recv(mysock, buf, count, 0);
     return rc;
 }
@@ -196,11 +196,11 @@ int transport_open(char* addr, int port)
 
 
 /************************************************************************
-** º¯ÊıÃû³Æ: transport_open
-** º¯Êı¹¦ÄÜ: ´ò¿ªÒ»¸ö½Ó¿Ú£¬²¢ÇÒºÍ·şÎñÆ÷ ½¨Á¢Á¬½Ó
-** Èë¿Ú²ÎÊı: char* servip:·şÎñÆ÷ÓòÃû
-**           int   port:¶Ë¿ÚºÅ
-** ³ö¿Ú²ÎÊı: <0´ò¿ªÁ¬½ÓÊ§°Ü
+** å‡½æ•°åç§°: transport_open
+** å‡½æ•°åŠŸèƒ½: æ‰“å¼€ä¸€ä¸ªæ¥å£ï¼Œå¹¶ä¸”å’ŒæœåŠ¡å™¨ å»ºç«‹è¿æ¥
+** å…¥å£å‚æ•°: char* servip:æœåŠ¡å™¨åŸŸå
+**           int   port:ç«¯å£å·
+** å‡ºå£å‚æ•°: <0æ‰“å¼€è¿æ¥å¤±è´¥
 ************************************************************************/
 int32_t transport_open(int8_t* servip, int32_t port)
 {
@@ -209,42 +209,42 @@ int32_t transport_open(int8_t* servip, int32_t port)
 //	int32_t opt;
     struct sockaddr_in addr;
 
-    //³õÊ¼»»·şÎñÆ÷ĞÅÏ¢
+    //åˆå§‹æ¢æœåŠ¡å™¨ä¿¡æ¯
     memset(&addr, 0, sizeof(addr));
     addr.sin_len = sizeof(addr);
     addr.sin_family = AF_INET;
-    //ÌîĞ´·şÎñÆ÷¶Ë¿ÚºÅ
+    //å¡«å†™æœåŠ¡å™¨ç«¯å£å·
     addr.sin_port = PP_HTONS(port);
-    //ÌîĞ´·şÎñÆ÷IPµØÖ·
+    //å¡«å†™æœåŠ¡å™¨IPåœ°å€
     addr.sin_addr.s_addr = inet_addr((const char*)servip);
 
-    //´´½¨SOCK
+    //åˆ›å»ºSOCK
     *sock = socket(AF_INET, SOCK_STREAM, 0);
-    //Á¬½Ó·şÎñÆ÷
+    //è¿æ¥æœåŠ¡å™¨
     ret = connect(*sock, (struct sockaddr*)&addr, sizeof(addr));
     if(ret != 0)
     {
-        //¹Ø±ÕÁ´½Ó
+        //å…³é—­é“¾æ¥
         close(*sock);
-        //Á¬½ÓÊ§°Ü
+        //è¿æ¥å¤±è´¥
         return -1;
     }
-    //Á¬½Ó³É¹¦,ÉèÖÃ³¬Ê±Ê±¼ä1000ms
+    //è¿æ¥æˆåŠŸ,è®¾ç½®è¶…æ—¶æ—¶é—´1000ms
 //	opt = 1000;
 //	setsockopt(*sock,SOL_SOCKET,SO_RCVTIMEO,&opt,sizeof(int));
 
-    //·µ»ØÌ×½Ó×Ö
+    //è¿”å›å¥—æ¥å­—
     return *sock;
 }
 
 #endif
 
 /************************************************************************
-** º¯ÊıÃû³Æ: transport_close
-** º¯Êı¹¦ÄÜ: ¹Ø±ÕÌ×½Ó×Ö
-** Èë¿Ú²ÎÊı: unsigned char* buf£ºÊı¾İ»º³åÇø
-**           int buflen£ºÊı¾İ³¤¶È
-** ³ö¿Ú²ÎÊı: <0·¢ËÍÊı¾İÊ§°Ü
+** å‡½æ•°åç§°: transport_close
+** å‡½æ•°åŠŸèƒ½: å…³é—­å¥—æ¥å­—
+** å…¥å£å‚æ•°: unsigned char* bufï¼šæ•°æ®ç¼“å†²åŒº
+**           int buflenï¼šæ•°æ®é•¿åº¦
+** å‡ºå£å‚æ•°: <0å‘é€æ•°æ®å¤±è´¥
 ************************************************************************/
 int transport_close(void)
 {

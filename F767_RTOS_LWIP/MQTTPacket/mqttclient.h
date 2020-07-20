@@ -4,16 +4,16 @@
 #include "lwipopts.h"
 
 
-/************************ DHT11 Êý¾ÝÀàÐÍ¶¨Òå******************************/
+/************************ DHT11 æ•°æ®ç±»åž‹å®šä¹‰******************************/
 typedef struct
 {
-  uint8_t  humi_high8bit;                //Ô­Ê¼Êý¾Ý£ºÊª¶È¸ß8Î»
-  uint8_t  humi_low8bit;                 //Ô­Ê¼Êý¾Ý£ºÊª¶ÈµÍ8Î»
-  uint8_t  temp_high8bit;                 //Ô­Ê¼Êý¾Ý£ºÎÂ¶È¸ß8Î»
-  uint8_t  temp_low8bit;                 //Ô­Ê¼Êý¾Ý£ºÎÂ¶È¸ß8Î»
-  uint8_t  check_sum;                     //Ð£ÑéºÍ
-  double    humidity;        //Êµ¼ÊÊª¶È
-  double    temperature;     //Êµ¼ÊÎÂ¶È  
+  uint8_t  humi_high8bit;                //åŽŸå§‹æ•°æ®ï¼šæ¹¿åº¦é«˜8ä½
+  uint8_t  humi_low8bit;                 //åŽŸå§‹æ•°æ®ï¼šæ¹¿åº¦ä½Ž8ä½
+  uint8_t  temp_high8bit;                 //åŽŸå§‹æ•°æ®ï¼šæ¸©åº¦é«˜8ä½
+  uint8_t  temp_low8bit;                 //åŽŸå§‹æ•°æ®ï¼šæ¸©åº¦é«˜8ä½
+  uint8_t  check_sum;                     //æ ¡éªŒå’Œ
+  double    humidity;        //å®žé™…æ¹¿åº¦
+  double    temperature;     //å®žé™…æ¸©åº¦  
 } DHT11_Data_TypeDef;
 
 
@@ -24,20 +24,20 @@ typedef struct
 #define   MQTT_VERSION    4
 
 #if    LWIP_DNS
-#define   HOST_NAME       "a1MZHjK2SCF.iot-as-mqtt.cn-shanghai.aliyuncs.com"     //·þÎñÆ÷ÓòÃû
+#define   HOST_NAME       "a1MZHjK2SCF.iot-as-mqtt.cn-shanghai.aliyuncs.com"     //æœåŠ¡å™¨åŸŸå
 #else
-#define   HOST_NAME       "139.196.135.135"     //·þÎñÆ÷IPµØÖ·
+#define   HOST_NAME       "139.196.135.135"     //æœåŠ¡å™¨IPåœ°å€
 #endif
 
 
-#define   HOST_PORT     1883    //ÓÉÓÚÊÇTCPÁ¬½Ó£¬¶Ë¿Ú±ØÐëÊÇ1883
+#define   HOST_PORT     1883    //ç”±äºŽæ˜¯TCPè¿žæŽ¥ï¼Œç«¯å£å¿…é¡»æ˜¯1883
 
 #define   CLIENT_ID     "12345|securemode=3,signmethod=hmacsha1|"         //
-#define   USER_NAME     "fire_temp_hum&a1MZHjK2SCF"     //ÓÃ»§Ãû
-#define   PASSWORD      "D6419896E7BEAF8BD9D03C88BF854EA0D3D506AE"  //ÃØÔ¿
+#define   USER_NAME     "fire_temp_hum&a1MZHjK2SCF"     //ç”¨æˆ·å
+#define   PASSWORD      "D6419896E7BEAF8BD9D03C88BF854EA0D3D506AE"  //ç§˜é’¥
 
-#define   TOPIC         "/a1MZHjK2SCF/fire_temp_hum/user/temp_hum"      //¶©ÔÄµÄÖ÷Ìâ
-#define   TEST_MESSAGE  "test_message"  //·¢ËÍ²âÊÔÏûÏ¢
+#define   TOPIC         "/a1MZHjK2SCF/fire_temp_hum/user/temp_hum"      //è®¢é˜…çš„ä¸»é¢˜
+#define   TEST_MESSAGE  "test_message"  //å‘é€æµ‹è¯•æ¶ˆæ¯
 
 enum QoS 
 { QOS0 = 0, 
@@ -52,7 +52,7 @@ enum MQTT_Connect
   Connect_NOTACK
 };
 
-//Êý¾Ý½»»¥½á¹¹Ìå
+//æ•°æ®äº¤äº’ç»“æž„ä½“
 typedef struct __MQTTMessage
 {
     uint32_t qos;
@@ -64,18 +64,18 @@ typedef struct __MQTTMessage
     int32_t payloadlen;
 }MQTTMessage;
 
-//ÓÃ»§½ÓÊÕÏûÏ¢½á¹¹Ìå
+//ç”¨æˆ·æŽ¥æ”¶æ¶ˆæ¯ç»“æž„ä½“
 typedef struct __MQTT_MSG
 {
-	  uint8_t  msgqos;                 //ÏûÏ¢ÖÊÁ¿
-		uint8_t  msg[MSG_MAX_LEN];       //ÏûÏ¢
-	  uint32_t msglenth;               //ÏûÏ¢³¤¶È
-	  uint8_t  topic[MSG_TOPIC_LEN];   //Ö÷Ìâ    
-	  uint16_t packetid;               //ÏûÏ¢ID
-	  uint8_t  valid;                  //±êÃ÷ÏûÏ¢ÊÇ·ñÓÐÐ§
+	  uint8_t  msgqos;                 //æ¶ˆæ¯è´¨é‡
+		uint8_t  msg[MSG_MAX_LEN];       //æ¶ˆæ¯
+	  uint32_t msglenth;               //æ¶ˆæ¯é•¿åº¦
+	  uint8_t  topic[MSG_TOPIC_LEN];   //ä¸»é¢˜    
+	  uint16_t packetid;               //æ¶ˆæ¯ID
+	  uint8_t  valid;                  //æ ‡æ˜Žæ¶ˆæ¯æ˜¯å¦æœ‰æ•ˆ
 }MQTT_USER_MSG;
 
-//·¢ËÍÏûÏ¢½á¹¹Ìå
+//å‘é€æ¶ˆæ¯ç»“æž„ä½“
 typedef struct
 {
     int8_t topic[MSG_TOPIC_LEN];
@@ -90,90 +90,90 @@ typedef struct
 void mqtt_thread( void *pvParameters);
 
 /************************************************************************
-** º¯ÊýÃû³Æ: my_mqtt_send_pingreq								
-** º¯Êý¹¦ÄÜ: ·¢ËÍMQTTÐÄÌø°ü
-** Èë¿Ú²ÎÊý: ÎÞ
-** ³ö¿Ú²ÎÊý: >=0:·¢ËÍ³É¹¦ <0:·¢ËÍÊ§°Ü
-** ±¸    ×¢: 
+** å‡½æ•°åç§°: my_mqtt_send_pingreq								
+** å‡½æ•°åŠŸèƒ½: å‘é€MQTTå¿ƒè·³åŒ…
+** å…¥å£å‚æ•°: æ— 
+** å‡ºå£å‚æ•°: >=0:å‘é€æˆåŠŸ <0:å‘é€å¤±è´¥
+** å¤‡    æ³¨: 
 ************************************************************************/
 int32_t MQTT_PingReq(int32_t sock);
 
 /************************************************************************
-** º¯ÊýÃû³Æ: MQTT_Connect								
-** º¯Êý¹¦ÄÜ: µÇÂ¼·þÎñÆ÷
-** Èë¿Ú²ÎÊý: int32_t sock:ÍøÂçÃèÊö·û
-** ³ö¿Ú²ÎÊý: Connect_OK:µÇÂ½³É¹¦ ÆäËû:µÇÂ½Ê§°Ü
-** ±¸    ×¢: 
+** å‡½æ•°åç§°: MQTT_Connect								
+** å‡½æ•°åŠŸèƒ½: ç™»å½•æœåŠ¡å™¨
+** å…¥å£å‚æ•°: int32_t sock:ç½‘ç»œæè¿°ç¬¦
+** å‡ºå£å‚æ•°: Connect_OK:ç™»é™†æˆåŠŸ å…¶ä»–:ç™»é™†å¤±è´¥
+** å¤‡    æ³¨: 
 ************************************************************************/
 uint8_t MQTT_Connect(void);
 
 /************************************************************************
-** º¯ÊýÃû³Æ: MQTTSubscribe								
-** º¯Êý¹¦ÄÜ: ¶©ÔÄÏûÏ¢
-** Èë¿Ú²ÎÊý: int32_t sock£ºÌ×½Ó×Ö
-**           int8_t *topic£ºÖ÷Ìâ
-**           enum QoS pos£ºÏûÏ¢ÖÊÁ¿
-** ³ö¿Ú²ÎÊý: >=0:·¢ËÍ³É¹¦ <0:·¢ËÍÊ§°Ü
-** ±¸    ×¢: 
+** å‡½æ•°åç§°: MQTTSubscribe								
+** å‡½æ•°åŠŸèƒ½: è®¢é˜…æ¶ˆæ¯
+** å…¥å£å‚æ•°: int32_t sockï¼šå¥—æŽ¥å­—
+**           int8_t *topicï¼šä¸»é¢˜
+**           enum QoS posï¼šæ¶ˆæ¯è´¨é‡
+** å‡ºå£å‚æ•°: >=0:å‘é€æˆåŠŸ <0:å‘é€å¤±è´¥
+** å¤‡    æ³¨: 
 ************************************************************************/
 int32_t MQTTSubscribe(int32_t sock,char *topic,enum QoS pos);
 
 /************************************************************************
-** º¯ÊýÃû³Æ: UserMsgCtl						
-** º¯Êý¹¦ÄÜ: ÓÃ»§ÏûÏ¢´¦Àíº¯Êý
-** Èë¿Ú²ÎÊý: MQTT_USER_MSG  *msg£ºÏûÏ¢½á¹¹ÌåÖ¸Õë
-** ³ö¿Ú²ÎÊý: ÎÞ
-** ±¸    ×¢: 
+** å‡½æ•°åç§°: UserMsgCtl						
+** å‡½æ•°åŠŸèƒ½: ç”¨æˆ·æ¶ˆæ¯å¤„ç†å‡½æ•°
+** å…¥å£å‚æ•°: MQTT_USER_MSG  *msgï¼šæ¶ˆæ¯ç»“æž„ä½“æŒ‡é’ˆ
+** å‡ºå£å‚æ•°: æ— 
+** å¤‡    æ³¨: 
 ************************************************************************/
 void UserMsgCtl(MQTT_USER_MSG  *msg);
 
 /************************************************************************
-** º¯ÊýÃû³Æ: GetNextPackID						
-** º¯Êý¹¦ÄÜ: ²úÉúÏÂÒ»¸öÊý¾Ý°üID
-** Èë¿Ú²ÎÊý: ÎÞ
-** ³ö¿Ú²ÎÊý: uint16_t packetid:²úÉúµÄID
-** ±¸    ×¢: 
+** å‡½æ•°åç§°: GetNextPackID						
+** å‡½æ•°åŠŸèƒ½: äº§ç”Ÿä¸‹ä¸€ä¸ªæ•°æ®åŒ…ID
+** å…¥å£å‚æ•°: æ— 
+** å‡ºå£å‚æ•°: uint16_t packetid:äº§ç”Ÿçš„ID
+** å¤‡    æ³¨: 
 ************************************************************************/
 uint16_t GetNextPackID(void);
 
 /************************************************************************
-** º¯ÊýÃû³Æ: mqtt_msg_publish						
-** º¯Êý¹¦ÄÜ: ÓÃ»§ÍÆËÍÏûÏ¢
-** Èë¿Ú²ÎÊý: MQTT_USER_MSG  *msg£ºÏûÏ¢½á¹¹ÌåÖ¸Õë
-** ³ö¿Ú²ÎÊý: >=0:·¢ËÍ³É¹¦ <0:·¢ËÍÊ§°Ü
-** ±¸    ×¢: 
+** å‡½æ•°åç§°: mqtt_msg_publish						
+** å‡½æ•°åŠŸèƒ½: ç”¨æˆ·æŽ¨é€æ¶ˆæ¯
+** å…¥å£å‚æ•°: MQTT_USER_MSG  *msgï¼šæ¶ˆæ¯ç»“æž„ä½“æŒ‡é’ˆ
+** å‡ºå£å‚æ•°: >=0:å‘é€æˆåŠŸ <0:å‘é€å¤±è´¥
+** å¤‡    æ³¨: 
 ************************************************************************/
 //int32_t MQTTMsgPublish(int32_t sock, char *topic, int8_t qos, int8_t retained,uint8_t* msg,uint32_t msg_len);
 int32_t MQTTMsgPublish(int32_t sock, char *topic, int8_t qos, uint8_t* msg);
 /************************************************************************
-** º¯ÊýÃû³Æ: ReadPacketTimeout					
-** º¯Êý¹¦ÄÜ: ×èÈû¶ÁÈ¡MQTTÊý¾Ý
-** Èë¿Ú²ÎÊý: int32_t sock:ÍøÂçÃèÊö·û
-**           uint8_t *buf:Êý¾Ý»º´æÇø
-**           int32_t buflen:»º³åÇø´óÐ¡
-**           uint32_t timeout:³¬Ê±Ê±¼ä--0-±íÊ¾Ö±½Ó²éÑ¯£¬Ã»ÓÐÊý¾ÝÁ¢¼´·µ»Ø
-** ³ö¿Ú²ÎÊý: -1£º´íÎó,ÆäËû--°üÀàÐÍ
-** ±¸    ×¢: 
+** å‡½æ•°åç§°: ReadPacketTimeout					
+** å‡½æ•°åŠŸèƒ½: é˜»å¡žè¯»å–MQTTæ•°æ®
+** å…¥å£å‚æ•°: int32_t sock:ç½‘ç»œæè¿°ç¬¦
+**           uint8_t *buf:æ•°æ®ç¼“å­˜åŒº
+**           int32_t buflen:ç¼“å†²åŒºå¤§å°
+**           uint32_t timeout:è¶…æ—¶æ—¶é—´--0-è¡¨ç¤ºç›´æŽ¥æŸ¥è¯¢ï¼Œæ²¡æœ‰æ•°æ®ç«‹å³è¿”å›ž
+** å‡ºå£å‚æ•°: -1ï¼šé”™è¯¯,å…¶ä»–--åŒ…ç±»åž‹
+** å¤‡    æ³¨: 
 ************************************************************************/
 int32_t ReadPacketTimeout(int32_t sock,uint8_t *buf,int32_t buflen,uint32_t timeout);
 
 /************************************************************************
-** º¯ÊýÃû³Æ: mqtt_pktype_ctl						
-** º¯Êý¹¦ÄÜ: ¸ù¾Ý°üÀàÐÍ½øÐÐ´¦Àí
-** Èë¿Ú²ÎÊý: uint8_t packtype:°üÀàÐÍ
-** ³ö¿Ú²ÎÊý: ÎÞ
-** ±¸    ×¢: 
+** å‡½æ•°åç§°: mqtt_pktype_ctl						
+** å‡½æ•°åŠŸèƒ½: æ ¹æ®åŒ…ç±»åž‹è¿›è¡Œå¤„ç†
+** å…¥å£å‚æ•°: uint8_t packtype:åŒ…ç±»åž‹
+** å‡ºå£å‚æ•°: æ— 
+** å¤‡    æ³¨: 
 ************************************************************************/
 void mqtt_pktype_ctl(uint8_t packtype,uint8_t *buf,uint32_t buflen);
 
 /************************************************************************
-** º¯ÊýÃû³Æ: WaitForPacket					
-** º¯Êý¹¦ÄÜ: µÈ´ýÌØ¶¨µÄÊý¾Ý°ü
-** Èë¿Ú²ÎÊý: int32_t sock:ÍøÂçÃèÊö·û
-**           uint8_t packettype:°üÀàÐÍ
-**           uint8_t times:µÈ´ý´ÎÊý
-** ³ö¿Ú²ÎÊý: >=0:µÈµ½ÁËÌØ¶¨µÄ°ü <0:Ã»ÓÐµÈµ½ÌØ¶¨µÄ°ü
-** ±¸    ×¢: 
+** å‡½æ•°åç§°: WaitForPacket					
+** å‡½æ•°åŠŸèƒ½: ç­‰å¾…ç‰¹å®šçš„æ•°æ®åŒ…
+** å…¥å£å‚æ•°: int32_t sock:ç½‘ç»œæè¿°ç¬¦
+**           uint8_t packettype:åŒ…ç±»åž‹
+**           uint8_t times:ç­‰å¾…æ¬¡æ•°
+** å‡ºå£å‚æ•°: >=0:ç­‰åˆ°äº†ç‰¹å®šçš„åŒ… <0:æ²¡æœ‰ç­‰åˆ°ç‰¹å®šçš„åŒ…
+** å¤‡    æ³¨: 
 ************************************************************************/
 int32_t WaitForPacket(int32_t sock,uint8_t packettype,uint8_t times);
 
