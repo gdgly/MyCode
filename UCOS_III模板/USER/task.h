@@ -23,30 +23,30 @@ void start_task(void *p_arg);
 //任务堆栈大小	
 #define TASK1_STK_SIZE 		128
 //任务控制块
-extern OS_TCB Task1_TaskTCB;
+extern OS_TCB Task1_TCB;
 //任务堆栈	
-extern CPU_STK TASK1_TASK_STK[TASK1_STK_SIZE];
-void task1_task(void *p_arg);
+extern CPU_STK TASK1_STK[TASK1_STK_SIZE];
+void task1_entry(void *p_arg);
 
 //任务优先级
 #define TASK2_TASK_PRIO		4
 //任务堆栈大小	
 #define TASK2_STK_SIZE 		128
 //任务控制块
-extern OS_TCB Task2_TaskTCB;
+extern OS_TCB Task2_TCB;
 //任务堆栈	
-extern CPU_STK TASK2_TASK_STK[TASK2_STK_SIZE];
-void task2_task(void *p_arg);
+extern CPU_STK TASK2_STK[TASK2_STK_SIZE];
+void task2_entry(void *p_arg);
 
 //任务优先级
 #define TASK3_TASK_PRIO		8
 //任务堆栈大小	
 #define TASK3_STK_SIZE 		128
 //任务控制块
-extern OS_TCB Task3_TaskTCB;
+extern OS_TCB Task3_TCB;
 //任务堆栈	
-extern CPU_STK TASK3_TASK_STK[TASK3_STK_SIZE];
-void task3_task(void *p_arg);
+extern CPU_STK TASK3_STK[TASK3_STK_SIZE];
+void task3_entry(void *p_arg);
 
 
 //任务优先级
@@ -54,10 +54,10 @@ void task3_task(void *p_arg);
 //任务堆栈大小	
 #define TASK4_STK_SIZE 		128
 //任务控制块
-extern OS_TCB Task4_TaskTCB;
+extern OS_TCB Task4_TCB;
 //任务堆栈	
-extern CPU_STK TASK4_TASK_STK[TASK3_STK_SIZE];
-void task4_task(void *p_arg);
+extern CPU_STK TASK4_STK[TASK3_STK_SIZE];
+void task4_entry(void *p_arg);
 
 
 #endif

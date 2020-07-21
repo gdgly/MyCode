@@ -11,30 +11,29 @@ OS_TCB StartTaskTCB;
 CPU_STK START_TASK_STK[START_STK_SIZE];
 
 //任务1控制块
-OS_TCB Task1_TaskTCB;
+OS_TCB Task1_TCB;
 //任务1堆栈	
-CPU_STK TASK1_TASK_STK[TASK3_STK_SIZE];
+CPU_STK TASK1_STK[TASK3_STK_SIZE];
 
 //任务2控制块
-OS_TCB Task2_TaskTCB;
+OS_TCB Task2_TCB;
 //任务2堆栈	
-CPU_STK TASK2_TASK_STK[TASK3_STK_SIZE];
+CPU_STK TASK2_STK[TASK3_STK_SIZE];
 
 //任务3控制块
-OS_TCB Task3_TaskTCB;
+OS_TCB Task3_TCB;
 //任务3堆栈	
-CPU_STK TASK3_TASK_STK[TASK3_STK_SIZE];
+CPU_STK TASK3_STK[TASK3_STK_SIZE];
 
 
 //任务4控制块
-OS_TCB Task4_TaskTCB;
+OS_TCB Task4_TCB;
 //任务4堆栈	
-CPU_STK TASK4_TASK_STK[TASK3_STK_SIZE];
+CPU_STK TASK4_STK[TASK3_STK_SIZE];
 
 /**************************变量区*******************************/
 //***************************************************************
 OS_SEM	MY_SEM;		    //定义一个信号量，用于访问共享资源
-u32 i = 300;
 uint8_t key = 0;
 
 
@@ -68,12 +67,12 @@ void start_task(void *p_arg)
                  (OS_ERR*	)&err);
 				 
 	//创建TASK1任务
-	OSTaskCreate((OS_TCB 	* )&Task1_TaskTCB,		
+	OSTaskCreate((OS_TCB 	* )&Task1_TCB,		
 				 (CPU_CHAR	* )"Task1 task", 		
-                 (OS_TASK_PTR )task1_task, 			
+                 (OS_TASK_PTR )task1_entry, 			
                  (void		* )0,					
                  (OS_PRIO	  )TASK1_TASK_PRIO,     
-                 (CPU_STK   * )&TASK1_TASK_STK[0],	
+                 (CPU_STK   * )&TASK1_STK[0],	
                  (CPU_STK_SIZE)TASK1_STK_SIZE/10,	
                  (CPU_STK_SIZE)TASK1_STK_SIZE,		
                  (OS_MSG_QTY  )0,					
@@ -83,12 +82,12 @@ void start_task(void *p_arg)
                  (OS_ERR 	* )&err);
 				 
 	//创建TASK2任务
-	OSTaskCreate((OS_TCB 	* )&Task2_TaskTCB,		
+	OSTaskCreate((OS_TCB 	* )&Task2_TCB,		
 				 (CPU_CHAR	* )"Task2 task", 		
-                 (OS_TASK_PTR )task2_task, 			
+                 (OS_TASK_PTR )task2_entry, 			
                  (void		* )0,					
                  (OS_PRIO	  )TASK2_TASK_PRIO,     
-                 (CPU_STK   * )&TASK2_TASK_STK[0],	
+                 (CPU_STK   * )&TASK2_STK[0],	
                  (CPU_STK_SIZE)TASK2_STK_SIZE/10,	
                  (CPU_STK_SIZE)TASK2_STK_SIZE,		
                  (OS_MSG_QTY  )0,					
@@ -98,12 +97,12 @@ void start_task(void *p_arg)
                  (OS_ERR 	* )&err);
 				 
 	//创建TASK3任务
-	OSTaskCreate((OS_TCB 	* )&Task3_TaskTCB,		
+	OSTaskCreate((OS_TCB 	* )&Task3_TCB,		
 				 (CPU_CHAR	* )"Task3 task", 		
-                 (OS_TASK_PTR )task3_task, 			
+                 (OS_TASK_PTR )task3_entry, 			
                  (void		* )0,					
                  (OS_PRIO	  )TASK3_TASK_PRIO,     
-                 (CPU_STK   * )&TASK3_TASK_STK[0],	
+                 (CPU_STK   * )&TASK3_STK[0],	
                  (CPU_STK_SIZE)TASK3_STK_SIZE/10,	
                  (CPU_STK_SIZE)TASK3_STK_SIZE,		
                  (OS_MSG_QTY  )0,					
@@ -113,12 +112,12 @@ void start_task(void *p_arg)
                  (OS_ERR 	* )&err);
 				 
 	//创建TASK4任务
-	OSTaskCreate((OS_TCB 	* )&Task4_TaskTCB,		
+	OSTaskCreate((OS_TCB 	* )&Task4_TCB,		
 				 (CPU_CHAR	* )"Task4 task", 		
-                 (OS_TASK_PTR )task4_task, 			
+                 (OS_TASK_PTR )task4_entry, 			
                  (void		* )0,					
                  (OS_PRIO	  )TASK4_TASK_PRIO,     
-                 (CPU_STK   * )&TASK4_TASK_STK[0],	
+                 (CPU_STK   * )&TASK4_STK[0],	
                  (CPU_STK_SIZE)TASK4_STK_SIZE/10,	
                  (CPU_STK_SIZE)TASK4_STK_SIZE,		
                  (OS_MSG_QTY  )0,					
@@ -131,23 +130,19 @@ void start_task(void *p_arg)
 	OSTaskDel((OS_TCB*)0,&err);	//删除start_task任务自身
 }
 
+
 //任务1实验板流水灯任务
-void task1_task(void *p_arg)
+void task1_entry(void *p_arg)
 {
 	OS_ERR err;
 	while(1)
 	{
-		LED0_Toggle;
-		OSTimeDlyHMSM(0,0,0,i,OS_OPT_TIME_PERIODIC,&err);
-		LED1_Toggle;
-		OSTimeDlyHMSM(0,0,0,i,OS_OPT_TIME_PERIODIC,&err);
-		LED2_Toggle;
-		OSTimeDlyHMSM(0,0,0,i,OS_OPT_TIME_PERIODIC,&err);
+		led_disp();
 	}
 }
 
 //任务2按键扫描任务
-void task2_task(void *p_arg)
+void task2_entry(void *p_arg)
 {
 	OS_ERR err;
     uint8_t key_val = 0;
@@ -156,14 +151,16 @@ void task2_task(void *p_arg)
         key_val = user_key_scan(KEY_CLICK);
         if(key_val == KEY_WKUP)
         {
-            sys_into_stop();
+            //sys_into_stop();
         }
-		OSTimeDlyHMSM(0,0,0,10,OS_OPT_TIME_PERIODIC,&err);   //延时1s
+        
+        led_ctrl_freq();
+		OSTimeDlyHMSM(0,0,0,50,OS_OPT_TIME_PERIODIC,&err);   //延时1s
 		
 	}
 }
 
-void task3_task(void *p_arg)
+void task3_entry(void *p_arg)
 {
 	OS_ERR err;
 	
@@ -171,21 +168,23 @@ void task3_task(void *p_arg)
     {
 		OSTaskSemPend(0,OS_OPT_PEND_BLOCKING,0,&err);		//请求任务内建的信号量
 		
-		test_app();
+		app_test();
 		OSTimeDlyHMSM(0,0,0,100,OS_OPT_TIME_PERIODIC,&err);   //延时
 	}
 }
 
 
 //按键流水灯任务
-void task4_task(void *p_arg)
+void task4_entry(void *p_arg)
 {
 	OS_ERR err;
+    uint32_t task4_cnt = 0;
 	while(1)
     {
-		OSTaskSemPost(&Task3_TaskTCB, OS_OPT_POST_FIFO, &err);
+		OSTaskSemPost(&Task3_TCB, OS_OPT_POST_FIFO, &err);
         
-        printf("Task4 Run!\r\n");
+        printf("\r\n%s %d\r\n", __func__, task4_cnt);
+        task4_cnt++;
 		
 		OSTimeDlyHMSM(0,0,0,1000,OS_OPT_TIME_PERIODIC,&err);
 	}

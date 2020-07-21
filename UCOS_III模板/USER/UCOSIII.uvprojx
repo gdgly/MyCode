@@ -412,6 +412,36 @@
               <FileType>1</FileType>
               <FilePath>..\MyTest\my_test.c</FilePath>
             </File>
+            <File>
+              <FileName>buff_test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MyTest\buff_test.c</FilePath>
+            </File>
+            <File>
+              <FileName>gps_test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MyTest\gps_test.c</FilePath>
+            </File>
+            <File>
+              <FileName>left_move.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MyTest\left_move.c</FilePath>
+            </File>
+            <File>
+              <FileName>priority_level_test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MyTest\priority_level_test.c</FilePath>
+            </File>
+            <File>
+              <FileName>sort_test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MyTest\sort_test.c</FilePath>
+            </File>
+            <File>
+              <FileName>struct_size_test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MyTest\struct_size_test.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

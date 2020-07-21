@@ -11,4 +11,9 @@
 #define LED0_Toggle (HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0))
 
 void LED_Init(void);
+
+
+void led_disp(void);
+void led_ctrl_freq(void);
+
 #endif
