@@ -22,6 +22,7 @@
 #include "main.h"
 #include "cmsis_os.h"
 #include "adc.h"
+#include "i2c.h"
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
@@ -105,6 +106,7 @@ int main(void)
   MX_USART1_UART_Init();
   MX_USART3_UART_Init();
   MX_ADC1_Init();
+  MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
 
     HAL_TIM_Base_Start_IT(&htim3);
@@ -120,9 +122,9 @@ int main(void)
 
     pid_init(&pid_l, -80, -0.4, 0, 10000);
     pid_init(&pid_r, -80, -0.4, 0, 10000);
-    pid_init(&pid_balance, 850*0.6, 0, 22*0.6, 0);
+    pid_init(&pid_balance, 800, 0, 4.0, 0);
 
-	HAL_ADC_Start_IT(&hadc1);
+	
 
     OLED_Init();
     OLED_ShowString(0, 0, (const uint8_t *)"  HELLO WORLD!  ");
@@ -130,10 +132,8 @@ int main(void)
 
     MPU_Init();					//≥ı ºªØMPU6050
 
-    while(mpu_dmp_init())
-    {
-        delay_ms(1000);
-    }
+	
+	HAL_ADC_Start_IT(&hadc1);
 
   /* USER CODE END 2 */
 

@@ -27,12 +27,12 @@ void sort_uint(uint32_t *buff, uint16_t len)
 #define RM_NUM	6
 typedef enum
 {
-	RETURN_DOUBLE,
-	RETURN_FLOAT,
-	RETURN_U32,
-	RETURN_U16,
-	RETURN_U8,
-}AVERAGUE_RETURN_TYPE;
+    RETURN_DOUBLE,
+    RETURN_FLOAT,
+    RETURN_U32,
+    RETURN_U16,
+    RETURN_U8,
+} AVERAGUE_RETURN_TYPE;
 
 
 uint32_t get_average_uint(uint32_t * buff, uint16_t len)
@@ -41,16 +41,16 @@ uint32_t get_average_uint(uint32_t * buff, uint16_t len)
     uint16_t i = 0;
     uint16_t temp = len - 2 * RM_NUM;
 
-	if(temp == 0)
+    if(temp == 0)
     {
         return 0.0;
     }
-	
+
     sort_uint(buff, len);
 
     for(i = RM_NUM; i < len - RM_NUM; i++)
     {
-		sum += buff[i];
+        sum += buff[i];
     }
 
     sum = sum / temp;
@@ -69,7 +69,7 @@ uint32_t get_average_uint(uint32_t * buff, uint16_t len)
 //    {
 //        return 0.0;
 //    }
-//	
+//
 //    sort_uint(buff, len);
 
 //    for(i = RM_NUM; i < len - RM_NUM; i++)

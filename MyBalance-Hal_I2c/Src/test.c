@@ -89,45 +89,46 @@ void moto_get_speed(uint8_t flag)
 
 void get_angle(uint8_t way)
 {
-	gMpu.gyro.x = (short)gMpu.gyro.x;
-	gMpu.gyro.y = (short)gMpu.gyro.y;
-	gMpu.gyro.z = (short)gMpu.gyro.z;
+    gMpu.gyro.x = (short)gMpu.gyro.x;
+    gMpu.gyro.y = (short)gMpu.gyro.y;
+    gMpu.gyro.z = (short)gMpu.gyro.z;
 
 
-	gMpu.accel.x = (short)gMpu.accel.x;
-	gMpu.accel.y = (short)gMpu.accel.y;
-	gMpu.accel.z = (short)gMpu.accel.z;
-	
-    if(way==1)
+    gMpu.accel.x = (short)gMpu.accel.x;
+    gMpu.accel.y = (short)gMpu.accel.y;
+    gMpu.accel.z = (short)gMpu.accel.z;
+
+    if(way == 1)
     {
 
     }
-    else if(way==2)
+    else if(way == 2)
     {
         gMpu.gyro.balance = gMpu.gyro.x;
-        gMpu.accel.balance = atan2(gMpu.accel.y, gMpu.accel.z)*180.0/3.14159;
-        gMpu.gyro.x = gMpu.gyro.x/16.4;
+        gMpu.accel.balance = atan2(gMpu.accel.y, gMpu.accel.z) * 180.0 / 3.14159;
+        float temp_gyro_x = gMpu.gyro.x / 16.4;
+		//gMpu.gyro.x = gMpu.gyro.x / 16.4;
 
-        Kalman_Filter(gMpu.accel.balance, gMpu.gyro.x);
+        Kalman_Filter(gMpu.accel.balance, temp_gyro_x);
 
         gMpu.balance_angle = angle;
         gMpu.gyro.turn = gMpu.gyro.z;
         gMpu.accel.balance = gMpu.accel.z;
 
     }
-	else if(way==3)
-	{
-		gMpu.gyro.balance = gMpu.gyro.x;
-        gMpu.accel.balance = atan2(gMpu.accel.y, gMpu.accel.z)*180.0/3.14159;
-        gMpu.gyro.x = gMpu.gyro.x/16.4;
+    else if(way == 3)
+    {
+        gMpu.gyro.balance = gMpu.gyro.x;
+        gMpu.accel.balance = atan2(gMpu.accel.y, gMpu.accel.z) * 180.0 / 3.14159;
+        gMpu.gyro.x = gMpu.gyro.x / 16.4;
 
         Yijielvbo(gMpu.accel.balance, gMpu.gyro.x);
 
         gMpu.balance_angle = angle;
         gMpu.gyro.turn = gMpu.gyro.z;
         gMpu.accel.balance = gMpu.accel.z;
-		
-	}
+
+    }
 }
 
 

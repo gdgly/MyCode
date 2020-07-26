@@ -151,27 +151,27 @@ __weak void vPortSuppressTicksAndSleep( TickType_t xExpectedIdleTime )
 /* USER CODE BEGIN GET_IDLE_TASK_MEMORY */
 static StaticTask_t xIdleTaskTCBBuffer;
 static StackType_t xIdleStack[configMINIMAL_STACK_SIZE];
-  
+
 void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackType_t **ppxIdleTaskStackBuffer, uint32_t *pulIdleTaskStackSize )
 {
-  *ppxIdleTaskTCBBuffer = &xIdleTaskTCBBuffer;
-  *ppxIdleTaskStackBuffer = &xIdleStack[0];
-  *pulIdleTaskStackSize = configMINIMAL_STACK_SIZE;
-  /* place for user code */
-}                   
+    *ppxIdleTaskTCBBuffer = &xIdleTaskTCBBuffer;
+    *ppxIdleTaskStackBuffer = &xIdleStack[0];
+    *pulIdleTaskStackSize = configMINIMAL_STACK_SIZE;
+    /* place for user code */
+}
 /* USER CODE END GET_IDLE_TASK_MEMORY */
 
 /* USER CODE BEGIN GET_TIMER_TASK_MEMORY */
 static StaticTask_t xTimerTaskTCBBuffer;
 static StackType_t xTimerStack[configTIMER_TASK_STACK_DEPTH];
-  
-void vApplicationGetTimerTaskMemory( StaticTask_t **ppxTimerTaskTCBBuffer, StackType_t **ppxTimerTaskStackBuffer, uint32_t *pulTimerTaskStackSize )  
+
+void vApplicationGetTimerTaskMemory( StaticTask_t **ppxTimerTaskTCBBuffer, StackType_t **ppxTimerTaskStackBuffer, uint32_t *pulTimerTaskStackSize )
 {
-  *ppxTimerTaskTCBBuffer = &xTimerTaskTCBBuffer;
-  *ppxTimerTaskStackBuffer = &xTimerStack[0];
-  *pulTimerTaskStackSize = configTIMER_TASK_STACK_DEPTH;
-  /* place for user code */
-}                   
+    *ppxTimerTaskTCBBuffer = &xTimerTaskTCBBuffer;
+    *ppxTimerTaskStackBuffer = &xTimerStack[0];
+    *pulTimerTaskStackSize = configTIMER_TASK_STACK_DEPTH;
+    /* place for user code */
+}
 /* USER CODE END GET_TIMER_TASK_MEMORY */
 
 /**
@@ -244,6 +244,10 @@ void StartDefaultTask(void const * argument)
 * @retval None
 */
 /* USER CODE END Header_task_main */
+
+
+uint32_t task_main_cnt = 0;
+int test_pwm_cnt = 0;
 void task_main(void const * argument)
 {
   /* USER CODE BEGIN task_main */
@@ -251,7 +255,6 @@ void task_main(void const * argument)
     short Gyro_Y;
     short Gyro_Z;
 
-    static uint32_t task_main_cnt = 0;
     static uint32_t start_cnt = 0;
     static int pwm_offset = 500;	//电机死区
     /* Infinite loop */
@@ -267,11 +270,11 @@ void task_main(void const * argument)
         }
 
         //读取陀螺仪数据
-        if(mpu_dmp_get_data(&gMpu.euler.pitch, &gMpu.euler.roll, &gMpu.euler.yaw) == 0)
+        //if(mpu_dmp_get_data(&gMpu.euler.pitch, &gMpu.euler.roll, &gMpu.euler.yaw) == 0)
         {
-            gMpu.temp = MPU_Get_Temperature() / 100.0;		//得到温度值
-            MPU_Get_Accelerometer(&gMpu.accel.x, &gMpu.accel.y, &gMpu.accel.z);	//得到加速度传感器数据
-            MPU_Get_Gyroscope(&Gyro_X, &Gyro_Y, &Gyro_Z);		//得到陀螺仪数据
+            gMpu.temp = mpu_get_temp() / 100.0;		//得到温度值
+            mpu_get_acc(&gMpu.accel.x, &gMpu.accel.y, &gMpu.accel.z);	//得到加速度传感器数据
+            mpu_get_gyro(&Gyro_X, &Gyro_Y, &Gyro_Z);		//得到陀螺仪数据
 
             gMpu.gyro.x = Gyro_X;
             gMpu.gyro.y = Gyro_Y;
@@ -285,12 +288,16 @@ void task_main(void const * argument)
             gMotor_l.pwm_cnt = 0;
 
             //平衡环
-            balance_ctrl(gMpu.balance_angle, gMpu.gyro.x);
+            balance_ctrl(gMpu.balance_angle, (gMpu.gyro.x/4));
 
-            //速度环
-            speed_ctrl();
+//            //速度环
+//            speed_ctrl();
 
             //确定转动方向
+			
+//			gMotor_r.pwm_cnt = test_pwm_cnt;
+//			gMotor_l.pwm_cnt = test_pwm_cnt;
+			
             if(gMotor_r.pwm_cnt > 0)
             {
                 gMotor_r.direction = 1;
@@ -300,8 +307,6 @@ void task_main(void const * argument)
                 gMotor_l.pwm_cnt += pwm_offset;
 
                 //设置方向
-//			moto_set_pwm_cnt(LEFT, 0);
-//			moto_set_pwm_cnt(RIGHT, 0);
                 moto_dir_ctrl(gMotor_l.direction, gMotor_r.direction);
 
 
@@ -312,8 +317,6 @@ void task_main(void const * argument)
                 gMotor_l.direction = 0;
 
                 //设置方向
-//			moto_set_pwm_cnt(LEFT, 0);
-//			moto_set_pwm_cnt(RIGHT, 0);
                 moto_dir_ctrl(gMotor_l.direction, gMotor_r.direction);
 
                 //转换为正值
@@ -326,7 +329,7 @@ void task_main(void const * argument)
             }
 
             //消除电机左右摩擦力不同
-            gMotor_l.pwm_cnt = 1.2*gMotor_r.pwm_cnt;
+            gMotor_l.pwm_cnt = 1.2 * gMotor_r.pwm_cnt;
 
 
             //PWM限幅
@@ -341,7 +344,8 @@ void task_main(void const * argument)
             }
 
             //倾角过大关闭电机
-            if(gMpu.euler.roll > 40)
+            //if(gMpu.euler.roll > 40)
+			if(gMpu.balance_angle > 40)
             {
                 gMotor_l.pwm_cnt = 0;
                 gMotor_r.pwm_cnt = 0;
@@ -349,7 +353,8 @@ void task_main(void const * argument)
                 pid_l.ei = 0;
                 pid_r.ei = 0;
             }
-            if(gMpu.euler.roll < -40)
+            //if(gMpu.euler.roll < -40)
+			if(gMpu.balance_angle < -40)
             {
                 gMotor_l.pwm_cnt = 0;
                 gMotor_r.pwm_cnt = 0;
@@ -365,19 +370,19 @@ void task_main(void const * argument)
                 if(gMotor_l.pwm_old_cnt != gMotor_l.pwm_cnt)
                 {
                     gMotor_l.pwm_old_cnt = gMotor_l.pwm_cnt;
-                    moto_set_pwm_cnt(LEFT, gMotor_l.pwm_cnt);
+                    moto_set_pwm_cnt(LEFT, gMotor_l.pwm_cnt>>0);
                 }
                 if(gMotor_r.pwm_old_cnt != gMotor_r.pwm_cnt)
                 {
                     gMotor_r.pwm_old_cnt = gMotor_r.pwm_cnt;
-                    moto_set_pwm_cnt(RIGHT, gMotor_r.pwm_cnt);
+                    moto_set_pwm_cnt(RIGHT, gMotor_r.pwm_cnt>>0);
                 }
             }
 
         }
 
 
-        osDelay(3);
+        osDelay(10);
     }
   /* USER CODE END task_main */
 }
@@ -401,22 +406,22 @@ void task_lcd(void const * argument)
     uint8_t show_buff[40] = {0};
     uint32_t i = 0;
     uint16_t usage = 0.0;
-		
+
     /* Infinite loop */
     for(;;)
     {
-		
-		if(adc_ok_flag == 1)
-		{
-			battery_adc = get_average_uint(adc_val, 30);
-			battery_v = battery_adc*3300*11/4096;
-			sprintf((char*)show_buff, "Battery_V:%2d.%3d", battery_v/1000, battery_v%1000);
-			OLED_ShowString(0, 48, show_buff);
-			
-			adc_ok_flag = 0;
-		}
-		
-		
+
+        if(adc_ok_flag == 1)
+        {
+            battery_adc = get_average_uint(adc_val, 30);
+            battery_v = battery_adc * 3300 * 11 / 4096;
+            sprintf((char*)show_buff, "Battery_V:%2d.%3d", battery_v / 1000, battery_v % 1000);
+            OLED_ShowString(0, 48, show_buff);
+
+            adc_ok_flag = 0;
+        }
+
+
         sprintf((char*)show_buff, "PITCH:%03.2f", gMpu.balance_angle);
         OLED_ShowString(0, 12, show_buff);
         sprintf((char*)show_buff, "V_L:%-3d", gMotor_l.speed_get);

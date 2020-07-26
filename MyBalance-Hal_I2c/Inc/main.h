@@ -56,8 +56,6 @@ extern ADC_HandleTypeDef hadc1;
 
 #include "mpu6050.h"
 #include "myiic.h"
-#include "inv_mpu_dmp_motion_driver.h"
-#include "inv_mpu.h"
 #include "dmpmap.h"
 #include "dmpKey.h"
 #include "filter.h"

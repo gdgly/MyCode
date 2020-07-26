@@ -207,8 +207,8 @@ void ADC1_2_IRQHandler(void)
 {
   /* USER CODE BEGIN ADC1_2_IRQn 0 */
 	extern uint8_t adc_ok_flag;
-	extern uint32_t adc_cnt;
 	extern uint32_t adc_val[30];
+	extern uint32_t adc_cnt;
 	
 	if(adc_ok_flag == 0)
 	{
@@ -219,7 +219,6 @@ void ADC1_2_IRQHandler(void)
 			adc_ok_flag = 1;
 		}
 	}
-	
   /* USER CODE END ADC1_2_IRQn 0 */
   HAL_ADC_IRQHandler(&hadc1);
   /* USER CODE BEGIN ADC1_2_IRQn 1 */
