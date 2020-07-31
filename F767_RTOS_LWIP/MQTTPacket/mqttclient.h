@@ -39,21 +39,31 @@ typedef struct
 #define     HOST_PORT     1883      //由于是TCP连接，端口必须是1883
 #endif
 
-#define DEVICE_NAME     F767_LWIP
-#define PRODUCT_KEY     a1uyBz1glUb
-#define USER_CLIENT_ID  123456
+#define DEVICE_NAME     "F767_LWIP"
+#define PRODUCT_KEY     "a1uyBz1glUb"
+#define USER_CLIENT_ID  "123456"
 
 
 #define     CLIENT_ID     "123456|securemode=3,signmethod=hmacsha1|"       //
-#define     USER_NAME     "F767_LWIP&a1uyBz1glUb"                         //用户名
+#define     USER_NAME     "F767_LWIP&a1uyBz1glUb"                         //用户
 #define     PASSWORD      "53427208084CCBCF7213B7BF02E6AC101DF97CC5"      //秘钥
 
-#define     TOPIC0         "/a1uyBz1glUb/F767_LWIP/user/FYF_TEST"      //订阅的主题
-#define     TOPIC1         "/sys/a1uyBz1glUb/F767_LWIP/thing/service/property/set"
-#define     TOPIC2         "/sys/a1uyBz1glUb/F767_LWIP/thing/service/property/set"
-#define     TOPIC3         "/sys/a1uyBz1glUb/F767_LWIP/thing/service/property/set"
+#define     TOPIC0         "/a1uyBz1glUb/" DEVICE_NAME "/user/FYF_TEST"      //订阅的主题
+#define     TOPIC1         "/sys/a1uyBz1glUb/" DEVICE_NAME "/thing/service/property/set"
+#define     TOPIC2         "/sys/a1uyBz1glUb/" DEVICE_NAME "/thing/event/property/post_reply"
 
 
+//*****收到订阅的消息！******
+//MQTT>>消息质量：QoS0
+//MQTT>>消息主题：/sys/a1uyBz1glUb/F767_LWIP/thing/service/property/
+//MQTT>>消息类容：{"method":"thing.service.property.set","id":"765854702","params":{"LightLuminance":100},"version":"1.0.0"}
+
+
+//*****收到订阅的消息！******
+//MQTT>>消息质量：QoS0
+//MQTT>>消息主题：/a1uyBz1glUb/F767_LWIP/user/FYF_TEST
+//MQTT>>消息类容：123
+//MQTT>>消息长度：3
 
 
 enum QoS

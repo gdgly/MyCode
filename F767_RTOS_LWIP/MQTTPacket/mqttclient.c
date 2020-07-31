@@ -529,6 +529,7 @@ MQTT_START:
     //订阅消息
     PRINT_DEBUG("3.开始订阅消息...\r\n");
     //订阅消息
+    
     if(MQTTSubscribe(mqtt_socket, (char *)TOPIC0, QOS1) < 0)
     {
         //重连服务器
@@ -538,6 +539,15 @@ MQTT_START:
         goto MQTT_START;
     }
     if(MQTTSubscribe(mqtt_socket, (char *)TOPIC1, QOS1) < 0)
+    {
+        //重连服务器
+        PRINT_DEBUG("客户端订阅消息失败...\r\n");
+        //关闭链接
+        transport_close();
+        goto MQTT_START;
+    }
+    
+    if(MQTTSubscribe(mqtt_socket, (char *)TOPIC2, QOS1) < 0)
     {
         //重连服务器
         PRINT_DEBUG("客户端订阅消息失败...\r\n");

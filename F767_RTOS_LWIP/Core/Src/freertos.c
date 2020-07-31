@@ -258,12 +258,11 @@ void task_test_c_entry(void *argument)
         test.humidity += 0.1;
         test.temperature += 0.1;
 
-        //xQueueReceive( MQTT_Data_Queue, &recv_data, 1000);
         xQueueSend(MQTT_Data_Queue, &test, 0);
 
         task_cnt++;
         printf("%s %04X\r\n", __func__, task_cnt);
-        osDelay(3000);
+        osDelay(10000);
     }
 }
 /* USER CODE END Application */
