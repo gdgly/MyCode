@@ -288,7 +288,7 @@ void task_main(void const * argument)
             gMotor_l.pwm_cnt = 0;
 
             //平衡环
-            balance_ctrl(gMpu.balance_angle, (gMpu.gyro.x/4));
+            balance_ctrl(gMpu.balance_angle, (gMpu.gyro.x/16));
 
 //            //速度环
 //            speed_ctrl();

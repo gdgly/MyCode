@@ -2,6 +2,8 @@
 #include "transport.h"
 #include "MQTTPacket.h"
 
+#include "main.h"
+
 #include "FreeRTOS.h"
 #include "task.h"
 #include "queue.h"
@@ -21,7 +23,7 @@
 /*
  * 当我们在写应用程序的时候，可能需要用到一些全局变量。
  */
-QueueHandle_t MQTT_Data_Queue;
+extern QueueHandle_t MQTT_Data_Queue;
 
 
 //定义用户消息结构体
@@ -62,17 +64,17 @@ uint8_t MQTT_Connect(void)
         unsigned char sessionPresent, connack_rc;
         if (MQTTDeserialize_connack(&sessionPresent, &connack_rc, buf, buflen) != 1 || connack_rc != 0)
         {
-            PRINT_DEBUG("无法连接，错误代码是: %d！\n", connack_rc);
+            PRINT_DEBUG("无法连接，错误代码是: %d！\r\n", connack_rc);
             return Connect_NOK;
         }
         else
         {
-            PRINT_DEBUG("用户名与秘钥验证成功，MQTT连接成功！\n");
+            PRINT_DEBUG("用户名与秘钥验证成功，MQTT连接成功！\r\n");
             return Connect_OK;
         }
     }
     else
-        PRINT_DEBUG("MQTT连接无响应！\n");
+        PRINT_DEBUG("MQTT连接无响应！\r\n");
     return Connect_NOTACK;
 }
 
@@ -189,27 +191,28 @@ int32_t MQTTSubscribe(int32_t sock, char *topic, enum QoS pos)
 void UserMsgCtl(MQTT_USER_MSG  *msg)
 {
     //这里处理数据只是打印，用户可以在这里添加自己的处理方式
-    PRINT_DEBUG("*****收到订阅的消息！******\n");
+    PRINT_DEBUG("*****收到订阅的消息！******\r\n");
     //返回后处理消息
     switch(msg->msgqos)
     {
     case 0:
-        PRINT_DEBUG("MQTT>>消息质量：QoS0\n");
+        PRINT_DEBUG("MQTT>>消息质量：QoS0\r\n");
         break;
     case 1:
-        PRINT_DEBUG("MQTT>>消息质量：QoS1\n");
+        PRINT_DEBUG("MQTT>>消息质量：QoS1\r\n");
         break;
     case 2:
-        PRINT_DEBUG("MQTT>>消息质量：QoS2\n");
+        PRINT_DEBUG("MQTT>>消息质量：QoS2\r\n");
         break;
     default:
-        PRINT_DEBUG("MQTT>>错误的消息质量\n");
+        PRINT_DEBUG("MQTT>>错误的消息质量\r\n");
         break;
     }
-    PRINT_DEBUG("MQTT>>消息主题：%s\n", msg->topic);
-    PRINT_DEBUG("MQTT>>消息类容：%s\n", msg->msg);
-    PRINT_DEBUG("MQTT>>消息长度：%d\n", msg->msglenth);
-    Proscess(msg->msg);
+    PRINT_DEBUG("MQTT>>消息主题：%s\r\n", msg->topic);
+    PRINT_DEBUG("MQTT>>消息类容：%s\r\n", msg->msg);
+    PRINT_DEBUG("MQTT>>消息长度：%d\r\n", msg->msglenth);
+
+    //Proscess(msg->msg);
     //处理完后销毁数据
     msg->valid  = 0;
 }
@@ -488,15 +491,15 @@ void Client_Connect(void)
     ip4_addr_t dns_ip;
     netconn_gethostbyname(HOST_NAME, &dns_ip);
     host_ip = ip_ntoa(&dns_ip);
-    PRINT_DEBUG("host name : %s , host_ip : %s\n", HOST_NAME, host_ip);
+    PRINT_DEBUG("host name : %s , host_ip : %s\r\n", HOST_NAME, host_ip);
 #else
     host_ip = HOST_NAME;
 #endif
 MQTT_START:
 
     //创建网络连接
-    PRINT_DEBUG("1.开始连接对应云平台的服务器...\n");
-    PRINT_DEBUG("服务器IP地址：%s，端口号：%0d！\n", host_ip, HOST_PORT);
+    PRINT_DEBUG("1.开始连接对应云平台的服务器...\r\n");
+    PRINT_DEBUG("服务器IP地址：%s，端口号：%0d！\r\n", host_ip, HOST_PORT);
     while(1)
     {
         //连接服务器
@@ -504,39 +507,47 @@ MQTT_START:
         //如果连接服务器成功
         if(mqtt_socket >= 0)
         {
-            PRINT_DEBUG("连接云平台服务器成功！\n");
+            PRINT_DEBUG("连接云平台服务器成功！\r\n");
             break;
         }
-        PRINT_DEBUG("连接云平台服务器失败，等待3秒再尝试重新连接！\n");
+        PRINT_DEBUG("连接云平台服务器失败，等待3秒再尝试重新连接！\r\n");
         //等待3秒
         vTaskDelay(3000);
     }
 
-    PRINT_DEBUG("2.MQTT用户名与秘钥验证登陆...\n");
+    PRINT_DEBUG("2.MQTT用户名与秘钥验证登陆...\r\n");
     //MQTT用户名与秘钥验证登陆
     if(MQTT_Connect() != Connect_OK)
     {
         //重连服务器
-        PRINT_DEBUG("MQTT用户名与秘钥验证登陆失败...\n");
+        PRINT_DEBUG("MQTT用户名与秘钥验证登陆失败...\r\n");
         //关闭链接
         transport_close();
         goto MQTT_START;
     }
 
     //订阅消息
-    PRINT_DEBUG("3.开始订阅消息...\n");
+    PRINT_DEBUG("3.开始订阅消息...\r\n");
     //订阅消息
-    if(MQTTSubscribe(mqtt_socket, (char *)TOPIC, QOS1) < 0)
+    if(MQTTSubscribe(mqtt_socket, (char *)TOPIC0, QOS1) < 0)
     {
         //重连服务器
-        PRINT_DEBUG("客户端订阅消息失败...\n");
+        PRINT_DEBUG("客户端订阅消息失败...\r\n");
+        //关闭链接
+        transport_close();
+        goto MQTT_START;
+    }
+    if(MQTTSubscribe(mqtt_socket, (char *)TOPIC1, QOS1) < 0)
+    {
+        //重连服务器
+        PRINT_DEBUG("客户端订阅消息失败...\r\n");
         //关闭链接
         transport_close();
         goto MQTT_START;
     }
 
     //无限循环
-    PRINT_DEBUG("4.开始循环接收订阅的消息...\n");
+    PRINT_DEBUG("4.开始循环接收订阅的消息...\r\n");
 
 }
 
@@ -613,12 +624,12 @@ MQTT_START:
             if(MQTT_PingReq(mqtt_socket) < 0)
             {
                 //重连服务器
-                PRINT_DEBUG("发送保持活性ping失败....\n");
+                PRINT_DEBUG("发送保持活性ping失败....\r\n");
                 goto CLOSE;
             }
 
             //心跳成功
-            PRINT_DEBUG("发送保持活性ping作为心跳成功....\n");
+            PRINT_DEBUG("发送保持活性ping作为心跳成功....\r\n");
             //表明有数据交换
             no_mqtt_msg_exchange = 0;
         }
@@ -637,38 +648,41 @@ void mqtt_send_thread(void *pvParameters)
     uint8_t no_mqtt_msg_exchange = 1;
     uint32_t curtick;
     uint8_t res;
+    char * buff[512] = {0};
     /* 定义一个创建信息返回值，默认为pdTRUE */
     BaseType_t xReturn = pdTRUE;
-    /* 定义一个接收消息的变量 */
-//    uint32_t* r_data;
-    DHT11_Data_TypeDef* recv_data;
+
+    DHT11_Data_TypeDef recv_data;
     //初始化json数据
     cJSON* cJSON_Data = NULL;
     cJSON_Data = cJSON_Data_Init();
-    double a, b;
+    float temp;
+    float hum;
 MQTT_SEND_START:
 
     while(1)
     {
 
-        xReturn = xQueueReceive( MQTT_Data_Queue,    /* 消息队列的句柄 */
-                                 &recv_data,      /* 发送的消息内容 */
-                                 1000); /* 等待时间 3000ms */
-        if(xReturn != pdTRUE)
+        xReturn = xQueueReceive( MQTT_Data_Queue, &recv_data, 1000); /* 等待时间 3000ms */
+        //if(xReturn != pdTRUE)
+        if(xReturn > 0)
         {
-            a = recv_data->temperature;
-            b = recv_data->humidity;
-//        printf("a = %f,b = %f\n",a,b);
+            temp = recv_data.temperature;
+            hum = recv_data.humidity;
+            printf("temperature = %f\r\n,humidity = %f\r\n", temp, hum);
+            
+            sprintf((char *)buff, "temperature = %f\r\n,humidity = %f\r\n", temp, hum);
+            
             //更新数据
-            res = cJSON_Update(cJSON_Data, TEMP_NUM, &a);
-            res = cJSON_Update(cJSON_Data, HUM_NUM, &b);
+            res = cJSON_Update(cJSON_Data, TEMP_NUM, &temp);
+            res = cJSON_Update(cJSON_Data, HUM_NUM, &hum);
 
             if(UPDATE_SUCCESS == res)
             {
                 //更新数据成功，
                 char* p = cJSON_Print(cJSON_Data);
                 //发布消息
-                ret = MQTTMsgPublish(mqtt_socket, (char*)TOPIC, QOS0, (uint8_t*)p);
+                ret = MQTTMsgPublish(mqtt_socket, (char*)TOPIC0, QOS0, (uint8_t*)buff);
                 if(ret >= 0)
                 {
                     //表明有数据交换
@@ -680,7 +694,7 @@ MQTT_SEND_START:
                 p = NULL;
             }
             else
-                PRINT_DEBUG("update fail\n");
+                PRINT_DEBUG("update fail\r\n");
         }
         //这里主要目的是定时向服务器发送PING保活命令
         if((xTaskGetTickCount() - curtick) > (KEEPLIVE_TIME / 2 * 1000))
@@ -696,12 +710,12 @@ MQTT_SEND_START:
             if(MQTT_PingReq(mqtt_socket) < 0)
             {
                 //重连服务器
-                PRINT_DEBUG("发送保持活性ping失败....\n");
+                PRINT_DEBUG("发送保持活性ping失败....\r\n");
                 goto MQTT_SEND_CLOSE;
             }
 
             //心跳成功
-            PRINT_DEBUG("发送保持活性ping作为心跳成功....\n");
+            PRINT_DEBUG("发送保持活性ping作为心跳成功....\r\n");
             //表明有数据交换
             no_mqtt_msg_exchange = 0;
         }
@@ -716,7 +730,7 @@ MQTT_SEND_CLOSE:
 
 void mqtt_thread_init(void)
 {
-    sys_thread_new("mqtt_recv_thread", mqtt_recv_thread, NULL, 2048, 6);
-    sys_thread_new("mqtt_send_thread", mqtt_send_thread, NULL, 2048, 7);
+    sys_thread_new("mqtt_recv_thread", mqtt_recv_thread, NULL, 4096, 6);
+    sys_thread_new("mqtt_send_thread", mqtt_send_thread, NULL, 4096, 7);
 }
 

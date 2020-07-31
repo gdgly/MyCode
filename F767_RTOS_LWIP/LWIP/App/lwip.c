@@ -61,19 +61,19 @@ void local_ip_init(ip4_addr_t *ipaddr, ip4_addr_t *netmask, ip4_addr_t *gw)
 	uint8_t local_mask[4];
 	uint8_t local_gw[4];
 	
-	local_ip[0] = 192;
-	local_ip[1] = 168;
-	local_ip[2] = 31;
-	local_ip[3] = 99;
+	local_ip[0] = 10;
+	local_ip[1] = 10;
+	local_ip[2] = 34;
+	local_ip[3] = 181;
 
 	local_mask[0] = 255;
 	local_mask[1] = 255;
 	local_mask[2] = 255;
 	local_mask[3] = 0;
 
-	local_gw[0] = 192;
-	local_gw[1] = 168;
-	local_gw[2] = 31;
+	local_gw[0] = 10;
+	local_gw[1] = 10;
+	local_gw[2] = 34;
 	local_gw[3] = 1;
 	
 
