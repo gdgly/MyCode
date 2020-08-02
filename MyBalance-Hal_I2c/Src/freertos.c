@@ -54,7 +54,12 @@ osThreadId TaskLcdHandle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
+uint32_t task_main_cnt = 0;
 
+uint8_t key_cnt = 0;
+uint8_t key_flag = 0;
+	
+	
 /* USER CODE END FunctionPrototypes */
 
 void StartDefaultTask(void const * argument);
@@ -244,10 +249,6 @@ void StartDefaultTask(void const * argument)
 * @retval None
 */
 /* USER CODE END Header_task_main */
-
-
-uint32_t task_main_cnt = 0;
-int test_pwm_cnt = 0;
 void task_main(void const * argument)
 {
   /* USER CODE BEGIN task_main */
@@ -255,14 +256,30 @@ void task_main(void const * argument)
     short Gyro_Y;
     short Gyro_Z;
 
-    static uint32_t start_cnt = 0;
-    static int pwm_offset = 500;	//电机死区
+    int pwm_offset = 420;	//电机死区
+
     /* Infinite loop */
     for(;;)
     {
 
         task_main_cnt++;
-        start_cnt++;
+		
+		if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_5) == 0)
+		{
+			key_cnt++;
+			if(key_cnt == 10)
+			{
+				key_flag = !key_flag;
+				
+				 moto_set_pwm_cnt(LEFT, 0);
+				 moto_set_pwm_cnt(RIGHT, 0);
+			}
+		}
+		else
+		{
+			key_cnt = 0;
+		}
+		
         if(task_main_cnt % 2 == 0)
         {
             moto_get_speed(LEFT);
@@ -282,7 +299,7 @@ void task_main(void const * argument)
 
 
             //获得倾角
-            get_angle(2);
+            get_angle(3);
             //PWM清零
             gMotor_r.pwm_cnt = 0;
             gMotor_l.pwm_cnt = 0;
@@ -290,13 +307,11 @@ void task_main(void const * argument)
             //平衡环
             balance_ctrl(gMpu.balance_angle, (gMpu.gyro.x/16));
 
-//            //速度环
-//            speed_ctrl();
+            //速度环
+            speed_ctrl();
 
             //确定转动方向
 			
-//			gMotor_r.pwm_cnt = test_pwm_cnt;
-//			gMotor_l.pwm_cnt = test_pwm_cnt;
 			
             if(gMotor_r.pwm_cnt > 0)
             {
@@ -364,9 +379,8 @@ void task_main(void const * argument)
             }
 
             //刚开机数据不稳，不刷新PWM数据
-            if(start_cnt >= 500)
+            if(key_flag == 1)
             {
-                start_cnt = 500;
                 if(gMotor_l.pwm_old_cnt != gMotor_l.pwm_cnt)
                 {
                     gMotor_l.pwm_old_cnt = gMotor_l.pwm_cnt;
@@ -382,7 +396,7 @@ void task_main(void const * argument)
         }
 
 
-        osDelay(10);
+        osDelay(9);
     }
   /* USER CODE END task_main */
 }

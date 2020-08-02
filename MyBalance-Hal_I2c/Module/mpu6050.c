@@ -18,7 +18,7 @@ uint8_t MPU_Init(void)
     mpu_write_byte(MPU_PWR_MGMT1_REG, 0X00);	//唤醒MPU6050
     mpu_set_acc_gyro_fsr(3);					//陀螺仪传感器,±2000dps
     mpu_set_acc_fsr(0);					//加速度传感器,±2g
-    mpu_set_rate(50);						//设置采样率50Hz
+    mpu_set_rate(200);						//设置采样率50Hz
     mpu_write_byte(MPU_INT_EN_REG, 0X00);	//关闭所有中断
     mpu_write_byte(MPU_USER_CTRL_REG, 0X00);	//I2C主模式关闭
     mpu_write_byte(MPU_FIFO_EN_REG, 0X00);	//关闭FIFO

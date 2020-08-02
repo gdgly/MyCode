@@ -120,9 +120,9 @@ int main(void)
     moto_dir_ctrl(1, 1);
 
 
-    pid_init(&pid_l, -80, -0.4, 0, 10000);
-    pid_init(&pid_r, -80, -0.4, 0, 10000);
-    pid_init(&pid_balance, 800, 0, 4.0, 0);
+    pid_init(&pid_l, -40, -0.4, 0, 10000);
+    pid_init(&pid_r, -40, -0.4, 0, 10000);
+    pid_init(&pid_balance, 720 *0.6, 0, 550*0.6, 0);
 
 	
 
