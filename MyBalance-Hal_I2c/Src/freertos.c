@@ -344,7 +344,7 @@ void task_main(void const * argument)
             }
 
             //消除电机左右摩擦力不同
-            gMotor_l.pwm_cnt = 1.2 * gMotor_r.pwm_cnt;
+            //gMotor_l.pwm_cnt = 1.05 * gMotor_r.pwm_cnt;
 
 
             //PWM限幅

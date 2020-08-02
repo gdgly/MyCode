@@ -122,7 +122,7 @@ int main(void)
 
     pid_init(&pid_l, -40, -0.4, 0, 10000);
     pid_init(&pid_r, -40, -0.4, 0, 10000);
-    pid_init(&pid_balance, 720 *0.6, 0, 550*0.6, 0);
+    pid_init(&pid_balance, 750 *0.6, 0, 550*0.6, 0);
 
 	
 
