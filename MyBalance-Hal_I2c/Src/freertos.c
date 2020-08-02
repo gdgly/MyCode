@@ -438,9 +438,9 @@ void task_lcd(void const * argument)
 
         sprintf((char*)show_buff, "PITCH:%03.2f", gMpu.balance_angle);
         OLED_ShowString(0, 12, show_buff);
-        sprintf((char*)show_buff, "V_L:%-3d", gMotor_l.speed_get);
+        sprintf((char*)show_buff, "V_L:%-3d ", gMotor_l.speed_get);
         OLED_ShowString(0, 24, show_buff);
-        sprintf((char*)show_buff, "V_R:%-3d", gMotor_r.speed_get);
+        sprintf((char*)show_buff, "V_R:%-3d ", gMotor_r.speed_get);
         OLED_ShowString(64, 24, show_buff);
 
         usage = osGetCPUUsage();
@@ -449,7 +449,7 @@ void task_lcd(void const * argument)
 
         OLED_Refresh_Gram();
         i++;
-        if(i >= 10)
+        if(i >= 2)
         {
             i = 0;
             HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_4);
