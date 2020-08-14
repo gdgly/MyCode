@@ -209,10 +209,10 @@ void UserMsgCtl(MQTT_USER_MSG  *msg)
         break;
     }
     PRINT_DEBUG("MQTT>>消息主题：%s\r\n", msg->topic);
-    PRINT_DEBUG("MQTT>>消息类容：%s\r\n", msg->msg);
+    PRINT_DEBUG("MQTT>>消息内容：%s\r\n", msg->msg);
     PRINT_DEBUG("MQTT>>消息长度：%d\r\n", msg->msglenth);
 
-    //Proscess(msg->msg);
+    Proscess(msg->msg);
     //处理完后销毁数据
     msg->valid  = 0;
 }
@@ -658,7 +658,7 @@ void mqtt_send_thread(void *pvParameters)
     uint8_t no_mqtt_msg_exchange = 1;
     uint32_t curtick;
     uint8_t res;
-    char * buff[512] = {0};
+    char buff[512] = {0};
     /* 定义一个创建信息返回值，默认为pdTRUE */
     BaseType_t xReturn = pdTRUE;
 
@@ -666,8 +666,8 @@ void mqtt_send_thread(void *pvParameters)
     //初始化json数据
     cJSON* cJSON_Data = NULL;
     cJSON_Data = cJSON_Data_Init();
-    float temp;
-    float hum;
+    double temp;
+    double hum;
 MQTT_SEND_START:
 
     while(1)
@@ -681,7 +681,7 @@ MQTT_SEND_START:
             hum = recv_data.humidity;
             printf("temperature = %f\r\n,humidity = %f\r\n", temp, hum);
             
-            sprintf((char *)buff, "temperature = %f\r\n,humidity = %f\r\n", temp, hum);
+            sprintf(buff, "temperature = %f\r\n,humidity = %f\r\n", temp, hum);
             
             //更新数据
             res = cJSON_Update(cJSON_Data, TEMP_NUM, &temp);
@@ -690,9 +690,10 @@ MQTT_SEND_START:
             if(UPDATE_SUCCESS == res)
             {
                 //更新数据成功，
-                char* p = cJSON_Print(cJSON_Data);
+                char * p = cJSON_Print(cJSON_Data);
                 //发布消息
-                ret = MQTTMsgPublish(mqtt_socket, (char*)TOPIC0, QOS0, (uint8_t*)buff);
+                //ret = MQTTMsgPublish(mqtt_socket, (char*)TOPIC0, QOS0, (uint8_t*)buff);
+                ret = MQTTMsgPublish(mqtt_socket, (char*)TOPIC0, QOS0, (uint8_t*)p);
                 if(ret >= 0)
                 {
                     //表明有数据交换

@@ -39,24 +39,18 @@ uint8_t cJSON_Update(const cJSON * const object, const char * const string, void
     if(cJSON_IsBool(node))
     {
         int *b = (int*)d;
-//    printf ("d = %d",*b);
         cJSON_GetObjectItem(object, string)->type = *b ? cJSON_True : cJSON_False;
-//    char* p = cJSON_Print(object);    /*p 指向的字符串是json格式的*/
         return 1;
     }
     else if(cJSON_IsString(node))
     {
         cJSON_GetObjectItem(object, string)->valuestring = (char*)d;
-//    char* p = cJSON_Print(object);    /*p 指向的字符串是json格式的*/
         return 1;
     }
     else if(cJSON_IsNumber(node))
     {
         double *num = (double*)d;
-//    printf ("num = %f",*num);
-//    cJSON_GetObjectItem(object,string)->valueint = (double)*num;
         cJSON_GetObjectItem(object, string)->valuedouble = (double) * num;
-//    char* p = cJSON_Print(object);    /*p 指向的字符串是json格式的*/
         return 1;
     }
     else
@@ -68,7 +62,7 @@ void Proscess(void* data)
     PRINT_DEBUG("开始解析JSON数据");
     cJSON *root, *json_name, *json_temp_num, *json_hum_num;
     root = cJSON_Parse((char*)data); //解析成json形式
-
+    //LightLuminance
     json_name = cJSON_GetObjectItem( root , NAME);  //获取键值内容
     json_temp_num = cJSON_GetObjectItem( root , TEMP_NUM );
     json_hum_num = cJSON_GetObjectItem( root , HUM_NUM );

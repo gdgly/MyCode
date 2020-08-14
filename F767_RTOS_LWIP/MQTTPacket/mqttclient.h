@@ -12,8 +12,8 @@ typedef struct
 //    uint8_t  temp_high8bit;     //原始数据：温度高8位
 //    uint8_t  temp_low8bit;      //原始数据：温度高8位
 //    uint8_t  check_sum;         //校验和
-    float    humidity;         //实际湿度
-    float    temperature;      //实际温度
+    double    humidity;         //实际湿度
+    double    temperature;      //实际温度
 
 } DHT11_Data_TypeDef;
 
@@ -56,13 +56,13 @@ typedef struct
 //*****收到订阅的消息！******
 //MQTT>>消息质量：QoS0
 //MQTT>>消息主题：/sys/a1uyBz1glUb/F767_LWIP/thing/service/property/
-//MQTT>>消息类容：{"method":"thing.service.property.set","id":"765854702","params":{"LightLuminance":100},"version":"1.0.0"}
+//MQTT>>消息内容：{"method":"thing.service.property.set","id":"765854702","params":{"LightLuminance":100},"version":"1.0.0"}
 
 
 //*****收到订阅的消息！******
 //MQTT>>消息质量：QoS0
 //MQTT>>消息主题：/a1uyBz1glUb/F767_LWIP/user/FYF_TEST
-//MQTT>>消息类容：123
+//MQTT>>消息内容：123
 //MQTT>>消息长度：3
 
 
