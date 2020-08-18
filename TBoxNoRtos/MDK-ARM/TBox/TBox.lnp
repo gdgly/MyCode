@@ -1,4 +1,4 @@
---cpu=Cortex-M4.fp
+--cpu=Cortex-M4.fp.sp
 "tbox\startup_stm32f413xx.o"
 "tbox\main.o"
 "tbox\gpio.o"
@@ -10,6 +10,9 @@
 "tbox\usart.o"
 "tbox\stm32f4xx_it.o"
 "tbox\stm32f4xx_hal_msp.o"
+"tbox\stm32f4xx_ll_rcc.o"
+"tbox\stm32f4xx_ll_utils.o"
+"tbox\stm32f4xx_ll_exti.o"
 "tbox\stm32f4xx_hal_adc.o"
 "tbox\stm32f4xx_hal_adc_ex.o"
 "tbox\stm32f4xx_hal_rcc.o"
@@ -35,10 +38,6 @@
 "tbox\stm32f4xx_hal_tim_ex.o"
 "tbox\stm32f4xx_hal_uart.o"
 "tbox\system_stm32f4xx.o"
-"tbox\app_lowpower.o"
-"tbox\bsp_can.o"
-"tbox\kfifo.o"
-"tbox\tool.o"
 --library_type=microlib --strict --scatter "TBox\TBox.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

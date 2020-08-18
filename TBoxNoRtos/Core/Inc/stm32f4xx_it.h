@@ -47,6 +47,15 @@
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
+void NMI_Handler(void);
+void HardFault_Handler(void);
+void MemManage_Handler(void);
+void BusFault_Handler(void);
+void UsageFault_Handler(void);
+void SVC_Handler(void);
+void DebugMon_Handler(void);
+void PendSV_Handler(void);
+void SysTick_Handler(void);
 void RTC_WKUP_IRQHandler(void);
 void EXTI1_IRQHandler(void);
 void ADC_IRQHandler(void);
@@ -61,8 +70,6 @@ void SDIO_IRQHandler(void);
 void CAN2_RX0_IRQHandler(void);
 void CAN2_RX1_IRQHandler(void);
 void USART6_IRQHandler(void);
-void CAN3_RX0_IRQHandler(void);
-void CAN3_RX1_IRQHandler(void);
 /* USER CODE BEGIN EFP */
 
 /* USER CODE END EFP */

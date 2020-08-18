@@ -8,7 +8,7 @@
 #define debug_info(fmt,...) printf("%s [%d] -<%s>:\n"fmt,__FILE__,__LINE__,__FUNCTION__,##__VA_ARGS__);
 
 
-//´óĞ¡¶ËÅĞ¶Ï 
+//å¤§å°ç«¯åˆ¤æ–­ 
 void is_little_big(void)
 {
 	unsigned int num = 0xaabbccdd;
@@ -33,7 +33,7 @@ int src[2][4] = {{0, 1, 2, 3},{4, 5, 6, 7},};
 int dest[4][2] = {0};
 
 
-//¾ØÕó×ª»» 
+//çŸ©é˜µè½¬æ¢ 
 void convert(int (*src)[2][4], int (*dest)[4][2], int line, int row)
 {
 
@@ -56,7 +56,7 @@ void convert(int (*src)[2][4], int (*dest)[4][2], int line, int row)
 
 }
 
-//´òÓ¡ÁâĞÎ 
+//æ‰“å°è±å½¢ 
 int printf_lx(unsigned int line)
 {
 	if(line%2 == 0)
@@ -136,7 +136,7 @@ void print_buff(int * buff, int len)
 int wait_sort1[BUFF_NUM] = {0};
 int wait_sort2[BUFF_NUM] = {0};
 int wait_sort3[BUFF_NUM] = {0};
-//Ã°ÅİÅÅĞò 
+//å†’æ³¡æ’åº 
 void sort_up(int * buff, int len)
 {
 	int i=0;
@@ -155,7 +155,7 @@ void sort_up(int * buff, int len)
 		}
 	}
 }
-//Ñ¡ÔñÅÅĞò 
+//é€‰æ‹©æ’åº 
 void sort_select(int * buff, int len)
 {
 	int i=0;
@@ -184,42 +184,42 @@ void sort_select(int * buff, int len)
 
 int getIndex(int* arr, int low, int high)
 {
-	// »ù×¼Êı¾İ
+	// åŸºå‡†æ•°æ®
 	int tmp = arr[low];
 	while (low < high)
 	{
-		// µ±¶ÓÎ²µÄÔªËØ´óÓÚµÈÓÚ»ù×¼Êı¾İÊ±,ÏòÇ°Å²¶¯highÖ¸Õë
+		// å½“é˜Ÿå°¾çš„å…ƒç´ å¤§äºç­‰äºåŸºå‡†æ•°æ®æ—¶,å‘å‰æŒªåŠ¨highæŒ‡é’ˆ
 		while (low < high && arr[high] >= tmp)
 		{
 			high--;
 		}
-		// Èç¹û¶ÓÎ²ÔªËØĞ¡ÓÚtmpÁË,ĞèÒª½«Æä¸³Öµ¸ølow
+		// å¦‚æœé˜Ÿå°¾å…ƒç´ å°äºtmpäº†,éœ€è¦å°†å…¶èµ‹å€¼ç»™low
 		arr[low] = arr[high];
-		// µ±¶ÓÊ×ÔªËØĞ¡ÓÚµÈÓÚtmpÊ±,ÏòÇ°Å²¶¯lowÖ¸Õë
+		// å½“é˜Ÿé¦–å…ƒç´ å°äºç­‰äºtmpæ—¶,å‘å‰æŒªåŠ¨lowæŒ‡é’ˆ
 		while (low < high && arr[low] <= tmp)
 		{
 			low++;
 		}
-		// µ±¶ÓÊ×ÔªËØ´óÓÚtmpÊ±,ĞèÒª½«Æä¸³Öµ¸øhigh
+		// å½“é˜Ÿé¦–å…ƒç´ å¤§äºtmpæ—¶,éœ€è¦å°†å…¶èµ‹å€¼ç»™high
 		arr[high] = arr[low];
 
 	}
-	// Ìø³öÑ­»·Ê±lowºÍhighÏàµÈ,´ËÊ±µÄlow»òhigh¾ÍÊÇtmpµÄÕıÈ·Ë÷ÒıÎ»ÖÃ
-	// ÓÉÔ­Àí²¿·Ö¿ÉÒÔºÜÇå³şµÄÖªµÀlowÎ»ÖÃµÄÖµ²¢²»ÊÇtmp,ËùÒÔĞèÒª½«tmp¸³Öµ¸øarr[low]
+	// è·³å‡ºå¾ªç¯æ—¶lowå’Œhighç›¸ç­‰,æ­¤æ—¶çš„lowæˆ–highå°±æ˜¯tmpçš„æ­£ç¡®ç´¢å¼•ä½ç½®
+	// ç”±åŸç†éƒ¨åˆ†å¯ä»¥å¾ˆæ¸…æ¥šçš„çŸ¥é“lowä½ç½®çš„å€¼å¹¶ä¸æ˜¯tmp,æ‰€ä»¥éœ€è¦å°†tmpèµ‹å€¼ç»™arr[low]
 	arr[low] = tmp;
-	return low; // ·µ»ØtmpµÄÕıÈ·Î»ÖÃ
+	return low; // è¿”å›tmpçš„æ­£ç¡®ä½ç½®
 }
 
-//¿ìËÙÅÅĞò 
+//å¿«é€Ÿæ’åº 
 void quickSort(int* arr, int low, int high)
 {
 	if (low < high)
 	{
-		// ÕÒÑ°»ù×¼Êı¾İµÄÕıÈ·Ë÷Òı
+		// æ‰¾å¯»åŸºå‡†æ•°æ®çš„æ­£ç¡®ç´¢å¼•
 		int index = getIndex(arr, low, high);
 
-		// ½øĞĞµü´ú¶ÔindexÖ®Ç°ºÍÖ®ºóµÄÊı×é½øĞĞÏàÍ¬µÄ²Ù×÷Ê¹Õû¸öÊı×é±ä³ÉÓĞĞò
-		//quickSort(arr, 0, index - 1); Ö®Ç°µÄ°æ±¾£¬ÕâÖÖ×ËÊÆÓĞºÜ´óµÄĞÔÄÜÎÊÌâ£¬Ğ»Ğ»´ó¼ÒµÄ½¨Òé
+		// è¿›è¡Œè¿­ä»£å¯¹indexä¹‹å‰å’Œä¹‹åçš„æ•°ç»„è¿›è¡Œç›¸åŒçš„æ“ä½œä½¿æ•´ä¸ªæ•°ç»„å˜æˆæœ‰åº
+		//quickSort(arr, 0, index - 1); ä¹‹å‰çš„ç‰ˆæœ¬ï¼Œè¿™ç§å§¿åŠ¿æœ‰å¾ˆå¤§çš„æ€§èƒ½é—®é¢˜ï¼Œè°¢è°¢å¤§å®¶çš„å»ºè®®
 		quickSort(arr, low, index - 1);
 		quickSort(arr, index + 1, high);
 	}
