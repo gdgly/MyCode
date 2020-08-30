@@ -35,7 +35,7 @@ CPU_STK TASK4_STK[TASK3_STK_SIZE];
 //***************************************************************
 OS_SEM	MY_SEM;		    //定义一个信号量，用于访问共享资源
 uint8_t key = 0;
-
+uint32_t task_cnt = 0;
 
 //****************************************************************
 //开始任务函数
@@ -179,13 +179,12 @@ void task3_entry(void *p_arg)
 void task4_entry(void *p_arg)
 {
 	OS_ERR err;
-    uint32_t task4_cnt = 0;
 	while(1)
     {
 		OSTaskSemPost(&Task3_TCB, OS_OPT_POST_FIFO, &err);
         
-        printf("\r\n%s %d\r\n", __func__, task4_cnt);
-        task4_cnt++;
+        printf("\r\n%s %d\r\n", __func__, task_cnt);
+        task_cnt++;
 		
 		OSTimeDlyHMSM(0,0,0,1000,OS_OPT_TIME_PERIODIC,&err);
 	}

@@ -2,7 +2,6 @@
 "bootloader_f767\startup_stm32f767xx.o"
 "bootloader_f767\main.o"
 "bootloader_f767\gpio.o"
-"bootloader_f767\dma.o"
 "bootloader_f767\usart.o"
 "bootloader_f767\stm32f7xx_it.o"
 "bootloader_f767\stm32f7xx_hal_msp.o"
@@ -25,6 +24,15 @@
 "bootloader_f767\stm32f7xx_hal_i2c_ex.o"
 "bootloader_f767\stm32f7xx_hal_exti.o"
 "bootloader_f767\system_stm32f7xx.o"
+"bootloader_f767\app_iap.o"
+"bootloader_f767\flash.o"
+"bootloader_f767\mcu_flash_f7.o"
+"bootloader_f767\nboot.o"
+"bootloader_f767\kfifo.o"
+"bootloader_f767\tool.o"
+"bootloader_f767\ninebot_parse.o"
+"bootloader_f767\ninetbot_send_frame.o"
+"bootloader_f767\uart_parse.o"
 --library_type=microlib --strict --scatter "BootLoader_F767\BootLoader_F767.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

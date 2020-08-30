@@ -13,7 +13,6 @@
 #define __NBOOT_H_
 
 #include <stdint.h>
-#include "nboot_config.h"
 #include "flash_utils.h"
 
 enum {
@@ -23,33 +22,18 @@ enum {
 
 #define IMAGE_DOWN_MAGIC            0xa5389ace
 
-//#if !defined(IMAGE_META_DATA_ADDR)
-//#define IMAGE_META_DATA_ADDR        0x08008000
-//#endif
+//#define RTT_ENABLE
+//#define NBOOT_DEBUG
 
-//#if !defined(IMAGE_META_DATA_MAX_SIZE)
-//#define IMAGE_META_DATA_MAX_SIZE    0x800
-//#endif
+#define IMAGE_META_DATA_ADDR        0x08004000
+#define IMAGE_META_DATA_MAX_SIZE    0x4000
+#define IMAGE_SLOT_A_START          0x08008000
+#define MAX_IMAGE_SIZE              ((16+16+64+128+128+128)*1024)//480K
 
-//#if !defined(IMAGE_SLOT_A_START)
-//#define IMAGE_SLOT_A_START          0x08010000
-//#endif
-
-//#if !defined(MAX_IMAGE_SIZE)
-//#define MAX_IMAGE_SIZE              ((64+128)*1024)
-//#endif
-
-#if !defined(IMAGE_SLOT_A_END)
 #define IMAGE_SLOT_A_END            (IMAGE_SLOT_A_START+MAX_IMAGE_SIZE-1)
-#endif
-
-#if !defined(IMAGE_SLOT_B_START)
 #define IMAGE_SLOT_B_START          (IMAGE_SLOT_A_END+1)
-#endif
-
-#if !defined(IMAGE_SLOT_B_END)
 #define IMAGE_SLOT_B_END            (IMAGE_SLOT_B_START+MAX_IMAGE_SIZE-1)
-#endif
+
 
 typedef struct {
     uint32_t start;

@@ -19,7 +19,6 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "dma.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -45,7 +44,23 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+#include "nboot.h"
+#include "flash.h"
+#include "app_iap.h"
+#include "uart_parse.h"
 
+Flash_Backend_Type flash_backend =
+{
+    .read = flash_read,
+    .write = flash_write,
+    .erase = flash_erase
+};
+
+const Temp_Flash_Context flash_ctx =
+{
+    .flash_start_addr = IMAGE_SLOT_B_START,
+    .backend = &flash_backend
+};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -87,10 +102,12 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_DMA_Init();
   MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
 
+    uart_receive_struct_init();
+    check_iap();
+    boot_app(&flash_ctx);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -151,7 +168,7 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_6) != HAL_OK)
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_7) != HAL_OK)
   {
     Error_Handler();
   }

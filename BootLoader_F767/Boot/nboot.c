@@ -54,14 +54,10 @@ static void system_jump_to(uint32_t ApplicationAddress)
     
     //hardware_deinit();
 	
-#ifdef IWDG_ENABLE
-    iwdg_refresh();
-#endif
 	
     disable_irq();
     JumpAddress = *(uint32_t *)(ApplicationAddress + 4);
     /* Initialize user application's Stack Pointer */
-    //__MSR_MSP(*(vuint32_t*) ApplicationAddress);
     __set_MSP(*(uint32_t *)ApplicationAddress);
 
     (*((void (*)(void))JumpAddress))();

@@ -18,7 +18,7 @@
           <Vendor>STMicroelectronics</Vendor>
           <PackID>STMicroelectronics.STM32F7xx_DFP.1.0.3</PackID>
           <PackURL>http://www.ST.com/</PackURL>
-          <Cpu>IRAM(0x20000000-0x2007FFFF) IROM(0x8000000-0x81FFFFF) CLOCK(12000000) FPU3(DFPU) CPUTYPE("Cortex-M7") ELITTLE</Cpu>
+          <Cpu>IRAM(0x20000000-0x2007FFFF) IROM(0x8000000-0x81FFFFF)  CLOCK(12000000) FPU3(DFPU) CPUTYPE("Cortex-M7") ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
           <StartupFile></StartupFile>
           <FlashDriverDll></FlashDriverDll>
@@ -312,7 +312,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>4</Optim>
+            <Optim>1</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F767xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32F7xx_HAL_Driver/Inc;../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F7xx/Include;../Drivers/CMSIS/Include</IncludePath>
+              <IncludePath>../Core/Inc;  ../Drivers/STM32F7xx_HAL_Driver/Inc;  ../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy;  ../Drivers/CMSIS/Device/ST/STM32F7xx/Include;  ../Drivers/CMSIS/Include;  ..\RTT;  ..\Tool;  ..\NbBus;  ..\FlashBsp;  ..\Boot</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -401,11 +401,6 @@
               <FileName>gpio.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Core/Src/gpio.c</FilePath>
-            </File>
-            <File>
-              <FileName>dma.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../Core/Src/dma.c</FilePath>
             </File>
             <File>
               <FileName>usart.c</FileName>
@@ -533,9 +528,59 @@
           <GroupName>Boot</GroupName>
           <Files>
             <File>
+              <FileName>app_iap.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Boot\app_iap.c</FilePath>
+            </File>
+            <File>
+              <FileName>flash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\FlashBsp\flash.c</FilePath>
+            </File>
+            <File>
+              <FileName>mcu_flash_f7.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\FlashBsp\mcu_flash_f7.c</FilePath>
+            </File>
+            <File>
               <FileName>nboot.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\nboot\nboot.c</FilePath>
+              <FilePath>..\Boot\nboot.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Tool</GroupName>
+          <Files>
+            <File>
+              <FileName>kfifo.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Tool\kfifo.c</FilePath>
+            </File>
+            <File>
+              <FileName>tool.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Tool\tool.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>NbBus</GroupName>
+          <Files>
+            <File>
+              <FileName>ninebot_parse.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\NbBus\ninebot_parse.c</FilePath>
+            </File>
+            <File>
+              <FileName>ninetbot_send_frame.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\NbBus\ninetbot_send_frame.c</FilePath>
+            </File>
+            <File>
+              <FileName>uart_parse.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\NbBus\uart_parse.c</FilePath>
             </File>
           </Files>
         </Group>

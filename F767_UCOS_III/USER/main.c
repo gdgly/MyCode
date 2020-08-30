@@ -19,6 +19,7 @@ int main(void)
     Cache_Enable();					//打开L1-Cache
     HAL_Init();						//初始化HAL库
     Stm32_Clock_Init(432, 16, 2, 9);	//设置时钟,216Mhz
+    __enable_irq();
     delay_init(216);				//延时初始化
     uart_init(115200);
     LED_Init();                     //初始化LED
