@@ -1051,11 +1051,11 @@ ARM Macro Assembler    Page 17
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M7.fp.dp --apcs=
 interwork --depend=..\obj\startup_stm32f767xx.d -o..\obj\startup_stm32f767xx.o 
--I.\RTE\_UCOSIII -IC:\Users\yufei.fan\AppData\Local\Arm\Packs\Keil\STM32F7xx_DF
-P\2.12.0\Drivers\CMSIS\Device\ST\STM32F7xx\Include -IC:\Keil_v5\ARM\CMSIS\Inclu
-de -IC:\Users\yufei.fan\AppData\Local\Arm\Packs\Keil\STM32F7xx_DFP\2.12.0 --pre
-define="__UVISION_VERSION SETA 527" --predefine="STM32F767xx SETA 1" --list=..\
-obj\startup_stm32f767xx.lst ..\CORE\startup_stm32f767xx.s
+-I.\RTE\_UCOSIII -I"D:\Program Files (x86)\KEIL\ARM\PACK\Keil\STM32F7xx_DFP\2.1
+1.0\Drivers\CMSIS\Device\ST\STM32F7xx\Include" -I"D:\Program Files (x86)\KEIL\A
+RM\CMSIS\Include" -I"D:\Program Files (x86)\KEIL\ARM\PACK\Keil\STM32F7xx_DFP\2.
+11.0" --predefine="__UVISION_VERSION SETA 529" --predefine="STM32F767xx SETA 1"
+ --list=..\obj\startup_stm32f767xx.lst ..\CORE\startup_stm32f767xx.s
 
 
 

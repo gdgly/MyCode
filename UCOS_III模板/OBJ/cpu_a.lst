@@ -459,12 +459,12 @@ Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M7.fp.dp --apcs=
 ARM Macro Assembler    Page 8 
 
 
-interwork --depend=..\obj\cpu_a.d -o..\obj\cpu_a.o -I.\RTE\_UCOSIII -IC:\Users\
-yufei.fan\AppData\Local\Arm\Packs\Keil\STM32F7xx_DFP\2.12.0\Drivers\CMSIS\Devic
-e\ST\STM32F7xx\Include -IC:\Keil_v5\ARM\CMSIS\Include -IC:\Users\yufei.fan\AppD
-ata\Local\Arm\Packs\Keil\STM32F7xx_DFP\2.12.0 --predefine="__UVISION_VERSION SE
-TA 527" --predefine="STM32F767xx SETA 1" --list=..\obj\cpu_a.lst ..\UCOSIII\uC-
-CPU\ARM-Cortex-M4\RealView\cpu_a.asm
+interwork --depend=..\obj\cpu_a.d -o..\obj\cpu_a.o -I.\RTE\_UCOSIII -I"D:\Progr
+am Files (x86)\KEIL\ARM\PACK\Keil\STM32F7xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\
+STM32F7xx\Include" -I"D:\Program Files (x86)\KEIL\ARM\CMSIS\Include" -I"D:\Prog
+ram Files (x86)\KEIL\ARM\PACK\Keil\STM32F7xx_DFP\2.11.0" --predefine="__UVISION
+_VERSION SETA 529" --predefine="STM32F767xx SETA 1" --list=..\obj\cpu_a.lst ..\
+UCOSIII\uC-CPU\ARM-Cortex-M4\RealView\cpu_a.asm
 
 
 

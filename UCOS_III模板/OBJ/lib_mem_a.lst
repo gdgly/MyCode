@@ -444,12 +444,12 @@ ARM Macro Assembler    Page 7
   310 00000220         
   311 00000220                 END
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M7.fp.dp --apcs=
-interwork --depend=..\obj\lib_mem_a.d -o..\obj\lib_mem_a.o -I.\RTE\_UCOSIII -IC
-:\Users\yufei.fan\AppData\Local\Arm\Packs\Keil\STM32F7xx_DFP\2.12.0\Drivers\CMS
-IS\Device\ST\STM32F7xx\Include -IC:\Keil_v5\ARM\CMSIS\Include -IC:\Users\yufei.
-fan\AppData\Local\Arm\Packs\Keil\STM32F7xx_DFP\2.12.0 --predefine="__UVISION_VE
-RSION SETA 527" --predefine="STM32F767xx SETA 1" --list=..\obj\lib_mem_a.lst ..
-\UCOSIII\uC-LIB\Ports\ARM-Cortex-M4\RealView\lib_mem_a.asm
+interwork --depend=..\obj\lib_mem_a.d -o..\obj\lib_mem_a.o -I.\RTE\_UCOSIII -I"
+D:\Program Files (x86)\KEIL\ARM\PACK\Keil\STM32F7xx_DFP\2.11.0\Drivers\CMSIS\De
+vice\ST\STM32F7xx\Include" -I"D:\Program Files (x86)\KEIL\ARM\CMSIS\Include" -I
+"D:\Program Files (x86)\KEIL\ARM\PACK\Keil\STM32F7xx_DFP\2.11.0" --predefine="_
+_UVISION_VERSION SETA 529" --predefine="STM32F767xx SETA 1" --list=..\obj\lib_m
+em_a.lst ..\UCOSIII\uC-LIB\Ports\ARM-Cortex-M4\RealView\lib_mem_a.asm
 
 
 

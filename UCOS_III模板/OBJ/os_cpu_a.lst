@@ -479,12 +479,12 @@ ARM Macro Assembler    Page 8
               00000000 
               E000ED04 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M7.fp.dp --apcs=
-interwork --depend=..\obj\os_cpu_a.d -o..\obj\os_cpu_a.o -I.\RTE\_UCOSIII -IC:\
-Users\yufei.fan\AppData\Local\Arm\Packs\Keil\STM32F7xx_DFP\2.12.0\Drivers\CMSIS
-\Device\ST\STM32F7xx\Include -IC:\Keil_v5\ARM\CMSIS\Include -IC:\Users\yufei.fa
-n\AppData\Local\Arm\Packs\Keil\STM32F7xx_DFP\2.12.0 --predefine="__UVISION_VERS
-ION SETA 527" --predefine="STM32F767xx SETA 1" --list=..\obj\os_cpu_a.lst ..\UC
-OSIII\uCOS-III\Ports\ARM-Cortex-M4\Generic\RealView\os_cpu_a.asm
+interwork --depend=..\obj\os_cpu_a.d -o..\obj\os_cpu_a.o -I.\RTE\_UCOSIII -I"D:
+\Program Files (x86)\KEIL\ARM\PACK\Keil\STM32F7xx_DFP\2.11.0\Drivers\CMSIS\Devi
+ce\ST\STM32F7xx\Include" -I"D:\Program Files (x86)\KEIL\ARM\CMSIS\Include" -I"D
+:\Program Files (x86)\KEIL\ARM\PACK\Keil\STM32F7xx_DFP\2.11.0" --predefine="__U
+VISION_VERSION SETA 529" --predefine="STM32F767xx SETA 1" --list=..\obj\os_cpu_
+a.lst ..\UCOSIII\uCOS-III\Ports\ARM-Cortex-M4\Generic\RealView\os_cpu_a.asm
 
 
 
