@@ -14,17 +14,27 @@
 
 int flash_read(uint32_t addr, uint8_t *buf, uint32_t size)
 {
-    return stm32_flash_read(addr, buf, size);
+    __disable_irq();
+    int ret = stm32_flash_read(addr, buf, size);
+    __enable_irq();
+    return ret;
 }
 
 int flash_write(uint32_t addr, const uint8_t *buf, uint32_t size)
 {
-    return stm32_flash_write(addr, buf, size);
+    __disable_irq();
+    int ret = stm32_flash_write(addr, buf, size);
+    __enable_irq();
+    return ret;
+    
 }
 
 int flash_erase(uint32_t addr, uint32_t size)
 {
-    return stm32_flash_erase(addr, size);
+    __disable_irq();
+    int ret = stm32_flash_erase(addr, size);
+    __enable_irq();
+    return ret;
 }
 
 

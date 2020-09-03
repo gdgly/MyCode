@@ -10,7 +10,7 @@ extern "C" {
 
 #if defined (STM32F767xx)
     #define NBOOT_FLASH_START_ADRESS    ((uint32_t)0x08000000)
-    #define NBOOT_FLASH_SIZE            (1024 * 1024)
+    #define NBOOT_FLASH_SIZE            (2 * 1024 * 1024)
     #define NBOOT_FLASH_END_ADDRESS     ((uint32_t)(NBOOT_FLASH_START_ADRESS + NBOOT_FLASH_SIZE))
 
     #define NBOOT_SRAM_SIZE             512

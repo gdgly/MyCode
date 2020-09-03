@@ -28,11 +28,12 @@
 
 #define BLE_ID			0x14	//BLE
 
+#define PRODUCE_ID      0x01
 
 //希望兼容哪项协议打开如下定义即可
-#define SUPPORT_ONE_BYTE
-//#define SUPPORT_TWO_BYTES
-
+#define SUPPORT_TO_OLD
+//#define SUPPORT_TO_TWO_BYTES_LENGTH
+//#define SUPPORT_TO_CRYPTO
 
 
 
@@ -42,13 +43,20 @@
 
 #define OLD_PROTOCOL_VERSION    0xA5
 #define NEW_PROTOCOL_VERSION    0xB5
+#define CRYPTO_PROTOCOL_VERSION 0xAC
+#define TRACKER_VERSION         0xB6
 
 
 #define USE_VERSION		OLD_PROTOCOL_VERSION
 
+//是否使能加密防重放功能
+//#define ENABLE_ANTI_REPLAY
 
+//应该转发的数据包是否解密
+//#define DECRYPTO_ALL_PACKAGE
 
 /**************************************************/
+
 
 
 

@@ -7,8 +7,8 @@
 
 #include "app_iap.h"
 
-NB_BUS_TYPE parse_uart_ble;
-NB_BUS_TYPE parse_uart_pc;
+PARSE_STRUCT parse_uart_ble;
+PARSE_STRUCT parse_uart_pc;
 
 volatile uint8_t ble_is_recv = 0;
 volatile uint8_t pc_is_recv = 0;
@@ -40,9 +40,9 @@ void parse_loop_ble(void)
     if(ble_is_recv != 0)
     {
 
-        if(parse_uart_ble.frame.TargetID == LOCAL_ID)
+        if(parse_uart_ble.frame_s.TargetID == LOCAL_ID)
         {
-            switch(parse_uart_ble.frame.Cmd)
+            switch(parse_uart_ble.frame_s.Cmd)
             {
             case CMD_CMAP_RD :
             case CMD_CMAP_WR :
@@ -68,10 +68,10 @@ void parse_loop_ble(void)
 
             }
         }
-        else if(parse_uart_ble.frame.TargetID == PC_ID)
+        else if(parse_uart_ble.frame_s.TargetID == PC_ID)
         {
 			
-            switch(parse_uart_ble.frame.Cmd)
+            switch(parse_uart_ble.frame_s.Cmd)
             {
             case CMD_CMAP_RD :
             case CMD_CMAP_WR :
@@ -96,9 +96,9 @@ void parse_loop_pc(void)
     if(pc_is_recv != 0)
     {
 
-        if(parse_uart_pc.frame.TargetID == LOCAL_ID)
+        if(parse_uart_pc.frame_s.TargetID == LOCAL_ID)
         {
-            switch(parse_uart_pc.frame.Cmd)
+            switch(parse_uart_pc.frame_s.Cmd)
             {
             case CMD_CMAP_RD :
             case CMD_CMAP_WR :
@@ -121,7 +121,7 @@ void parse_loop_pc(void)
                 break;
             }
         }
-        else if(parse_uart_pc.frame.TargetID == BLE_ID)
+        else if(parse_uart_pc.frame_s.TargetID == BLE_ID)
         {
         }
         pc_is_recv = 0;
@@ -157,7 +157,7 @@ void receive_uart_pc(uint8_t *receive_buffer, uint16_t receive_len)
 
 int uart_send_cmd(uint8_t source_id, uint8_t target_id, uint8_t cmd, uint16_t index)
 {
-    FRAME_TYPE frame_tmp;
+    FRAME_STRUCT frame_tmp;
     frame_tmp.Version = USE_VERSION;
     frame_tmp.FrameDataLen = 0;
     frame_tmp.SourceID = source_id;
@@ -185,7 +185,7 @@ int uart_send_cmd(uint8_t source_id, uint8_t target_id, uint8_t cmd, uint16_t in
 
 int uart_send_data(uint8_t source_id, uint8_t target_id, uint8_t cmd, uint16_t index, uint8_t * buff, uint16_t len)
 {
-    FRAME_TYPE frame_tmp;
+    FRAME_STRUCT frame_tmp;
     frame_tmp.Version = USE_VERSION;
     frame_tmp.FrameDataLen = 0;
     frame_tmp.SourceID = source_id;

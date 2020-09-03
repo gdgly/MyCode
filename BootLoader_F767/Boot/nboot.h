@@ -25,10 +25,10 @@ enum {
 //#define RTT_ENABLE
 //#define NBOOT_DEBUG
 
-#define IMAGE_META_DATA_ADDR        0x08004000
+#define IMAGE_META_DATA_ADDR        0x08008000
 #define IMAGE_META_DATA_MAX_SIZE    0x4000
-#define IMAGE_SLOT_A_START          0x08008000
-#define MAX_IMAGE_SIZE              ((16+16+64+128+128+128)*1024)//480K
+#define IMAGE_SLOT_A_START          0x08010000
+#define MAX_IMAGE_SIZE              ((32+32+128+256*3)*1024)//960k
 
 #define IMAGE_SLOT_A_END            (IMAGE_SLOT_A_START+MAX_IMAGE_SIZE-1)
 #define IMAGE_SLOT_B_START          (IMAGE_SLOT_A_END+1)

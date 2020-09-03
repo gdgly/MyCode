@@ -15,17 +15,19 @@ IAP_DATA_TYPE gIapFream = {0};
 
 extern const Temp_Flash_Context flash_ctx;
 
-uint32_t temp0 = 0;
-uint32_t temp1 = NBOOT_SRAM_END;
+uint32_t temp1 = 0;
+uint32_t temp2 = 0;
+uint32_t temp = NBOOT_SRAM_END;
 void check_iap(void)
 {
     uart_rx_init();
-    temp0 = *(uint32_t *)IMAGE_SLOT_A_START;
+    temp1 = *(uint32_t *)IMAGE_SLOT_A_START;
+    temp2 = *(uint32_t *)IMAGE_SLOT_B_START;
     if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13) == 1)
     {
         run_iap();
     }
-    else if (temp0 > temp1)
+    else if((temp1 > temp) && (temp2 > temp))
     {
         run_iap();
     }
@@ -34,7 +36,7 @@ void check_iap(void)
 
 
 uint32_t fifo_len;
-uint8_t data_buff[256];
+uint8_t data_buff[512];
 void run_iap(void)
 {
     gIapFream.iap_step = CMD_IAP_BEGIN;
@@ -46,10 +48,11 @@ void run_iap(void)
             receive_uart_pc(data_buff, fifo_len);
 
             memset(data_buff, 0, sizeof(data_buff));
+            
+            parse_loop_pc();
         }
 
-        HAL_Delay(1000);
-        parse_loop_pc();
+        
     }
 
 }
@@ -62,12 +65,13 @@ void iap_stat_reset(IAP_DATA_TYPE * iap)
 
 }
 
-void iap_rx_data(NB_BUS_TYPE * nbbus)
+
+void iap_rx_data(PARSE_STRUCT * nbbus)
 {
-    uint8_t cmd     = nbbus->frame.Cmd;
-    uint8_t * buff  = nbbus->frame.frame_data;
-    uint16_t index  = nbbus->frame.DataIndex;
-    uint16_t len    = nbbus->frame.FrameDataLen;
+    uint8_t cmd     = nbbus->frame_s.Cmd;
+    uint8_t * buff  = nbbus->frame_s.frame_data;
+    uint16_t index  = nbbus->frame_s.DataIndex;
+    uint16_t len    = nbbus->frame_s.FrameDataLen;
 
 
     switch(cmd)
@@ -76,11 +80,11 @@ void iap_rx_data(NB_BUS_TYPE * nbbus)
         if(index == 0)
         {
             memcpy(&gIapFream.file_size, buff, 4);
-            if((gIapFream.file_size < MAX_IMAGE_SIZE) && (gIapFream.file_size > 1024))
+            if((gIapFream.file_size < MAX_IMAGE_SIZE))
             {
-                iap_send_cmd(CMD_IAP_ACK, IAP_OK);
                 flash_ctx.backend->erase(IMAGE_SLOT_B_START, MAX_IMAGE_SIZE);
                 gIapFream.iap_step = CMD_IAP_TRANS;
+                iap_send_cmd(CMD_IAP_ACK, IAP_OK);
             }
             else
             {
@@ -99,11 +103,10 @@ void iap_rx_data(NB_BUS_TYPE * nbbus)
         if(index == gIapFream.index_data)
         {
             gIapFream.index_data++;
-
-            flash_ctx.backend->write(gIapFream.write_pos, buff, len);
+            flash_ctx.backend->write(IMAGE_SLOT_B_START+gIapFream.write_pos, buff, len);
             gIapFream.write_pos+=len;
 
-            gIapFream.crc_file_cal = iap_check_bin(buff, len);
+            gIapFream.crc_file_cal += iap_check_bin(buff, len);
 
             if(gIapFream.write_pos >= gIapFream.file_size)
             {
@@ -146,7 +149,13 @@ void iap_rx_data(NB_BUS_TYPE * nbbus)
     case CMD_MCU_RESET:
         if(index == 0)
         {
+            
+            nboot_set_image_down_state(IMAGE_STATE_DOWNLOAD_OK, gIapFream.file_size);
+            nboot_set_image_down_state(IMAGE_STATE_DOWNLOAD_OK, gIapFream.file_size);
+            iap_stat_reset(&gIapFream);
+
             NVIC_SystemReset();
+            
         }
         break;
 

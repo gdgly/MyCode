@@ -51,8 +51,8 @@
 
 
 
-extern NB_BUS_TYPE parse_uart_ble;
-extern NB_BUS_TYPE parse_uart_pc;
+extern PARSE_STRUCT parse_uart_ble;
+extern PARSE_STRUCT parse_uart_pc;
 
 
 void uart_receive_struct_init(void);

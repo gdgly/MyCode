@@ -9,8 +9,12 @@ extern "C" {
 
 
 
-typedef void (*REC_FRAME_CB_T)();
-typedef void (*SEND_FREAM_FUNC_T)(uint8_t *arg1, uint16_t arg2);
+#ifdef SUPPORT_TO_CRYPTO
+#include "nb_crypto_board_tea.h"
+#endif
+
+typedef void (*rec_frame_callback)();
+typedef void (*send_frame_fun)(uint8_t *arg1, uint16_t arg2);
 
 typedef enum
 {
@@ -33,7 +37,7 @@ typedef enum
     GETLEN
 } PARSE_DATA_STA;
 
-typedef struct rx_frametruct
+typedef struct frame_struct
 {
     uint8_t     Version;
     uint16_t    FrameDataLen;
@@ -42,32 +46,36 @@ typedef struct rx_frametruct
     uint8_t     Cmd;
     uint16_t    DataIndex;
     uint8_t     *frame_data;
-    SEND_FREAM_FUNC_T send_frame_fun;
-    
-} FRAME_TYPE;
+    send_frame_fun send_frame_fun;
+} FRAME_STRUCT;
 
 typedef struct parse_struct
 {
+    uint8_t         id_local;
+    uint8_t         id_target;
     PARSE_DATA_STA  sta;
-    uint16_t        frame_cnt;      //一包的长度
-    uint16_t        frame_data_len; //数据的长度
+    uint16_t        frame_cnt;
+    uint16_t        frame_data_len;
     uint16_t        frame_len;
     uint8_t         version;
     uint8_t         frame_buffer[FRAME_MAX];
-    REC_FRAME_CB_T  rec_frame_cb;
-    FRAME_TYPE   frame;
-    
+    rec_frame_callback rec_frame_cb;
+    FRAME_STRUCT    frame_s;
+#ifdef SUPPORT_TO_CRYPTO
+    uint8_t crypto_buf_tx[FRAME_MAX];
+    uint8_t crypto_buf_rx[FRAME_MAX];
+    CRYPTO_TYPE crypto_param_tx, crypto_param_rx;
+#endif
+} PARSE_STRUCT;
 
-} NB_BUS_TYPE;
+PARSE_RETURN creat_send_cmd(PARSE_STRUCT *parse_s, FRAME_STRUCT *frame_s);
 
-PARSE_RETURN creat_send_cmd(NB_BUS_TYPE *nb_bus_t, FRAME_TYPE *frame);
-PARSE_RETURN parse_struct_init(NB_BUS_TYPE *nb_bus_t);
-
-void parse_data(NB_BUS_TYPE *nb_bus_t, uint8_t *receive_buffer, uint16_t receive_len);
-void rx_frameet_send_fun(FRAME_TYPE *frame, SEND_FREAM_FUNC_T send_frame_fun);
-
-void parse_set_send_fun(NB_BUS_TYPE *nb_bus_t, SEND_FREAM_FUNC_T send_frame_fun);
-void parse_set_rec_callback(NB_BUS_TYPE *nb_bus_t, REC_FRAME_CB_T rec_frame_cb);
+PARSE_RETURN parse_struct_init(PARSE_STRUCT *parse_s);
+void parse_data(PARSE_STRUCT *parse_s, uint8_t *receive_buffer, uint16_t receive_len);
+void set_id(PARSE_STRUCT *parse_s, uint8_t local, uint8_t target);
+void frame_set_send_fun(FRAME_STRUCT *frame_s, send_frame_fun send_frame_fun);
+void parse_set_send_fun(PARSE_STRUCT *parse_s, send_frame_fun send_frame_fun);
+void parse_set_rec_callback(PARSE_STRUCT *parse_s, rec_frame_callback rec_frame_cb);
 
 #ifdef __cplusplus
 }

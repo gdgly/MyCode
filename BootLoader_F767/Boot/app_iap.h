@@ -20,7 +20,7 @@ typedef enum
 */
 
 #define IAP_RX_MAX      1024
-#define UART_DMA_RX_MAX 256
+#define UART_DMA_RX_MAX 1024
 
 typedef struct
 {
@@ -53,7 +53,7 @@ void run_iap(void);
 
 void uart_rx_init(void);
 void uart3_rx_callback(void);
-void iap_rx_data(NB_BUS_TYPE * nbbus);
+void iap_rx_data(PARSE_STRUCT * nbbus);
 
 void iap_send_cmd(uint8_t cmd, uint8_t iap_ack);
 void iap_send_data(uint8_t cmd, uint8_t index, uint8_t * buff, uint16_t len);
