@@ -14,14 +14,6 @@ PARSE_RETURN send_frame_creat(PARSE_STRUCT *parse_s, FRAME_STRUCT *frame_s, uint
         return PARSE_FAIL;
     }
 
-    if(frame_s->Version == CRYPTO_PROTOCOL_VERSION)
-    {
-        if(frame_s->FrameDataLen > 255 - 8)
-        {
-            return PARSE_FAIL;
-        }
-    }
-
 
     {
         frame_buffer[count++] = VERSION_HEAD;
@@ -32,7 +24,7 @@ PARSE_RETURN send_frame_creat(PARSE_STRUCT *parse_s, FRAME_STRUCT *frame_s, uint
 
     frame_buffer[count++] = (uint8_t)frame_s->FrameDataLen;
 
-    if(frame_s->Version == NEW_PROTOCOL_VERSION)
+    if(frame_s->Version == NEW_PROTOCOL_VER)
     {
         frame_buffer[count++] = (uint8_t)(frame_s->FrameDataLen >> 8);
     }
@@ -47,36 +39,19 @@ PARSE_RETURN send_frame_creat(PARSE_STRUCT *parse_s, FRAME_STRUCT *frame_s, uint
 
     frame_buffer[count++] = (uint8_t)frame_s->DataIndex;
 
-    if (frame_s->Version == NEW_PROTOCOL_VERSION)
+    if (frame_s->Version == NEW_PROTOCOL_VER)
     {
         frame_buffer[count++] = (uint8_t)(frame_s->DataIndex >> 8);
     }
-#ifdef SUPPORT_TO_CRYPTO
-    if(frame_s->Version == CRYPTO_PROTOCOL_VERSION)
-    {
-        memcpy(frame_buffer + count, frame_s->frame_data, frame_s->FrameDataLen);
 
-        if(nb_crypto_board_encrypt(&parse_s->crypto_param_tx,
-                                   frame_buffer + 5,
-                                   frame_s->FrameDataLen + 2,
-                                   parse_s->crypto_buf_tx) == (frame_s->FrameDataLen + 2 + 8))
-        {
-            frame_s->FrameDataLen = frame_s->FrameDataLen + 8;
-            frame_buffer[2] = frame_s->FrameDataLen;
-            memcpy(frame_buffer + count - 2, parse_s->crypto_buf_tx, frame_s->FrameDataLen + 2);
-        } else {
-            return PARSE_FAIL;
-        }
-    } else
-#endif
     {
         memcpy(frame_buffer + count, frame_s->frame_data, frame_s->FrameDataLen);
     }
 
-    if (frame_s->Version == OLD_PROTOCOL_VERSION || frame_s->Version == CRYPTO_PROTOCOL_VERSION)
+    if (frame_s->Version == OLD_PROTOCOL_VER)
     {
         frame_flag = frame_s->FrameDataLen + 7;
-    } else if (frame_s->Version == NEW_PROTOCOL_VERSION)
+    } else if (frame_s->Version == NEW_PROTOCOL_VER)
     {
         frame_flag = frame_s->FrameDataLen + 9;
     }

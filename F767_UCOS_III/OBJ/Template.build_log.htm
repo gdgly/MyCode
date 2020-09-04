@@ -27,8 +27,15 @@ Project File Date:  09/01/2020
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 6 (build 750)', folder: 'D:\Program Files\Keil_v5\ARM\ARMCC\Bin'
 Build target 'UCOSIII'
+compiling task.c...
+task.c(186): warning:  #870-D: invalid multibyte character sequence
+          printf("ADS1256是TI TexasInstruments公司推出的一款低噪声高分辨率�?24位Sigma-Delta模数转换器\r\n");
+task.c: 1 warning, 0 errors
+linking...
+Program Size: Code=24046 RO-data=1238 RW-data=296 ZI-data=11128  
+FromELF: creating hex file...
 After Build - User command #1: fromelf.exe --bin -o "..\OBJ\Template.bin" "..\OBJ\Template.axf"
-"..\OBJ\Template.axf" - 0 Error(s), 0 Warning(s).
+"..\OBJ\Template.axf" - 0 Error(s), 1 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -42,7 +49,7 @@ Package Vendor: STMicroelectronics
   D:\Program Files\Keil_v5\ARM\PACK\STMicroelectronics\STM32F7xx_DFP\1.0.3\Device\Include
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:00:03
+Build Time Elapsed:  00:00:05
 </pre>
 </body>
 </html>

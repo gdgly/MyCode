@@ -183,6 +183,7 @@ void task4_entry(void *p_arg)
     {
 		OSTaskSemPost(&Task3_TCB, OS_OPT_POST_FIFO, &err);
         
+        printf("ADS1256是TI TexasInstruments公司推出的一款低噪声高分辨率的24位Sigma-Delta模数转换器\r\n");
         printf("\r\n%s %d\r\n", __func__, task_cnt);
         task_cnt++;
 		

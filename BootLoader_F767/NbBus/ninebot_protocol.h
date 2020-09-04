@@ -8,13 +8,8 @@ extern "C" {
 #include "config.h"
 
 
-
-#ifdef SUPPORT_TO_CRYPTO
-#include "nb_crypto_board_tea.h"
-#endif
-
-typedef void (*rec_frame_callback)();
-typedef void (*send_frame_fun)(uint8_t *arg1, uint16_t arg2);
+typedef void (*RX_FRAME_CB)();
+typedef void (*TX_FRAME_FUN)(uint8_t *arg1, uint16_t arg2);
 
 typedef enum
 {
@@ -46,26 +41,21 @@ typedef struct frame_struct
     uint8_t     Cmd;
     uint16_t    DataIndex;
     uint8_t     *frame_data;
-    send_frame_fun send_frame_fun;
+    TX_FRAME_FUN send_frame_fun;
 } FRAME_STRUCT;
 
 typedef struct parse_struct
 {
-    uint8_t         id_local;
-    uint8_t         id_target;
+
     PARSE_DATA_STA  sta;
     uint16_t        frame_cnt;
     uint16_t        frame_data_len;
     uint16_t        frame_len;
     uint8_t         version;
     uint8_t         frame_buffer[FRAME_MAX];
-    rec_frame_callback rec_frame_cb;
+    RX_FRAME_CB     rec_frame_cb;
     FRAME_STRUCT    frame_s;
-#ifdef SUPPORT_TO_CRYPTO
-    uint8_t crypto_buf_tx[FRAME_MAX];
-    uint8_t crypto_buf_rx[FRAME_MAX];
-    CRYPTO_TYPE crypto_param_tx, crypto_param_rx;
-#endif
+    
 } PARSE_STRUCT;
 
 PARSE_RETURN creat_send_cmd(PARSE_STRUCT *parse_s, FRAME_STRUCT *frame_s);
@@ -73,9 +63,9 @@ PARSE_RETURN creat_send_cmd(PARSE_STRUCT *parse_s, FRAME_STRUCT *frame_s);
 PARSE_RETURN parse_struct_init(PARSE_STRUCT *parse_s);
 void parse_data(PARSE_STRUCT *parse_s, uint8_t *receive_buffer, uint16_t receive_len);
 void set_id(PARSE_STRUCT *parse_s, uint8_t local, uint8_t target);
-void frame_set_send_fun(FRAME_STRUCT *frame_s, send_frame_fun send_frame_fun);
-void parse_set_send_fun(PARSE_STRUCT *parse_s, send_frame_fun send_frame_fun);
-void parse_set_rec_callback(PARSE_STRUCT *parse_s, rec_frame_callback rec_frame_cb);
+void frame_set_send_fun(FRAME_STRUCT *frame_s, TX_FRAME_FUN send_frame_fun);
+void parse_set_send_fun(PARSE_STRUCT *parse_s, TX_FRAME_FUN send_frame_fun);
+void parse_set_rec_callback(PARSE_STRUCT *parse_s, RX_FRAME_CB rec_frame_cb);
 
 #ifdef __cplusplus
 }

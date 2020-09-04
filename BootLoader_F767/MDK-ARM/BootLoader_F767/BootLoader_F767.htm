@@ -3,7 +3,7 @@
 <title>Static Call Graph - [BootLoader_F767\BootLoader_F767.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image BootLoader_F767\BootLoader_F767.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Tue Sep 01 21:53:54 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Thu Sep 03 13:49:55 2020
 <BR><P>
 <H3>Maximum Stack Usage =        424 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -868,7 +868,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[b9]"></a>MX_USART3_UART_Init</STRONG> (Thumb, 56 bytes, Stack size 8 bytes, usart.o(i.MX_USART3_UART_Init))
+<P><STRONG><a name="[b9]"></a>MX_USART3_UART_Init</STRONG> (Thumb, 54 bytes, Stack size 8 bytes, usart.o(i.MX_USART3_UART_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = MX_USART3_UART_Init &rArr; HAL_UART_Init &rArr; UART_SetConfig &rArr; HAL_RCC_GetSysClockFreq &rArr; __aeabi_uldivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Init
@@ -1120,7 +1120,7 @@ Global Symbols
 <LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;iap_rx_data
 </UL>
 
-<P><STRONG><a name="[db]"></a>parse_data</STRONG> (Thumb, 294 bytes, Stack size 24 bytes, ninebot_parse.o(i.parse_data))
+<P><STRONG><a name="[db]"></a>parse_data</STRONG> (Thumb, 264 bytes, Stack size 24 bytes, ninebot_parse.o(i.parse_data))
 <BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = parse_data &rArr; check_frame
 </UL>
 <BR>[Calls]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;reset_frame
@@ -1186,7 +1186,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_iap
 </UL>
 
-<P><STRONG><a name="[ca]"></a>send_frame_creat</STRONG> (Thumb, 264 bytes, Stack size 40 bytes, ninetbot_send_frame.o(i.send_frame_creat))
+<P><STRONG><a name="[ca]"></a>send_frame_creat</STRONG> (Thumb, 242 bytes, Stack size 40 bytes, ninetbot_send_frame.o(i.send_frame_creat))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = send_frame_creat
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
@@ -1253,8 +1253,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Transmit
 </UL>
-<BR>[Address Reference Count : 2]<UL><LI> uart_parse.o(i.uart_send_cmd)
-<LI> uart_parse.o(i.uart_receive_struct_init)
+<BR>[Address Reference Count : 2]<UL><LI> uart_parse.o(i.uart_receive_struct_init)
+<LI> uart_parse.o(i.uart_send_cmd)
 </UL>
 <P><STRONG><a name="[d3]"></a>uart_send_cmd</STRONG> (Thumb, 90 bytes, Stack size 40 bytes, uart_parse.o(i.uart_send_cmd))
 <BR><BR>[Stack]<UL><LI>Max Depth = 368<LI>Call Chain = uart_send_cmd &rArr; creat_send_cmd &rArr; send_frame_creat
@@ -1269,8 +1269,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Transmit
 </UL>
-<BR>[Address Reference Count : 2]<UL><LI> uart_parse.o(i.uart_send_cmd)
-<LI> uart_parse.o(i.uart_receive_struct_init)
+<BR>[Address Reference Count : 2]<UL><LI> uart_parse.o(i.uart_receive_struct_init)
+<LI> uart_parse.o(i.uart_send_cmd)
 </UL><P>
 <H3>
 Local Symbols
