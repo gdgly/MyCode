@@ -1,6 +1,8 @@
 #include <rtthread.h>
 #include "ringbuffer.h"
 
+#ifdef AT_USING_MQTT
+
 #define LOG_TAG "at.mqt"
 
 #include "at.h"
@@ -64,17 +66,13 @@ int at_mqtt_init(struct at_mqtt_ops *ops)
             mqtt->client_idx = i;
         }
     }
-    
     mqtt->recv_ring = rt_ringbuffer_create(AT_MQTT_RECV_SIZE_MAX);
     mqtt->device = device;
     mqtt->ops = ops;
     mqtt->next_msgid = 1;
     mqtt->pdpcid = get_pdpcid();
-    
-#if (PRODUCE_TEST != 1)
     mqtt->sslctx_idx = get_sslctx_idx();
-#endif
-    
+
     /* create AT device socket event */
     rt_snprintf(name, RT_NAME_MAX, "at_evt%d", mqtt->client_idx);
     if ((mqtt->mqtt_event = rt_event_create(name, RT_IPC_FLAG_FIFO)) == RT_NULL)
@@ -258,3 +256,4 @@ int at_mqtt_set_state(int client_idx, enum at_mqtt_state state)
     return RT_EOK;
 }
 
+#endif

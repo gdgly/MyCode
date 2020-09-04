@@ -56,24 +56,24 @@ uint32_t HAL_GetTick(void)
     return rt_tick_get() * 1000 / RT_TICK_PER_SECOND;
 }
 
-void HAL_SuspendTick(void)
-{
-}
+//void HAL_SuspendTick(void)
+//{
+//}
 
-void HAL_ResumeTick(void)
-{
-}
+//void HAL_ResumeTick(void)
+//{
+//}
 
-void HAL_Delay(__IO uint32_t Delay)
-{
-}
+//void HAL_Delay(__IO uint32_t Delay)
+//{
+//}
 
-/* re-implement tick interface for STM32 HAL */
-HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
-{
-    /* Return function status */
-    return HAL_OK;
-}
+///* re-implement tick interface for STM32 HAL */
+//HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
+//{
+//    /* Return function status */
+//    return HAL_OK;
+//}
 
 /**
   * @brief  This function is executed in case of error occurrence.
@@ -84,9 +84,10 @@ void _Error_Handler(char *s, int num)
 {
     /* USER CODE BEGIN Error_Handler */
     /* User can add his own implementation to report the HAL error return state */
-    while(1)
-    {
-    }
+    // while(1)
+    // {
+    // }
+    NVIC_SystemReset();
     /* USER CODE END Error_Handler */
 }
 

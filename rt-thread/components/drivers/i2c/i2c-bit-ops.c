@@ -10,7 +10,7 @@
 
 #include <rtdevice.h>
 
-#if defined (AT_USING_I2C)
+#if defined (RT_USING_I2C)
 
 #ifdef RT_I2C_BIT_DEBUG
 #define bit_dbg(fmt, ...)   rt_kprintf(fmt, ##__VA_ARGS__)

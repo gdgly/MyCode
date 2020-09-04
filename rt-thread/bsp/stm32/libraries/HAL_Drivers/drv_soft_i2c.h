@@ -13,7 +13,7 @@
 
 #include <rtthread.h>
 
-#if defined (AT_USING_I2C)
+#if defined (RT_USING_I2C)
 
 #include <rthw.h>
 #include <rtdevice.h>

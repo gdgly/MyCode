@@ -30,7 +30,7 @@
 
 #ifndef IDLE_THREAD_STACK_SIZE
 #if defined (RT_USING_IDLE_HOOK) || defined(RT_USING_HEAP)
-#define IDLE_THREAD_STACK_SIZE  512
+#define IDLE_THREAD_STACK_SIZE  256
 #else
 #define IDLE_THREAD_STACK_SIZE  128
 #endif
@@ -245,7 +245,9 @@ static void rt_thread_idle_entry(void *parameter)
         rt_system_power_manager();
 #endif
         
+#ifdef RT_USING_LOWPOWER_FSM
         lowpower_fsm();
+#endif
     }
 }
 

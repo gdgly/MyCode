@@ -10,7 +10,7 @@
 
 #include <rtdevice.h>
 
-#if defined (AT_USING_I2C)
+#if defined (RT_USING_I2C)
 
 rt_err_t rt_i2c_bus_device_register(struct rt_i2c_bus_device *bus,
                                     const char               *bus_name)

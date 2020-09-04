@@ -3,7 +3,7 @@
 
 #define AT_FILE_NAME_SIZE_MAX 80
 #define AT_FILE_OPEN_MAX      20
-#define AT_FILE_BUFFER_MAX    1024
+#define AT_FILE_BUFFER_MAX    512
 
 #include "at_device.h"
 

@@ -283,8 +283,6 @@ int at_obj_exec_cmd(at_client_t client, at_response_t resp, const char *cmd_expr
     rt_size_t cmd_size = 0;
     rt_err_t result = RT_EOK;
     const char *cmd = RT_NULL;
-    
-    cmd = cmd;
 
     RT_ASSERT(cmd_expr);
 
@@ -424,7 +422,6 @@ int at_client_obj_wait_connect(at_client_t client, rt_uint32_t timeout)
     rt_tick_t start_time = 0;
     char *client_name = client->device->parent.name;
 
-    client_name = client_name;
     if (client == RT_NULL)
     {
         LOG_E("input AT client object is NULL, please create or get AT Client object!");
@@ -554,8 +551,8 @@ rt_size_t at_client_obj_recv(at_client_t client, char *buf, rt_size_t size, rt_i
             result = at_client_getchar(client, &ch, timeout);
             if (result != RT_EOK)
             {
-                LOG_E("AT Client receive failed, uart device get data error(%d)", result);
-                return 0;
+                //LOG_E("AT Client receive failed, uart device get data error(%d)", result);
+                return read_idx;
             }
 
             buf[read_idx++] = ch;

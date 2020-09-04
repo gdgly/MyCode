@@ -11,7 +11,7 @@
 
 #include <rtdevice.h>
 
-#if defined (AT_USING_I2C)
+#if defined (RT_USING_I2C)
 
 static rt_size_t i2c_bus_device_read(rt_device_t dev,
                                      rt_off_t    pos,
