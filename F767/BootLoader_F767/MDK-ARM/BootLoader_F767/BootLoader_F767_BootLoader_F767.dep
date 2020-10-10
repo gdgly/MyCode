@@ -41,8 +41,8 @@ I (..\FlashBsp\flash.h)(0x5E69E1ED)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\string.h)(0x5D9AD218)
 I (..\FlashBsp\flash_config.h)(0x5F4E355D)
 I (..\Boot\app_iap.h)(0x5F4E3C76)
-I (..\NbBus\ninebot_protocol.h)(0x5F504E96)
-I (..\NbBus\config.h)(0x5F504E69)
+I (..\NbBus\ninebot_protocol.h)(0x5F51F9A0)
+I (..\NbBus\config.h)(0x5F51F9A0)
 I (..\NbBus\uart_parse.h)(0x5F4CFC29)
 F (../Core/Src/gpio.c)(0x5F5083C2)(--c99 -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F7xx_HAL_Driver/Inc -I ../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT -I ..\Tool -I ..\NbBus -I ..\FlashBsp -I ..\Boot-I.\RTE\_BootLoader_F767-I"D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include"-I"D:\Program Files\Keil_v5\ARM\PACK\STMicroelectronics\STM32F7xx_DFP\1.0.3\Device\Include"-D__UVISION_VERSION="529" -D_RTE_ -DSTM32F767xx -DUSE_HAL_DRIVER -DSTM32F767xx-o bootloader_f767\gpio.o --omf_browse bootloader_f767\gpio.crf --depend bootloader_f767\gpio.d)
 I (../Core/Inc/gpio.h)(0x5F5083C2)
@@ -77,7 +77,7 @@ I (../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_pwr.h)(0x5F44F3E2)
 I (../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_pwr_ex.h)(0x5F44F3E2)
 I (../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart.h)(0x5F44F3E2)
 I (../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart_ex.h)(0x5F44F3E2)
-F (../Core/Src/usart.c)(0x5F5083C2)(--c99 -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F7xx_HAL_Driver/Inc -I ../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT -I ..\Tool -I ..\NbBus -I ..\FlashBsp -I ..\Boot-I.\RTE\_BootLoader_F767-I"D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include"-I"D:\Program Files\Keil_v5\ARM\PACK\STMicroelectronics\STM32F7xx_DFP\1.0.3\Device\Include"-D__UVISION_VERSION="529" -D_RTE_ -DSTM32F767xx -DUSE_HAL_DRIVER -DSTM32F767xx-o bootloader_f767\usart.o --omf_browse bootloader_f767\usart.crf --depend bootloader_f767\usart.d)
+F (../Core/Src/usart.c)(0x5F51F9A0)(--c99 -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F7xx_HAL_Driver/Inc -I ../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT -I ..\Tool -I ..\NbBus -I ..\FlashBsp -I ..\Boot-I.\RTE\_BootLoader_F767-I"D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include"-I"D:\Program Files\Keil_v5\ARM\PACK\STMicroelectronics\STM32F7xx_DFP\1.0.3\Device\Include"-D__UVISION_VERSION="529" -D_RTE_ -DSTM32F767xx -DUSE_HAL_DRIVER -DSTM32F767xx-o bootloader_f767\usart.o --omf_browse bootloader_f767\usart.crf --depend bootloader_f767\usart.d)
 I (../Core/Inc/usart.h)(0x5F5083C2)
 I (../Core/Inc/main.h)(0x5F5083C3)
 I (../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal.h)(0x5F44F3E2)
@@ -144,8 +144,8 @@ I (../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart.h)(0x5F44F3E2)
 I (../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart_ex.h)(0x5F44F3E2)
 I (../Core/Inc/stm32f7xx_it.h)(0x5F5083C3)
 I (..\Boot\app_iap.h)(0x5F4E3C76)
-I (..\NbBus\ninebot_protocol.h)(0x5F504E96)
-I (..\NbBus\config.h)(0x5F504E69)
+I (..\NbBus\ninebot_protocol.h)(0x5F51F9A0)
+I (..\NbBus\config.h)(0x5F51F9A0)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\string.h)(0x5D9AD218)
 F (../Core/Src/stm32f7xx_hal_msp.c)(0x5F5083C3)(--c99 -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F7xx_HAL_Driver/Inc -I ../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT -I ..\Tool -I ..\NbBus -I ..\FlashBsp -I ..\Boot-I.\RTE\_BootLoader_F767-I"D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include"-I"D:\Program Files\Keil_v5\ARM\PACK\STMicroelectronics\STM32F7xx_DFP\1.0.3\Device\Include"-D__UVISION_VERSION="529" -D_RTE_ -DSTM32F767xx -DUSE_HAL_DRIVER -DSTM32F767xx-o bootloader_f767\stm32f7xx_hal_msp.o --omf_browse bootloader_f767\stm32f7xx_hal_msp.crf --depend bootloader_f767\stm32f7xx_hal_msp.d)
 I (../Core/Inc/main.h)(0x5F5083C3)
@@ -803,8 +803,8 @@ I (../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart_ex.h)(0x5F44F3E2)
 I (../Core/Inc/usart.h)(0x5F5083C2)
 I (../Core/Inc/gpio.h)(0x5F5083C2)
 I (..\Boot\app_iap.h)(0x5F4E3C76)
-I (..\NbBus\ninebot_protocol.h)(0x5F504E96)
-I (..\NbBus\config.h)(0x5F504E69)
+I (..\NbBus\ninebot_protocol.h)(0x5F51F9A0)
+I (..\NbBus\config.h)(0x5F51F9A0)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\string.h)(0x5D9AD218)
 I (..\Boot\nboot.h)(0x5F4E3717)
 I (..\FlashBsp\flash_utils.h)(0x5E69E1ED)
@@ -956,9 +956,9 @@ I (../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_pwr_ex.h)(0x5F44F3E2)
 I (../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart.h)(0x5F44F3E2)
 I (../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart_ex.h)(0x5F44F3E2)
 I (..\Tool\can_bit.h)(0x5E6624E7)
-F (..\NbBus\ninebot_parse.c)(0x5F504F02)(--c99 -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F7xx_HAL_Driver/Inc -I ../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT -I ..\Tool -I ..\NbBus -I ..\FlashBsp -I ..\Boot-I.\RTE\_BootLoader_F767-I"D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include"-I"D:\Program Files\Keil_v5\ARM\PACK\STMicroelectronics\STM32F7xx_DFP\1.0.3\Device\Include"-D__UVISION_VERSION="529" -D_RTE_ -DSTM32F767xx -DUSE_HAL_DRIVER -DSTM32F767xx-o bootloader_f767\ninebot_parse.o --omf_browse bootloader_f767\ninebot_parse.crf --depend bootloader_f767\ninebot_parse.d)
-I (..\NbBus\ninebot_protocol.h)(0x5F504E96)
-I (..\NbBus\config.h)(0x5F504E69)
+F (..\NbBus\ninebot_parse.c)(0x5F51F9A0)(--c99 -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F7xx_HAL_Driver/Inc -I ../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT -I ..\Tool -I ..\NbBus -I ..\FlashBsp -I ..\Boot-I.\RTE\_BootLoader_F767-I"D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include"-I"D:\Program Files\Keil_v5\ARM\PACK\STMicroelectronics\STM32F7xx_DFP\1.0.3\Device\Include"-D__UVISION_VERSION="529" -D_RTE_ -DSTM32F767xx -DUSE_HAL_DRIVER -DSTM32F767xx-o bootloader_f767\ninebot_parse.o --omf_browse bootloader_f767\ninebot_parse.crf --depend bootloader_f767\ninebot_parse.d)
+I (..\NbBus\ninebot_protocol.h)(0x5F51F9A0)
+I (..\NbBus\config.h)(0x5F51F9A0)
 I (../Core/Inc/main.h)(0x5F5083C3)
 I (../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal.h)(0x5F44F3E2)
 I (../Core/Inc/stm32f7xx_hal_conf.h)(0x5F5083C3)
@@ -991,9 +991,9 @@ I (../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_pwr_ex.h)(0x5F44F3E2)
 I (../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart.h)(0x5F44F3E2)
 I (../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart_ex.h)(0x5F44F3E2)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\string.h)(0x5D9AD218)
-F (..\NbBus\ninetbot_send_frame.c)(0x5F504E32)(--c99 -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F7xx_HAL_Driver/Inc -I ../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT -I ..\Tool -I ..\NbBus -I ..\FlashBsp -I ..\Boot-I.\RTE\_BootLoader_F767-I"D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include"-I"D:\Program Files\Keil_v5\ARM\PACK\STMicroelectronics\STM32F7xx_DFP\1.0.3\Device\Include"-D__UVISION_VERSION="529" -D_RTE_ -DSTM32F767xx -DUSE_HAL_DRIVER -DSTM32F767xx-o bootloader_f767\ninetbot_send_frame.o --omf_browse bootloader_f767\ninetbot_send_frame.crf --depend bootloader_f767\ninetbot_send_frame.d)
-I (..\NbBus\ninebot_protocol.h)(0x5F504E96)
-I (..\NbBus\config.h)(0x5F504E69)
+F (..\NbBus\ninetbot_send_frame.c)(0x5F51F9A0)(--c99 -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F7xx_HAL_Driver/Inc -I ../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT -I ..\Tool -I ..\NbBus -I ..\FlashBsp -I ..\Boot-I.\RTE\_BootLoader_F767-I"D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include"-I"D:\Program Files\Keil_v5\ARM\PACK\STMicroelectronics\STM32F7xx_DFP\1.0.3\Device\Include"-D__UVISION_VERSION="529" -D_RTE_ -DSTM32F767xx -DUSE_HAL_DRIVER -DSTM32F767xx-o bootloader_f767\ninetbot_send_frame.o --omf_browse bootloader_f767\ninetbot_send_frame.crf --depend bootloader_f767\ninetbot_send_frame.d)
+I (..\NbBus\ninebot_protocol.h)(0x5F51F9A0)
+I (..\NbBus\config.h)(0x5F51F9A0)
 I (../Core/Inc/main.h)(0x5F5083C3)
 I (../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal.h)(0x5F44F3E2)
 I (../Core/Inc/stm32f7xx_hal_conf.h)(0x5F5083C3)
@@ -1027,8 +1027,8 @@ I (../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart.h)(0x5F44F3E2)
 I (../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart_ex.h)(0x5F44F3E2)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\string.h)(0x5D9AD218)
 F (..\NbBus\uart_parse.c)(0x5F4CFCAE)(--c99 -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F7xx_HAL_Driver/Inc -I ../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT -I ..\Tool -I ..\NbBus -I ..\FlashBsp -I ..\Boot-I.\RTE\_BootLoader_F767-I"D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include"-I"D:\Program Files\Keil_v5\ARM\PACK\STMicroelectronics\STM32F7xx_DFP\1.0.3\Device\Include"-D__UVISION_VERSION="529" -D_RTE_ -DSTM32F767xx -DUSE_HAL_DRIVER -DSTM32F767xx-o bootloader_f767\uart_parse.o --omf_browse bootloader_f767\uart_parse.crf --depend bootloader_f767\uart_parse.d)
-I (..\NbBus\ninebot_protocol.h)(0x5F504E96)
-I (..\NbBus\config.h)(0x5F504E69)
+I (..\NbBus\ninebot_protocol.h)(0x5F51F9A0)
+I (..\NbBus\config.h)(0x5F51F9A0)
 I (../Core/Inc/main.h)(0x5F5083C3)
 I (../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal.h)(0x5F44F3E2)
 I (../Core/Inc/stm32f7xx_hal_conf.h)(0x5F5083C3)
