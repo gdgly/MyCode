@@ -101,8 +101,8 @@ int main(void)
     OLED_Fill(0x00);
 
     one_line_send("1234567890abcdefghijklmn", 24);
-
-    uint8_t cnt = 0;
+	
+	uint8_t ch = 'A';
 
     /* USER CODE END 2 */
 
@@ -112,10 +112,24 @@ int main(void)
     {
 //        OneLineTest();
 
-        OLED_DrawBMP(0, 0, 128, 8, qt_image);
-        HAL_Delay(30);
-        OLED_DrawBMP(0, 0, 128, 8, nvidia_image);
-        HAL_Delay(30);
+		OLED_ShowChar(0, 0, ch, 16);
+		OLED_ShowChar(0, 2, ch, 12);
+		OLED_ShowChar(0, 4, ch, 8);
+		OLED_ShowChar(40, 0, ch, 24);
+		
+		ch++;
+		if(ch > 'z')
+		{
+			ch = 'A';
+		}
+		
+		HAL_Delay(300);
+
+		
+//        OLED_DrawBMP(0, 0, 128, 8, qt_image);
+//        HAL_Delay(1000);
+//        OLED_DrawBMP(0, 0, 128, 8, nvidia_image);
+//        HAL_Delay(1000);
 
         /* USER CODE END WHILE */
 

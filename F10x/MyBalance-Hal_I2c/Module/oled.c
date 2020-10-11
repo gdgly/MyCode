@@ -100,12 +100,24 @@ void OLED_ShowChar(uint8_t x, uint8_t y, uint8_t chr, uint8_t size, uint8_t mode
     chr = chr - ' '; //得到偏移后的值
     for(t = 0; t < size; t++)
     {
-        if(size == 12)temp = oled_asc2_1206[chr][t]; //调用1206字体
-        else temp = oled_asc2_1608[chr][t];		 //调用1608字体
+        if(size == 12)
+        {
+            temp = oled_asc2_1206[chr][t]; //调用1206字体
+        }
+        else
+        {
+            temp = oled_asc2_1608[chr][t];		 //调用1608字体
+        }
         for(t1 = 0; t1 < 8; t1++)
         {
-            if(temp & 0x80)OLED_DrawPoint(x, y, mode);
-            else OLED_DrawPoint(x, y, !mode);
+            if(temp & 0x80)
+            {
+                OLED_DrawPoint(x, y, mode);
+            }
+            else
+            {
+                OLED_DrawPoint(x, y, !mode);
+            }
             temp <<= 1;
             y++;
             if((y - y0) == size)
