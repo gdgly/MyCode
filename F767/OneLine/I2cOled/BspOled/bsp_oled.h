@@ -16,16 +16,17 @@
 
 #define OLED0561_ADD    0x78
 
-extern unsigned char qt_image[1024];
-extern unsigned char nvidia_image[1024];
+extern uint8_t qt_image[1024];
+extern uint8_t nvidia_image[1024];
 
 void OLED_Init(void);
-void OLED_SetPos(unsigned char x, unsigned char y);
-void OLED_Fill(unsigned char fill_Data);
+void OLED_SetPos(uint8_t x, uint8_t y);
+void OLED_Fill(uint8_t fill_Data);
 void OLED_CLS(void);
 
-void OLED_ShowChar(uint8_t x, uint8_t y, uint8_t chr, uint8_t Char_Size);
-void OLED_DrawBMP(unsigned char x0, unsigned char y0, unsigned char x1, unsigned char y1, unsigned char BMP[]);
+void oled_show_char(uint8_t x, uint8_t y, uint8_t chr, uint8_t Char_Size);
+void oled_show_str(uint8_t x, uint8_t y, uint8_t ch[], uint8_t text_size);
+void oled_show_pic(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t BMP[]);
 
 
 #endif

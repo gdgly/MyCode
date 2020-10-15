@@ -3,6 +3,7 @@
 "103tx\main.o"
 "103tx\gpio.o"
 "103tx\i2c.o"
+"103tx\spi.o"
 "103tx\tim.o"
 "103tx\stm32f1xx_it.o"
 "103tx\stm32f1xx_hal_msp.o"
@@ -18,12 +19,14 @@
 "103tx\stm32f1xx_hal_flash.o"
 "103tx\stm32f1xx_hal_flash_ex.o"
 "103tx\stm32f1xx_hal_exti.o"
+"103tx\stm32f1xx_hal_spi.o"
 "103tx\stm32f1xx_hal_tim.o"
 "103tx\stm32f1xx_hal_tim_ex.o"
 "103tx\system_stm32f1xx.o"
 "103tx\app_one_line.o"
 "103tx\bsp_one_line.o"
 "103tx\bsp_oled.o"
+"103tx\ads1120.o"
 --library_type=microlib --strict --scatter "103TX\103TX.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

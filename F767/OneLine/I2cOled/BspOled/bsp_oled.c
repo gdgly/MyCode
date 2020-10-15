@@ -4,17 +4,17 @@
 #include "oled_font.h"
 #include "stm32f1xx_hal.h"
 
-void oled_wr_cmd(unsigned char I2C_Command)//写命令
+void oled_wr_cmd(uint8_t I2C_Command)//写命令
 {
     HAL_I2C_Mem_Write(&hi2c2, OLED0561_ADD, 0x00, I2C_MEMADD_SIZE_8BIT, &I2C_Command, 1, 100);
 }
 
-void oled_wr_byte(unsigned char I2C_Data)//写数据
+void oled_wr_byte(uint8_t I2C_Data)//写数据
 {
     HAL_I2C_Mem_Write(&hi2c2, OLED0561_ADD, 0x40, I2C_MEMADD_SIZE_8BIT, &I2C_Data, 1, 100);
 }
 
-void oled_wr_n_byte(unsigned char buff[], uint32_t n)//写数据
+void oled_wr_n_byte(uint8_t buff[], uint32_t n)//写数据
 {
     HAL_I2C_Mem_Write(&hi2c2, OLED0561_ADD, 0x40, I2C_MEMADD_SIZE_8BIT, buff, n, 0xffff);
 }
@@ -53,21 +53,21 @@ void OLED_Init(void)
     oled_wr_cmd(0xaf); //--turn on oled panel
 }
 
-void OLED_SetPos(unsigned char x, unsigned char y) //设置起始点坐标
+void OLED_SetPos(uint8_t x, uint8_t y) //设置起始点坐标
 {
     oled_wr_cmd(0xb0 + y);
     oled_wr_cmd(((x & 0xf0) >> 4) | 0x10);
     oled_wr_cmd((x & 0x0f) | 0x01);
 }
 
-void OLED_Fill(unsigned char fill_Data)//全屏填充
+void OLED_Fill(uint8_t fill_Data)//全屏填充
 {
-    unsigned char m, n;
+    uint8_t m, n;
     for(m = 0; m < 8; m++)
     {
-        oled_wr_cmd(0xb0 + m);              //page0-page1
-        oled_wr_cmd(0x00);                //low column start address
-        oled_wr_cmd(0x10);                //high column start address
+        oled_wr_cmd(0xb0 + m);  //page0-page1
+        oled_wr_cmd(0x00);      //low column start address
+        oled_wr_cmd(0x10);      //high column start address
 		
         for(n = 0; n < 128; n++)
         {
@@ -97,61 +97,89 @@ void OLED_OFF(void)
 }
 
 
-//// Parameters     : x,y -- 起始点坐标(x:0~127, y:0~7); ch[] -- 要显示的字符串; TextSize -- 字符大小(1:6*8 ; 2:8*16)
-//// Description    : 显示codetab.h中的ASCII字符,有6*8和8*16可选择
-//void OLED_ShowStr(unsigned char x, unsigned char y, unsigned char ch[], unsigned char TextSize)
-//{
-//    unsigned char c = 0, i = 0, j = 0;
-//    switch(TextSize)
-//    {
-//    case 1:
-//    {
-//        while(ch[j] != '\0')
-//        {
-//            c = ch[j] - 32;
-//            if(x > 126)
-//            {
-//                x = 0;
-//                y++;
-//            }
-//            OLED_SetPos(x, y);
-//            for(i = 0; i < 6; i++)
-//                oled_wr_byte(F6x8[c][i]);
-//            x += 6;
-//            j++;
-//        }
-//    }
-//    break;
-//    case 2:
-//    {
-//        while(ch[j] != '\0')
-//        {
-//            c = ch[j] - 32;
-//            if(x > 120)
-//            {
-//                x = 0;
-//                y++;
-//            }
-//            OLED_SetPos(x, y);
-//            for(i = 0; i < 8; i++)
-//                oled_wr_byte(F8X16[c * 16 + i]);
-//            OLED_SetPos(x, y + 1);
-//            for(i = 0; i < 8; i++)
-//                oled_wr_byte(F8X16[c * 16 + i + 8]);
-//            x += 8;
-//            j++;
-//        }
-//    }
-//    break;
-//    }
-//}
+// Parameters     : x,y -- 起始点坐标(x:0~127, y:0~7); ch[] -- 要显示的字符串; text_size -- 字符大小(1:6*8 ; 2:8*16)
+// Description    : 显示codetab.h中的ASCII字符,有6*8和8*16可选择
+void oled_show_str(uint8_t x, uint8_t y, uint8_t ch[], uint8_t text_size)
+{
+    uint8_t c = 0, j = 0;
+    switch(text_size)
+    {
+    case 8:
+    {
+        while(ch[j] != '\0')
+        {
+            c = ch[j];
+            if(x >= 126)
+            {
+                x = 0;
+                y++;
+            }
+            oled_show_char(x, y, c, text_size);
+            x += 6;
+            j++;
+        }
+    }
+    break;
+    
+    case 12:
+    {
+        while(ch[j] != '\0')
+        {
+            c = ch[j];
+            if(x >= 126)
+            {
+                x = 0;
+                y+=2;
+            }
+            oled_show_char(x, y, c, text_size);
+            x += 6;
+            j++;
+        }
+    }
+    break;
+    
+    case 16:
+    {
+        while(ch[j] != '\0')
+        {
+            c = ch[j];
+            if(x >= 128)
+            {
+                x = 0;
+                y+=2;
+            }
+            oled_show_char(x, y, c, text_size);
+            x += 8;
+            j++;
+        }
+    }
+    break;
+    
+    case 24:
+    {
+        while(ch[j] != '\0')
+        {
+            c = ch[j];
+            if(x >= 120)
+            {
+                x = 0;
+                y+=3;
+            }
+            oled_show_char(x, y, c, text_size);
+            x += 12;
+            j++;
+        }
+    }
+    break;
+    }
+}
 
 
 //// Parameters     : x,y -- 起始点坐标(x:0~127, y:0~7); N:汉字在.h中的索引
 //// Description    : 显示ASCII_8x16.h中的汉字,16*16点阵
-//void OLED_ShowCN(unsigned char x, unsigned char y, unsigned char N)
+//void OLED_ShowCN(uint8_t x, uint8_t y, uint8_t N)
 //{
-//    unsigned char wm = 0;
+//    uint8_t wm = 0;
 //    unsigned int  adder = 32 * N;
 //    OLED_SetPos(x , y);
 //    for(wm = 0; wm < 16; wm++)
@@ -171,10 +199,10 @@ void OLED_OFF(void)
 
 // Parameters     : x0,y0 -- 起始点坐标(x0:0~127, y0:0~7); x1,y1 -- 起点对角线(结束点)的坐标(x1:1~128,y1:1~8)
 // Description    : 显示BMP位图
-void OLED_DrawBMP(unsigned char x0, unsigned char y0, unsigned char x1, unsigned char y1, unsigned char BMP[])
+void oled_show_pic(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t BMP[])
 {
     unsigned int j = 0;
-    unsigned char y;
+    uint8_t y;
 
     if(y1 % 8 == 0)
         y = y1 / 8;
@@ -191,9 +219,9 @@ void OLED_DrawBMP(unsigned char x0, unsigned char y0, unsigned char x1, unsigned
 
 
 
-void OLED_ShowChar(uint8_t x, uint8_t y, uint8_t chr, uint8_t Char_Size)
+void oled_show_char(uint8_t x, uint8_t y, uint8_t chr, uint8_t char_size)
 {
-    unsigned char c = 0, i = 0;
+    uint8_t c = 0, i = 0;
     c = chr - ' '; //得到偏移后的值
     if(x > 128 - 1)
     {
@@ -201,7 +229,7 @@ void OLED_ShowChar(uint8_t x, uint8_t y, uint8_t chr, uint8_t Char_Size)
         y = y + 2;
     }
 
-    switch(Char_Size)
+    switch(char_size)
     {
 	case 24:
         OLED_SetPos(x, y);
@@ -245,7 +273,7 @@ void OLED_ShowChar(uint8_t x, uint8_t y, uint8_t chr, uint8_t Char_Size)
 
 
     }
-    if(Char_Size == 16)
+    if(char_size == 16)
     {
 
     }
@@ -256,7 +284,7 @@ void OLED_ShowChar(uint8_t x, uint8_t y, uint8_t chr, uint8_t Char_Size)
 }
 
 
-unsigned char qt_image[1024] = {
+uint8_t qt_image[1024] = {
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 192, 224, 240, 248, 248, 252, 252, 252, 254, 254, 254, 254, 254, 254, 254, 254, 254, 254, 254, 254, 255, 254, 255, 255, 255, 254, 254, 254, 254, 254, 254, 254, 254, 254, 254, 254, 254, 254, 252, 252, 252, 252, 252, 252, 252, 252, 252, 252, 252, 252, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 240, 240, 240, 240, 240, 240, 240, 240, 240, 240, 240, 240, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 192, 192, 192, 192, 192, 192, 192, 192, 192, 192, 192, 192, 192, 128, 128, 128, 128, 128, 128, 128, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 127, 127, 63, 63, 63, 31, 31, 31, 31, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 31, 31, 31, 31, 31, 63, 63, 63, 127, 127, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 127, 63, 63, 63, 63, 127, 127, 127, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 63, 15, 7, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 224, 240, 248, 252, 252, 254, 254, 254, 254, 254, 254, 252, 252, 248, 240, 224, 0, 0, 0, 0, 0, 0, 0, 1, 1, 3, 7, 31, 255, 255, 255, 15, 15, 15, 31, 31, 7, 1, 0, 0, 0, 0, 0, 0, 0, 0, 31, 31, 31, 31, 31, 31, 31, 31, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -268,7 +296,7 @@ unsigned char qt_image[1024] = {
 };
 
 
-unsigned char nvidia_image[1024] = {
+uint8_t nvidia_image[1024] = {
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 128, 128, 192, 192, 192, 192, 224, 96, 96, 96, 96, 48, 48, 48, 48, 48, 48, 24, 24, 24, 24, 24, 24, 24, 24, 24, 227, 195, 195, 195, 195, 195, 195, 195, 195, 195, 195, 195, 195, 195, 195, 131, 135, 135, 135, 7, 7, 15, 15, 15, 15, 15, 31, 31, 31, 31, 63, 63, 63, 127, 127, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 0, 0, 0, 0,

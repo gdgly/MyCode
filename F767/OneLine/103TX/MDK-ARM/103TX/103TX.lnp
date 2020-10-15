@@ -21,6 +21,7 @@
 "103tx\system_stm32f1xx.o"
 "103tx\app_one_line.o"
 "103tx\bsp_one_line.o"
+"103tx\config_one_line.o"
 --library_type=microlib --strict --scatter "103TX\103TX.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

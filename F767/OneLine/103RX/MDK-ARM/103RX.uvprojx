@@ -512,6 +512,11 @@
               <FileType>1</FileType>
               <FilePath>..\BspOneLine\bsp_one_line.c</FilePath>
             </File>
+            <File>
+              <FileName>config_one_line.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BspOneLine\config_one_line.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

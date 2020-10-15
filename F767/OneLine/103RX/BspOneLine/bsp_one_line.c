@@ -2,69 +2,27 @@
 
 #include "bsp_one_line.h"
 
-
-
-
 ONE_LINE_TYPE gOneLine = {0};
 
-
-#define ONE_LINE_PORT   GPIOB
-#define ONE_LINE_PIN    GPIO_PIN_9
-#define ONE_LINE_IRQ    EXTI9_5_IRQn
-
-#define TX_PIN_H    HAL_GPIO_WritePin(ONE_LINE_PORT, ONE_LINE_PIN, GPIO_PIN_SET)
-#define TX_PIN_L    HAL_GPIO_WritePin(ONE_LINE_PORT, ONE_LINE_PIN, GPIO_PIN_RESET)
-
-#define RX_PIN  HAL_GPIO_ReadPin(ONE_LINE_PORT, ONE_LINE_PIN)
-
-
-
-void set_pin_tx(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin)
+//初始化
+void one_line_comm_init(void)
 {
-    HAL_NVIC_DisableIRQ(ONE_LINE_IRQ);
-    GPIO_InitTypeDef GPIO_InitStruct = {0};
-    
-    GPIO_InitStruct.Pin = GPIO_Pin;
-    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
-    HAL_GPIO_Init(GPIOx, &GPIO_InitStruct);
-    
-    TX_PIN_L;
+    set_pin_rx(ONE_LINE_PORT, ONE_LINE_PIN);    //设置接收模式
 }
 
 
-void set_pin_rx(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin)
-{
-    GPIO_InitTypeDef GPIO_InitStruct = {0};
-    
-    GPIO_InitStruct.Pin = GPIO_Pin;
-    GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
-    HAL_GPIO_Init(GPIOx, &GPIO_InitStruct);
-    
-    TX_PIN_L;
-    
-    HAL_NVIC_SetPriority(ONE_LINE_IRQ, 0, 0);
-    HAL_NVIC_EnableIRQ(ONE_LINE_IRQ);
-    
-}
+static uint8_t  tx_flag = 0;        //启动发送
+static uint8_t  tx_first = 0;       //同步信号
+static uint8_t  tx_buf[ONE_LINE_BUF_SIZE] = {0};
+static uint16_t tx_len = 0;         //要发送到长度
+static uint16_t tx_byte = 0;        //发送了多少字节
+static uint16_t tx_bit = 0;
+static uint16_t tx_tim_cnt = 0;     //定时器计数
 
-
-
-
-uint8_t  tx_flag = 0;        //启动发送
-uint8_t  tx_first = 0;       //同步信号
-uint8_t  tx_buf[MAX_BUFF_SIZE] = {0};
-uint16_t tx_len = 0;         //要发送到长度
-uint16_t tx_byte = 0;        //发送了多少字节
-uint16_t tx_bit = 0;
-uint16_t tx_tim_cnt = 0;     //定时器计数
-
+//发送函数
 uint8_t one_line_send(uint8_t * data, uint16_t len)
 {
-    if(len > MAX_BUFF_SIZE)
+    if(len > ONE_LINE_BUF_SIZE)
     {
         return 2;
     }
@@ -74,6 +32,7 @@ uint8_t one_line_send(uint8_t * data, uint16_t len)
     }
     else
     {
+        gOneLine.tx_ok = 0;
         set_pin_tx(ONE_LINE_PORT, ONE_LINE_PIN);    //设置发送模式
         
         memcpy(tx_buf, data, len);
@@ -92,12 +51,7 @@ uint8_t one_line_send(uint8_t * data, uint16_t len)
 
 
 
-#define TL_CNT  4   //8 //16
-
-
-// 1/2ms调用 TL = (TL_CNT*0.5)ms
-// 1/4ms调用 TL = (TL_CNT*0.25)ms
-void send_timer_cb(void)
+static void send_timer_cb(void)
 {
     if(tx_flag == 1)
     {
@@ -148,6 +102,7 @@ void send_timer_cb(void)
                             tx_flag = 0;
                             memset(&gOneLine, 0, sizeof(gOneLine));
                             
+                            gOneLine.tx_ok = 1;
                             set_pin_rx(ONE_LINE_PORT, ONE_LINE_PIN);    //设置接收模式
                             return;
                         }
@@ -181,6 +136,7 @@ void send_timer_cb(void)
                             tx_flag = 0;
                             memset(&gOneLine, 0, sizeof(gOneLine));
                             
+                            gOneLine.tx_ok = 1;
                             set_pin_rx(ONE_LINE_PORT, ONE_LINE_PIN);    //设置接收模式
                             return;
                         }
@@ -192,14 +148,14 @@ void send_timer_cb(void)
     }
 }
 
-uint8_t  rx_flag = 0;
-uint8_t  rx_buf[MAX_BUFF_SIZE] = {0};
-uint16_t rx_byte = 0;       //接收了多少字节
-uint16_t rx_bit = 0;        //接收了多少位
-uint16_t rx_tim_cnt = 0;    //定时器计数
-uint16_t rx_tim_out = 0;
+static uint8_t  rx_flag = 0;
+static uint8_t  rx_buf[ONE_LINE_BUF_SIZE] = {0};
+static uint16_t rx_byte = 0;       //接收了多少字节
+static uint16_t rx_bit = 0;        //接收了多少位
+static uint16_t rx_tim_cnt = 0;    //定时器计数
+static uint16_t rx_tim_out = 0;
 
-void rev_timer_cb(void)
+static void rev_timer_cb(void)
 {
     if(rx_flag == 1)
     {
@@ -258,16 +214,23 @@ void rev_timer_cb(void)
     
 }
 
+// 1/2ms调用 TL(位周期) = (TL_CNT*0.5)ms
+// 1/4ms调用 TL(位周期) = (TL_CNT*0.25)ms
 
+//定时器回调函数    推荐定时范围：1/16ms 到 1/2ms
+void one_line_timer_cb(void)
+{
+    rev_timer_cb();
+    send_timer_cb();
+}
 
-//下降沿触发中断
-void rev_exit_cb(void)
+//下降沿中断回调
+void one_line_exit_cb(void)
 {
     rx_tim_out = 0;
     
     rx_flag = 1;
     rx_tim_cnt = 0;
-    
     
 }
 
