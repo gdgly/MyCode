@@ -1,0 +1,6 @@
+--cpu Cortex-M7.fp.dp
+".\objects\startup_mimxrt1062.o"
+--library_type=microlib --strict --scatter ".\Objects\rt1060_lcd.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\Listings\rt1060_lcd.map" -o .\Objects\rt1060_lcd.axf
