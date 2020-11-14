@@ -4,7 +4,8 @@
 #include<stdlib.h>
 #include<string.h>
 #include<stdarg.h>
-
+#include<math.h>
+#include<windows.h>
 
 //定义链表bai节点
 typedef struct LNode
