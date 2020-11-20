@@ -54,7 +54,7 @@
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
           <DebugInformation>1</DebugInformation>
-          <BrowseInformation>0</BrowseInformation>
+          <BrowseInformation>1</BrowseInformation>
           <ListingPath></ListingPath>
           <HexFormatSelection>1</HexFormatSelection>
           <Merge32K>0</Merge32K>
@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F413xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../FATFS/Target;../FATFS/App;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Middlewares/Third_Party/FatFs/src;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;..\RTT</IncludePath>
+              <IncludePath>../Core/Inc;     ../FATFS/Target;     ../FATFS/App;     ../Drivers/STM32F4xx_HAL_Driver/Inc;     ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;     ../Middlewares/Third_Party/FreeRTOS/Source/include;     ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;     ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;     ../Middlewares/Third_Party/FatFs/src;     ../Drivers/CMSIS/Device/ST/STM32F4xx/Include;     ../Drivers/CMSIS/Include;     ..\RTT;     ..\AppEC2x</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -656,6 +656,21 @@
               <FileName>SEGGER_RTT.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\RTT\SEGGER_RTT.c</FilePath>
+            </File>
+            <File>
+              <FileName>SEGGER_RTT_Printf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\RTT\SEGGER_RTT_Printf.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>AppEC2x</GroupName>
+          <Files>
+            <File>
+              <FileName>app_ec20_4g.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\AppEC2x\app_ec20_4g.c</FilePath>
             </File>
           </Files>
         </Group>

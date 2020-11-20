@@ -33,6 +33,8 @@
 
 
 #include "SEGGER_RTT.h"
+#include "app_ec20_4g.h"
+
 
 /* USER CODE END Includes */
 
@@ -65,6 +67,14 @@ const osThreadAttr_t defaultTask_attributes = {
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
+osThreadId_t task1_handle;
+const osThreadAttr_t task1_attributes = {
+  .name = "task1",
+  .priority = (osPriority_t) osPriorityNormal,
+  .stack_size = 1024 * 4
+};
+
+void task1_entry(void *argument);
 
 /* USER CODE END FunctionPrototypes */
 
@@ -104,6 +114,7 @@ void MX_FREERTOS_Init(void) {
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
+  task1_handle = osThreadNew(task1_entry, NULL, &task1_attributes);
   /* USER CODE END RTOS_THREADS */
 
 }
@@ -178,7 +189,7 @@ void StartDefaultTask(void *argument)
     res = f_close(&fp);
     
     memcpy(&read_buff[5], "\r\n", 2);
-    rtt_printf(read_buff);
+    SEGGER_RTT_printf(0, read_buff);
 
     
     osDelay(1000);
@@ -189,6 +200,15 @@ void StartDefaultTask(void *argument)
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
 
+void task1_entry(void *argument)
+{
+    Ec20_SoftInit();
+    while(1)
+    {
+        Task_4G();
+        osDelay(100);
+    }
+}
 /* USER CODE END Application */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -312,7 +312,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>4</Optim>
+            <Optim>1</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -327,8 +327,8 @@
             <uC99>1</uC99>
             <uGnu>0</uGnu>
             <useXO>0</useXO>
-            <v6Lang>1</v6Lang>
-            <v6LangP>1</v6LangP>
+            <v6Lang>3</v6Lang>
+            <v6LangP>3</v6LangP>
             <vShortEn>1</vShortEn>
             <vShortWch>1</vShortWch>
             <v6Lto>0</v6Lto>
@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F413xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Inc;   ../Drivers/STM32F4xx_HAL_Driver/Inc;   ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;   ../Drivers/CMSIS/Device/ST/STM32F4xx/Include;   ../Drivers/CMSIS/Include;   ..\Src\nboot;   ..\Src\nbsp;   ..\Src\ninebot;   ..\Src\RTT</IncludePath>
+              <IncludePath>../Inc;     ../Drivers/STM32F4xx_HAL_Driver/Inc;     ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;     ../Drivers/CMSIS/Device/ST/STM32F4xx/Include;     ../Drivers/CMSIS/Include;     ..\Src\nboot;     ..\Src\nbsp;     ..\Src\ninebot;     ..\Src\RTT</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -396,16 +396,6 @@
               <FileName>mcu_flash_f4.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Src\nbsp\mcu_flash_f4.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Application/MDK-ARM</GroupName>
-          <Files>
-            <File>
-              <FileName>startup_stm32f413xx.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm\startup_stm32f413xx.s</FilePath>
             </File>
           </Files>
         </Group>
@@ -517,6 +507,11 @@
               <FileType>1</FileType>
               <FilePath>../Src/system_stm32f4xx.c</FilePath>
             </File>
+            <File>
+              <FileName>startup_stm32f413xx.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\..\..\..\..\..\GitLab\pingpang_bootloader\stm32f412ve\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm\startup_stm32f413xx.s</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -544,14 +539,27 @@
   <RTE>
     <apis/>
     <components>
-      <component Cclass="CMSIS" Cgroup="CORE" Cvendor="ARM" Cversion="4.3.0" condition="CMSIS Core">
-        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="4.5.0"/>
+      <component Cclass="CMSIS" Cgroup="CORE" Cvendor="ARM" Cversion="5.4.0" condition="ARMv6_7_8-M Device">
+        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.7.0"/>
         <targetInfos>
           <targetInfo name="bootloader"/>
         </targetInfos>
       </component>
     </components>
-    <files/>
+    <files>
+      <file attr="config" category="source" condition="STM32F413xx_ARMCC" name="Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm\startup_stm32f413xx.s" version="2.6.2">
+        <instance index="0" removed="1">RTE\Device\STM32F413VGTx\startup_stm32f413xx.s</instance>
+        <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="2.6.3" condition="STM32F4 CMSIS"/>
+        <package name="STM32F4xx_DFP" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="2.14.0"/>
+        <targetInfos/>
+      </file>
+      <file attr="config" category="source" name="Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\system_stm32f4xx.c" version="2.6.2">
+        <instance index="0" removed="1">RTE\Device\STM32F413VGTx\system_stm32f4xx.c</instance>
+        <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="2.6.3" condition="STM32F4 CMSIS"/>
+        <package name="STM32F4xx_DFP" schemaVersion="1.4" url="http://www.keil.com/pack/" vendor="Keil" version="2.14.0"/>
+        <targetInfos/>
+      </file>
+    </files>
   </RTE>
 
 </Project>

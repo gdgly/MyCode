@@ -1,9 +1,9 @@
 /*********************************************************************
-*                    SEGGER Microcontroller GmbH                     *
-*                        The Embedded Experts                        *
+*               SEGGER MICROCONTROLLER GmbH & Co. KG                 *
+*       Solutions for real time microcontroller applications         *
 **********************************************************************
 *                                                                    *
-*            (c) 1995 - 2019 SEGGER Microcontroller GmbH             *
+*       (c) 2014 - 2016  SEGGER Microcontroller GmbH & Co. KG        *
 *                                                                    *
 *       www.segger.com     Support: support@segger.com               *
 *                                                                    *
@@ -15,16 +15,16 @@
 *                                                                    *
 * All rights reserved.                                               *
 *                                                                    *
-* SEGGER strongly recommends to not make any changes                 *
-* to or modify the source code of this software in order to stay     *
-* compatible with the RTT protocol and J-Link.                       *
-*                                                                    *
-* Redistribution and use in source and binary forms, with or         *
-* without modification, are permitted provided that the following    *
-* condition is met:                                                  *
-*                                                                    *
-* o Redistributions of source code must retain the above copyright   *
-*   notice, this condition and the following disclaimer.             *
+* * This software may in its unmodified form be freely redistributed *
+*   in source, linkable, or executable form.                         *
+* * The source code may be modified, provided the source code        *
+*   retains the above copyright notice, this list of conditions and  *
+*   the following disclaimer.                                        *
+* * Modified versions of this software in source, executable, or     *
+*   linkable form may not be distributed without prior consent of    *
+*   SEGGER.                                                          *
+* * This software may only be used for communication with SEGGER     *
+*   J-Link debug probes.                                             *
 *                                                                    *
 * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND             *
 * CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,        *
@@ -42,17 +42,16 @@
 *                                                                    *
 **********************************************************************
 *                                                                    *
-*       RTT version: 6.52b                                           *
+*       RTT version: 6.00e                                           *
 *                                                                    *
 **********************************************************************
-
----------------------------END-OF-HEADER------------------------------
+----------------------------------------------------------------------
 File    : SEGGER_RTT_Conf.h
-Purpose : Implementation of SEGGER real-time transfer (RTT) which
-          allows real-time communication on targets which support
+Purpose : Implementation of SEGGER real-time transfer (RTT) which 
+          allows real-time communication on targets which support 
           debugger memory accesses while the CPU is running.
-Revision: $Rev: 15929 $
-
+Revision: $Rev: 3892 $
+---------------------------END-OF-HEADER------------------------------
 */
 
 #ifndef SEGGER_RTT_CONF_H
@@ -62,12 +61,6 @@ Revision: $Rev: 15929 $
   #include <intrinsics.h>
 #endif
 
-
-#include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
-
-#include"main.h"
 /*********************************************************************
 *
 *       Defines, configurable
@@ -78,41 +71,18 @@ Revision: $Rev: 15929 $
 #define SEGGER_RTT_MAX_NUM_UP_BUFFERS             (3)     // Max. number of up-buffers (T->H) available on this target    (Default: 3)
 #define SEGGER_RTT_MAX_NUM_DOWN_BUFFERS           (3)     // Max. number of down-buffers (H->T) available on this target  (Default: 3)
 
-#define BUFFER_SIZE_UP                            (1024)  // Size of the buffer for terminal output of target, up to host (Default: 1k)
+#define BUFFER_SIZE_UP                            (512)    // Size of the buffer for terminal output of target, up to host (Default: 1k)
 #define BUFFER_SIZE_DOWN                          (16)    // Size of the buffer for terminal input to target from host (Usually keyboard input) (Default: 16)
 
-#define SEGGER_RTT_PRINTF_BUFFER_SIZE             (64u)    // Size of buffer for RTT printf to bulk-send chars via RTT     (Default: 64)
+#define SEGGER_RTT_PRINTF_BUFFER_SIZE             (512)    // Size of buffer for RTT printf to bulk-send chars via RTT     (Default: 64)
 
 #define SEGGER_RTT_MODE_DEFAULT                   SEGGER_RTT_MODE_NO_BLOCK_SKIP // Mode for pre-initialized terminal channel (buffer 0)
-
-#define STRLEN(a)                                 strlen((a))
-#define SEGGER_RTT_MEMCPY(pDest, pSrc, NumBytes)  memcpy((pDest), (pSrc), (NumBytes))
-
-/*********************************************************************
-*
-*       RTT memcpy configuration
-*
-*       memcpy() is good for large amounts of data, 
-*       but the overhead is big for small amounts, which are usually stored via RTT.
-*       With SEGGER_RTT_MEMCPY_USE_BYTELOOP a simple byte loop can be used instead.
-*
-*       SEGGER_RTT_MEMCPY() can be used to replace standard memcpy() in RTT functions.
-*       This is may be required with memory access restrictions, 
-*       such as on Cortex-A devices with MMU.
-*/
-#define SEGGER_RTT_MEMCPY_USE_BYTELOOP              0 // 0: Use memcpy/SEGGER_RTT_MEMCPY, 1: Use a simple byte-loop
-//
-// Example definition of SEGGER_RTT_MEMCPY to external memcpy with GCC toolchains and Cortex-A targets
-//
-//#if ((defined __SES_ARM) || (defined __CROSSWORKS_ARM) || (defined __GNUC__)) && (defined (__ARM_ARCH_7A__))  
-//  #define SEGGER_RTT_MEMCPY(pDest, pSrc, NumBytes)      SEGGER_memcpy((pDest), (pSrc), (NumBytes))
-//#endif
 
 //
 // Target is not allowed to perform other RTT operations while string still has not been stored completely.
 // Otherwise we would probably end up with a mixed string in the buffer.
 // If using  RTT from within interrupts, multiple tasks or multi processors, define the SEGGER_RTT_LOCK() and SEGGER_RTT_UNLOCK() function here.
-//
+// 
 // SEGGER_RTT_MAX_INTERRUPT_PRIORITY can be used in the sample lock routines on Cortex-M3/4.
 // Make sure to mask all interrupts which can send RTT data, i.e. generate SystemView events, or cause task switches.
 // When high-priority interrupts must not be masked while sending RTT data, SEGGER_RTT_MAX_INTERRUPT_PRIORITY needs to be adjusted accordingly.
@@ -121,34 +91,35 @@ Revision: $Rev: 15929 $
 // Default configuration in FreeRTOS: configMAX_SYSCALL_INTERRUPT_PRIORITY: ( configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY << (8 - configPRIO_BITS) )
 // In case of doubt mask all interrupts: 1 << (8 - BASEPRI_PRIO_BITS) i.e. 1 << 5 when 3 bits are implemented in NVIC
 // or define SEGGER_RTT_LOCK() to completely disable interrupts.
-//
+// 
 
 #define SEGGER_RTT_MAX_INTERRUPT_PRIORITY         (0x20)   // Interrupt priority to lock on SEGGER_RTT_LOCK on Cortex-M3/4 (Default: 0x20)
 
 /*********************************************************************
 *
-*       RTT lock configuration for SEGGER Embedded Studio,
+*       RTT lock configuration for SEGGER Embedded Studio, 
 *       Rowley CrossStudio and GCC
 */
-#if (defined(__SES_ARM) || defined(__CROSSWORKS_ARM) || defined(__GNUC__) || defined(__clang__)) && !defined (__CC_ARM)
-  #if (defined(__ARM_ARCH_6M__) || defined(__ARM_ARCH_8M_BASE__))
+#if (defined __SES_ARM) || (defined __CROSSWORKS_ARM) || (defined __GNUC__)
+  #ifdef __ARM_ARCH_6M__
     #define SEGGER_RTT_LOCK()   {                                                                   \
                                     unsigned int LockState;                                         \
                                   __asm volatile ("mrs   %0, primask  \n\t"                         \
-                                                  "movs  r1, $1       \n\t"                         \
+                                                  "mov   r1, $1     \n\t"                           \
                                                   "msr   primask, r1  \n\t"                         \
                                                   : "=r" (LockState)                                \
                                                   :                                                 \
                                                   : "r1"                                            \
-                                                  );
-
+                                                  );                            
+    
     #define SEGGER_RTT_UNLOCK()   __asm volatile ("msr   primask, %0  \n\t"                         \
                                                   :                                                 \
                                                   : "r" (LockState)                                 \
                                                   :                                                 \
                                                   );                                                \
-                                }
-  #elif (defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) || defined(__ARM_ARCH_8M_MAIN__))
+                                }                                             
+                                  
+  #elif (defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__))
     #ifndef   SEGGER_RTT_MAX_INTERRUPT_PRIORITY
       #define SEGGER_RTT_MAX_INTERRUPT_PRIORITY   (0x20)
     #endif
@@ -160,15 +131,15 @@ Revision: $Rev: 15929 $
                                                   : "=r" (LockState)                                \
                                                   : "i"(SEGGER_RTT_MAX_INTERRUPT_PRIORITY)          \
                                                   : "r1"                                            \
-                                                  );
-
+                                                  );                            
+    
     #define SEGGER_RTT_UNLOCK()   __asm volatile ("msr   basepri, %0  \n\t"                         \
                                                   :                                                 \
                                                   : "r" (LockState)                                 \
                                                   :                                                 \
                                                   );                                                \
                                 }
-
+  
   #elif defined(__ARM_ARCH_7A__)
     #define SEGGER_RTT_LOCK() {                                                \
                                  unsigned int LockState;                       \
@@ -192,6 +163,9 @@ Revision: $Rev: 15929 $
                                                 : "r0", "r1"                   \
                                                 );                             \
                             }
+#else
+    #define SEGGER_RTT_LOCK()  
+    #define SEGGER_RTT_UNLOCK()
   #endif
 #endif
 
@@ -204,8 +178,8 @@ Revision: $Rev: 15929 $
     #define SEGGER_RTT_LOCK()   {                                                                   \
                                   unsigned int LockState;                                           \
                                   LockState = __get_PRIMASK();                                      \
-                                  __set_PRIMASK(1);
-
+                                  __set_PRIMASK(1);                           
+                                    
     #define SEGGER_RTT_UNLOCK()   __set_PRIMASK(LockState);                                         \
                                 }
   #elif ((defined (__ARM7EM__) && (__CORE__ == __ARM7EM__)) || (defined (__ARM7M__) && (__CORE__ == __ARM7M__)))
@@ -215,10 +189,10 @@ Revision: $Rev: 15929 $
     #define SEGGER_RTT_LOCK()   {                                                                   \
                                   unsigned int LockState;                                           \
                                   LockState = __get_BASEPRI();                                      \
-                                  __set_BASEPRI(SEGGER_RTT_MAX_INTERRUPT_PRIORITY);
-
+                                  __set_BASEPRI(SEGGER_RTT_MAX_INTERRUPT_PRIORITY);                           
+                                    
     #define SEGGER_RTT_UNLOCK()   __set_BASEPRI(LockState);                                         \
-                                }
+                                }  
   #endif
 #endif
 
@@ -230,22 +204,8 @@ Revision: $Rev: 15929 $
   #define SEGGER_RTT_LOCK()   {                                                                     \
                                 unsigned long LockState;                                            \
                                 LockState = __get_interrupt_state();                                \
-                                __disable_interrupt();
-
-  #define SEGGER_RTT_UNLOCK()   __set_interrupt_state(LockState);                                   \
-                              }
-#endif
-
-/*********************************************************************
-*
-*       RTT lock configuration for IAR RL78
-*/
-#ifdef __ICCRL78__
-  #define SEGGER_RTT_LOCK()   {                                                                     \
-                                __istate_t LockState;                                               \
-                                LockState = __get_interrupt_state();                                \
-                                __disable_interrupt();
-
+                                __disable_interrupt();                           
+                                  
   #define SEGGER_RTT_UNLOCK()   __set_interrupt_state(LockState);                                   \
                               }
 #endif
@@ -254,7 +214,7 @@ Revision: $Rev: 15929 $
 *
 *       RTT lock configuration for KEIL ARM
 */
-#ifdef __CC_ARM
+#if defined(__CC_ARM) || defined(__ARMCC_VERSION)
   #if (defined __TARGET_ARCH_6S_M)
     #define SEGGER_RTT_LOCK()   {                                                                   \
                                   unsigned int LockState;                                           \
@@ -281,46 +241,6 @@ Revision: $Rev: 15929 $
                                   __schedule_barrier();                                             \
                                 }
   #endif
-#endif
-
-/*********************************************************************
-*
-*       RTT lock configuration for TI ARM
-*/
-#ifdef __TI_ARM__
-  #if defined (__TI_ARM_V6M0__)
-    #define SEGGER_RTT_LOCK()   {                                                                   \
-                                  unsigned int LockState;                                           \
-                                  LockState = __get_PRIMASK();                                      \
-                                  __set_PRIMASK(1);
-
-    #define SEGGER_RTT_UNLOCK()   __set_PRIMASK(LockState);                                         \
-                                }
-  #elif (defined (__TI_ARM_V7M3__) || defined (__TI_ARM_V7M4__))
-    #ifndef   SEGGER_RTT_MAX_INTERRUPT_PRIORITY
-      #define SEGGER_RTT_MAX_INTERRUPT_PRIORITY   (0x20)
-    #endif
-    #define SEGGER_RTT_LOCK()   {                                                                   \
-                                  unsigned int LockState;                                           \
-                                  LockState = _set_interrupt_priority(SEGGER_RTT_MAX_INTERRUPT_PRIORITY);
-
-    #define SEGGER_RTT_UNLOCK()   _set_interrupt_priority(LockState);                               \
-                                }
-  #endif
-#endif
-
-/*********************************************************************
-*
-*       RTT lock configuration for CCRX
-*/
-#ifdef __RX
-  #define SEGGER_RTT_LOCK()   {                                                                     \
-                                unsigned long LockState;                                            \
-                                LockState = get_psw() & 0x010000;                                   \
-                                clrpsw_i();                           
-                                    
-  #define SEGGER_RTT_UNLOCK()   set_psw(get_psw() | LockState);                                     \
-                              }
 #endif
 
 /*********************************************************************

@@ -46,6 +46,8 @@
 "tboxsdtest\heap_4.o"
 "tboxsdtest\port.o"
 "tboxsdtest\segger_rtt.o"
+"tboxsdtest\segger_rtt_printf.o"
+"tboxsdtest\app_ec20_4g.o"
 --library_type=microlib --strict --scatter "TBoxSdTest\TBoxSdTest.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

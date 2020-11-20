@@ -29,6 +29,7 @@ extern "C" {
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
+#include "stm32f4xx_hal.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -58,6 +59,12 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define LEVEL_EN_Pin GPIO_PIN_11
+#define LEVEL_EN_GPIO_Port GPIOE
+#define EC25_EN_Pin GPIO_PIN_8
+#define EC25_EN_GPIO_Port GPIOD
+#define EC25_POWKEY_Pin GPIO_PIN_0
+#define EC25_POWKEY_GPIO_Port GPIOD
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

@@ -68,7 +68,6 @@ void MX_FREERTOS_Init(void);
   * @brief  The application entry point.
   * @retval int
   */
-#if 1
 int main(void)
 {
   /* USER CODE BEGIN 1 */
@@ -97,9 +96,10 @@ int main(void)
   MX_SDIO_SD_Init();
   MX_USART6_UART_Init();
   MX_FATFS_Init();
+  MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
-  rtt_init();
-  rtt_printf("Hello RTT\r\n");
+  SEGGER_RTT_Init();
+  SEGGER_RTT_printf(0, "Hello RTT\r\n");
   /* USER CODE END 2 */
 
   /* Init scheduler */
@@ -119,77 +119,6 @@ int main(void)
   }
   /* USER CODE END 3 */
 }
-
-#else
-
-int main(void)
-{
-    HAL_Init();
-    SystemClock_Config();
-    
-    rtt_init();
-    rtt_printf("Hello RTT\r\n");
-
-    while (1)
-    {
-        HAL_Delay(10000);
-
-        rtt_printf("into_stop\r\n");
-        __disable_irq();
-        //HAL_GPIO_DeInit(GPIOA, GPIO_PIN_All & ~(GPIO_PIN_13 | GPIO_PIN_14));
-#if 0
-        HAL_GPIO_DeInit(GPIOA, GPIO_PIN_All);
-        HAL_GPIO_DeInit(GPIOB, GPIO_PIN_All);
-        HAL_GPIO_DeInit(GPIOC, GPIO_PIN_All);
-        HAL_GPIO_DeInit(GPIOD, GPIO_PIN_All);
-        HAL_GPIO_DeInit(GPIOE, GPIO_PIN_All);
-#else
-        GPIO_InitTypeDef GPIO_InitStruct = {0};
-
-        __HAL_RCC_GPIOA_CLK_ENABLE();
-        __HAL_RCC_GPIOB_CLK_ENABLE();
-        __HAL_RCC_GPIOC_CLK_ENABLE();
-        __HAL_RCC_GPIOD_CLK_ENABLE();
-        __HAL_RCC_GPIOE_CLK_ENABLE();
-
-        GPIO_InitStruct.Pin = GPIO_PIN_All; 
-        GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_OD;
-        GPIO_InitStruct.Pull = GPIO_NOPULL;
-        GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-        
-        HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-        HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-        HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-        HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
-        HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
-
-        __HAL_RCC_GPIOA_CLK_DISABLE();
-        __HAL_RCC_GPIOB_CLK_DISABLE();
-        __HAL_RCC_GPIOC_CLK_DISABLE();
-        __HAL_RCC_GPIOD_CLK_DISABLE();
-        __HAL_RCC_GPIOE_CLK_DISABLE();
-#endif
-
-        EXTI->PR = 0xFFFFFFFF;
-        CLEAR_BIT(SysTick->CTRL, (uint32_t)SysTick_CTRL_TICKINT_Msk);
-        rtt_printf("SCB->ICSR %08x\r\n", SCB->ICSR);
-        if ((SCB->ICSR & SCB_ICSR_PENDSTSET_Msk) != 0U)
-        {
-            SCB->ICSR = SCB_ICSR_PENDSTCLR_Msk;
-        }
-    
-        __HAL_RCC_PWR_CLK_ENABLE();
-        HAL_PWREx_EnableFlashPowerDown();
-        HAL_PWR_EnterSTOPMode(PWR_MAINREGULATOR_ON, PWR_STOPENTRY_WFI);
-        rtt_printf("exit_stop\r\n");
-
-        __enable_irq();
-        HAL_Init();
-        SystemClock_Config();
-    }
-}
-
-#endif
 
 /**
   * @brief System Clock Configuration
