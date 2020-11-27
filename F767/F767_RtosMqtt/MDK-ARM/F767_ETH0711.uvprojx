@@ -18,7 +18,7 @@
           <Vendor>STMicroelectronics</Vendor>
           <PackID>STMicroelectronics.STM32F7xx_DFP.1.0.3</PackID>
           <PackURL>http://www.ST.com/</PackURL>
-          <Cpu>IRAM(0x20000000-0x2007FFFF) IROM(0x8000000-0x81FFFFF)   CLOCK(12000000) FPU3(DFPU) CPUTYPE("Cortex-M7") ELITTLE</Cpu>
+          <Cpu>IRAM(0x20000000-0x2007FFFF) IROM(0x8000000-0x81FFFFF)     CLOCK(12000000) FPU3(DFPU) CPUTYPE("Cortex-M7") ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
           <StartupFile></StartupFile>
           <FlashDriverDll></FlashDriverDll>
@@ -54,7 +54,7 @@
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
           <DebugInformation>1</DebugInformation>
-          <BrowseInformation>0</BrowseInformation>
+          <BrowseInformation>1</BrowseInformation>
           <ListingPath></ListingPath>
           <HexFormatSelection>1</HexFormatSelection>
           <Merge32K>0</Merge32K>
@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F767xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../LWIP/App;../LWIP/Target;../Middlewares/Third_Party/LwIP/src/include;../Middlewares/Third_Party/LwIP/system;../Drivers/STM32F7xx_HAL_Driver/Inc;../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM7/r0p1;../Middlewares/Third_Party/LwIP/src/include/netif/ppp;../Drivers/CMSIS/Device/ST/STM32F7xx/Include;../Middlewares/Third_Party/LwIP/src/include/lwip;../Middlewares/Third_Party/LwIP/src/include/lwip/apps;../Middlewares/Third_Party/LwIP/src/include/lwip/priv;../Middlewares/Third_Party/LwIP/src/include/lwip/prot;../Middlewares/Third_Party/LwIP/src/include/netif;../Middlewares/Third_Party/LwIP/src/include/compat/posix;../Middlewares/Third_Party/LwIP/src/include/compat/posix/arpa;../Middlewares/Third_Party/LwIP/src/include/compat/posix/net;../Middlewares/Third_Party/LwIP/src/include/compat/posix/sys;../Middlewares/Third_Party/LwIP/src/include/compat/stdc;../Middlewares/Third_Party/LwIP/system/arch;../Drivers/CMSIS/Include;..\UserBsp;..\UserApp;..\MQTTPacket;..\cJSON</IncludePath>
+              <IncludePath>../Core/Inc;../LWIP/App;../LWIP/Target;../Middlewares/Third_Party/LwIP/src/include;../Middlewares/Third_Party/LwIP/system;../Drivers/STM32F7xx_HAL_Driver/Inc;../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM7/r0p1;../Middlewares/Third_Party/LwIP/src/include/netif/ppp;../Drivers/CMSIS/Device/ST/STM32F7xx/Include;../Middlewares/Third_Party/LwIP/src/include/lwip;../Middlewares/Third_Party/LwIP/src/include/lwip/apps;../Middlewares/Third_Party/LwIP/src/include/lwip/priv;../Middlewares/Third_Party/LwIP/src/include/lwip/prot;../Middlewares/Third_Party/LwIP/src/include/netif;../Middlewares/Third_Party/LwIP/src/include/compat/posix;../Middlewares/Third_Party/LwIP/src/include/compat/posix/arpa;../Middlewares/Third_Party/LwIP/src/include/compat/posix/net;../Middlewares/Third_Party/LwIP/src/include/compat/posix/sys;../Middlewares/Third_Party/LwIP/src/include/compat/stdc;../Middlewares/Third_Party/LwIP/system/arch;../Drivers/CMSIS/Include;..\UserBsp;..\UserApp;..\MQTTPacket;..\cJSON;..\UserBsp\TftLcd</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -403,14 +403,14 @@
               <FilePath>../Core/Src/gpio.c</FilePath>
             </File>
             <File>
-              <FileName>dma.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../Core/Src/dma.c</FilePath>
-            </File>
-            <File>
               <FileName>freertos.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Core/Src/freertos.c</FilePath>
+            </File>
+            <File>
+              <FileName>dma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Core/Src/dma.c</FilePath>
             </File>
             <File>
               <FileName>usart.c</FileName>
@@ -551,21 +551,6 @@
               <FileName>stm32f7xx_hal_uart_ex.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_uart_ex.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f7xx_hal_pcd.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_pcd.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f7xx_hal_pcd_ex.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_pcd_ex.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f7xx_ll_usb.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_ll_usb.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1045,41 +1030,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>UserBsp</GroupName>
-          <Files>
-            <File>
-              <FileName>printf.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\UserBsp\printf.c</FilePath>
-            </File>
-            <File>
-              <FileName>kfifo.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\UserBsp\kfifo.c</FilePath>
-            </File>
-            <File>
-              <FileName>kfifo.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\UserBsp\kfifo.h</FilePath>
-            </File>
-            <File>
-              <FileName>printf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\UserBsp\printf.h</FilePath>
-            </File>
-            <File>
-              <FileName>tool.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\UserBsp\tool.c</FilePath>
-            </File>
-            <File>
-              <FileName>tool.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\UserBsp\tool.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>UserApp</GroupName>
           <Files>
             <File>
@@ -1166,6 +1116,56 @@
               <FileName>cJSON_Process.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\cJSON\cJSON_Process.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>UserBsp</GroupName>
+          <Files>
+            <File>
+              <FileName>printf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\UserBsp\printf.c</FilePath>
+            </File>
+            <File>
+              <FileName>kfifo.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\UserBsp\kfifo.c</FilePath>
+            </File>
+            <File>
+              <FileName>kfifo.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\UserBsp\kfifo.h</FilePath>
+            </File>
+            <File>
+              <FileName>printf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\UserBsp\printf.h</FilePath>
+            </File>
+            <File>
+              <FileName>tool.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\UserBsp\tool.c</FilePath>
+            </File>
+            <File>
+              <FileName>tool.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\UserBsp\tool.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>BspLcd</GroupName>
+          <Files>
+            <File>
+              <FileName>tftlcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\UserBsp\TftLcd\tftlcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>pic.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\UserBsp\TftLcd\pic.c</FilePath>
             </File>
           </Files>
         </Group>

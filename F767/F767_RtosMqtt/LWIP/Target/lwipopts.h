@@ -17,7 +17,7 @@
   *
   ******************************************************************************
   */
- 
+
 /* Define to prevent recursive inclusion --------------------------------------*/
 #ifndef __LWIPOPTS__H__
 #define __LWIPOPTS__H__
@@ -41,8 +41,8 @@
 /* Parameters set in STM32CubeMX LwIP Configuration GUI -*/
 /*----- WITH_RTOS enabled (Since FREERTOS is set) -----*/
 #define WITH_RTOS 1
-/*----- CHECKSUM_BY_HARDWARE disabled -----*/
-#define CHECKSUM_BY_HARDWARE 0
+/*----- CHECKSUM_BY_HARDWARE enabled -----*/
+#define CHECKSUM_BY_HARDWARE 1
 /*-----------------------------------------------------------------------------*/
 
 /* LwIP Stack Parameters (modified compared to initialization value in opt.h) -*/
@@ -71,7 +71,7 @@
 #define LWIP_NETIF_STATUS_CALLBACK 1
 /*----- Default Value for LWIP_NETIF_EXT_STATUS_CALLBACK: 0 ---*/
 #define LWIP_NETIF_EXT_STATUS_CALLBACK 1
-/*----- Default Value for LWIP_NETIF_LINK_CALLBACK: 0 ---*/
+/*----- Value in opt.h for LWIP_NETIF_LINK_CALLBACK: 0 -----*/
 #define LWIP_NETIF_LINK_CALLBACK 1
 /*----- Default Value for LWIP_NETIF_LOOPBACK: 0 ---*/
 #define LWIP_NETIF_LOOPBACK 1
