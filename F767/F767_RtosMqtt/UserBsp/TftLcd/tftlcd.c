@@ -93,6 +93,7 @@ void LCD_WriteCmdData(uint16_t cmd, uint16_t data)
     LCD_WriteData(data);
 }
 
+#if 0
 
 //写颜色值,color:要写入颜色值
 void LCD_WriteData_Color(uint16_t color)
@@ -110,6 +111,11 @@ void LCD_WriteData_Color(uint16_t color)
 //	LCD_CS_SET
 
 }
+#else
+
+//写颜色值,color:要写入颜色值
+#define LCD_WriteData_Color(color)  {LCD_RS(1);DATAOUT(color);LCD_WR(0);LCD_WR(1);DATAOUT(color << 8);LCD_WR(0);LCD_WR(1);}
+#endif
 
 //读数据
 //返回值:读到的值
@@ -196,7 +202,7 @@ void TFTLCD_Init_ILI9225(void)
     LCD_WriteCmdData(0x0037, 0x0000);
     LCD_WriteCmdData(0x0038, 0x00DB);
     LCD_WriteCmdData(0x0039, 0x0000);
-// ----------- Adjust the Gamma Curve ----------//
+// ----------- Adjust the Gamma log_curve ----------//
     LCD_WriteCmdData(0x0050, 0x0100);
     LCD_WriteCmdData(0x0051, 0x0609);
     LCD_WriteCmdData(0x0052, 0x0c09);
@@ -1063,34 +1069,113 @@ void Show_Str(uint16_t x, uint16_t y, uint16_t fc, uint16_t bc, uint8_t *str, ui
     }
 }
 
-uint8_t lcd_buff[13][22] = {0};
-uint32_t len_num = 0;
-uint8_t head = 0;
-uint8_t cur = 0;
-void debug_show(uint8_t * str, uint16_t len)
+
+
+uint8_t lcd_disp[220][176][2] = {0};
+
+void Buff_DrawPoint(uint16_t x, uint16_t y, uint16_t color)
 {
+    lcd_disp[y][x][0] = color&0xff;
+    lcd_disp[y][x][1] = color>>8;
+}
 
-
-    cur = len_num%13;
-
-    memcpy(lcd_buff[cur], str, len);
-    
-    if(len_num < 13)
+void Buff_ShowChar(uint16_t x, uint16_t y, uint16_t fc, uint16_t bc, uint8_t num, uint8_t size, uint8_t mode)
+{
+    uint8_t temp, t1, t;
+    uint16_t y0 = y;
+    uint8_t csize = (size / 8 + ((size % 8) ? 1 : 0)) * (size / 2);		//得到字体一个字符对应点阵集所占的字节数
+    num = num - ' '; //得到偏移后的值（ASCII字库是从空格开始取模，所以-' '就是对应字符的字库）
+    for(t = 0; t < csize; t++)
     {
-        head = 0;
-        LCD_ShowString(0, 16*cur, RED, BLACK, 176, 220, 16, lcd_buff[cur]);
-    }
-    else
-    {
-        head = (len_num-12)%13;
-        for(int i=0; i<13; i++)
+        if(size == 12)
+            temp = ascii_1206[num][t]; 	 	//调用1206字体
+        else if(size == 16)
+            temp = ascii_1608[num][t];	//调用1608字体
+        else if(size == 24)
+            temp = ascii_2412[num][t];	//调用2412字体
+        else
+            return;								//没有的字库
+        
+        for(t1 = 0; t1 < 8; t1++)
         {
-            LCD_ShowString(0, i*16, RED, BLACK, 176, 220, 16, lcd_buff[(head+i)%13]);
+            if(temp & 0x80)
+                Buff_DrawPoint(x, y, fc);
+            else if(mode == 0)
+                Buff_DrawPoint(x, y, bc);
+            temp <<= 1;
+            y++;
             
+            if(y >= tftlcd_data.height)
+                return;		//超区域了
+            if((y - y0) == size)
+            {
+                y = y0;
+                x++;
+                if(x >= tftlcd_data.width)
+                    return;	//超区域了
+                break;
+            }
         }
     }
+}
+
+
+uint8_t Buff_ShowString(uint16_t x, uint16_t y, uint16_t fc, uint16_t bc, uint16_t width, uint16_t height, uint8_t size, uint8_t *p)
+{
+    uint8_t res = 1;
+    uint8_t x0 = x;
+    width += x;
+    height += y;
+    while((*p <= '~') && (*p >= ' ')) //判断是不是非法字符!
+    {
+        if(x >= width-size/2)
+        {
+            x = x0;
+            y += size;
+            res++;
+        }
+        if(y >= height)
+            break; //退出
+        Buff_ShowChar(x, y, fc, bc, *p, size, 0);
+        x += size / 2;
+        p++;
+    }
     
-    len_num++;
+    return res;
+}
+
+
+
+uint8_t log_buff[30][100] = {0};
+uint32_t line_num = 0;
+uint32_t line_cur = 0;
+uint8_t log_head = 0;
+uint8_t log_cur = 12;
+void debug_show(uint8_t * str, uint16_t len)
+{
+    int font_size = 12;
+    int x_size = 176*2/font_size;   //一行最大的字节数
+    int str_line = len/x_size;      //当前str要占用几行
+    
+    int get_line = 0;
+
+    log_cur++;
+    if(log_cur == 24)
+    {
+        log_cur = 12;
+    }
+
+    memset(log_buff[log_cur], 0, 100);
+    memcpy(log_buff[log_cur], str, len);
+    
+    
+    int j = 0;
+    for(int i=12; i>0; i--)
+    {
+        Buff_ShowString(0, i*font_size, GREEN, BLACK, 176, 220, font_size, log_buff[(log_cur-j)%13]);
+        j++;
+    }
+
 
 }
 

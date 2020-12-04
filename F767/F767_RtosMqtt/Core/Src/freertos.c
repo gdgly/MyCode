@@ -83,6 +83,16 @@ const osThreadAttr_t task_test_c_attributes = {
     .stack_size = 256 * 4
 };
 void task_test_c_entry(void *argument);
+
+
+//task_test_c
+osThreadId_t lcd_dis_handle;
+const osThreadAttr_t lcd_dis_attributes = {
+    .name = "lcd_dis",
+    .priority = (osPriority_t) osPriorityRealtime,
+    .stack_size = 256 * 4
+};
+void lcd_dis_entry(void *argument);
 /* USER CODE END FunctionPrototypes */
 
 void StartDefaultTask(void *argument);
@@ -125,6 +135,7 @@ void MX_FREERTOS_Init(void) {
     /* USER CODE BEGIN RTOS_THREADS */
     /* add threads, ... */
     task_led_handle = osThreadNew(task_led_entry, NULL, &task_led_attributes);
+    lcd_dis_handle = osThreadNew(lcd_dis_entry, NULL, &lcd_dis_attributes);
     task_test_c_handle = osThreadNew(task_test_c_entry, NULL, &task_test_c_attributes);
 
     /* USER CODE END RTOS_THREADS */
@@ -170,7 +181,6 @@ void task_led_entry(void *argument)
         HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, (GPIO_PinState)(led_flag & (1 << 1)));
         HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, (GPIO_PinState)(led_flag & (1 << 2)));
 
-        //HAL_GPIO_WritePin(LCD_BL_GPIO_Port, LCD_BL_Pin, GPIO_PIN_RESET);
 
         led_flag <<= 1;
         if(led_flag >= 0x10)
@@ -180,9 +190,9 @@ void task_led_entry(void *argument)
         
         uint8_t size = sizeof(color_buff)/sizeof(color_buff[0]);
 
-        //LCD_ShowPicture(0, 0, 176, 220, gImage_pic);
-        //LCD_ShowString(0, 0, RED, WHITE, 100, 100, 16, "HelloWorld\r\n");
-        //Show_Str(0, 0, RED, BLACK, "HelloWorld12345678901234567890", 16, 0);
+//        LCD_ShowPicture(0, 0, 176, 220, gImage_pic);
+//        LCD_ShowString(0, 0, RED, WHITE, 100, 100, 16, "HelloWorld\r\n");
+//        Show_Str(0, 0, RED, BLACK, "HelloWorld12345678901234567890", 16, 0);
 
 //        while(task_led_cnt++ < 1000)
 //        {
@@ -210,11 +220,51 @@ void task_test_c_entry(void *argument)
         xQueueSend(MQTT_Data_Queue, &test, 0);
 
         task_cnt++;
-        sprintf(buff, "task_cnt = %04X\r\n", task_cnt);
+        sprintf(buff, "task_cnt = %04d  HelloWordl 1490478564\r\n", task_cnt);
         debug_show(buff, strlen(buff));
+        
+        sprintf(buff, "yufei.fan");
+        //debug_show(buff, strlen(buff));
+        
         memset(buff, 0, strlen(buff));
         
-        osDelay(100);
+        //Buff_DrawPoint(20, 20, RED);
+        //Buff_ShowChar(0, 0, RED, BLACK, 'H', 16, 0);
+        //LCD_ShowPicture(0, 0, 176, 220, lcd_disp[0][0]);
+        
+        if(task_cnt > 20)
+        {
+//            task_cnt = 0;
+//            __HAL_RCC_PWR_CLK_ENABLE();
+//            HAL_GPIO_DeInit(GPIOA, GPIO_PIN_All);
+//            HAL_GPIO_DeInit(GPIOB, GPIO_PIN_All);
+//            HAL_GPIO_DeInit(GPIOC, GPIO_PIN_All);
+//            HAL_GPIO_DeInit(GPIOD, GPIO_PIN_All);
+//            HAL_GPIO_DeInit(GPIOE, GPIO_PIN_All);
+//            HAL_GPIO_DeInit(GPIOF, GPIO_PIN_All);
+//            HAL_GPIO_DeInit(GPIOG, GPIO_PIN_All);
+//            __disable_irq();
+//            HAL_PWREx_EnableFlashPowerDown();
+//            __HAL_RCC_CLEAR_RESET_FLAGS();
+//            HAL_PWR_EnableWakeUpPin(PWR_WAKEUP_PIN1);
+//            __HAL_PWR_CLEAR_FLAG(PWR_FLAG_WU);
+//            HAL_PWR_EnterSTANDBYMode();
+        }
+        
+        osDelay(500);
+    }
+}
+
+
+void lcd_dis_entry(void *argument)
+{
+    uint32_t task_cnt = 0;
+
+    while(1)
+    {
+        LCD_ShowPicture(0, 0, 176, 220, lcd_disp[0][0]);
+
+        osDelay(50);
     }
 }
 /* USER CODE END Application */

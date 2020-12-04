@@ -39,6 +39,8 @@ extern uint16_t color_buff[14];
 //LCD参数
 extern _tftlcd_data tftlcd_data;	//管理LCD重要参数
 
+extern uint8_t lcd_disp[220][176][2];
+
 //画笔颜色
 #define WHITE   0xFFFF  //白色
 #define BLACK   0x0000  //黑色
@@ -61,7 +63,7 @@ void LCD_WriteData(uint16_t data);                  //写数据,data:要写入�
 
 void LCD_WriteCmdData(uint16_t cmd, uint16_t data); //向指定的寄存器(cmd)写值（data）
 
-void LCD_WriteData_Color(uint16_t color);           //写颜色值,color:要写入颜色值
+//void LCD_WriteData_Color(uint16_t color);           //写颜色值,color:要写入颜色值
 
 uint16_t LCD_ReadData(void);                        //读数据,返回值:读到的值
 
@@ -110,6 +112,9 @@ void LCD_ShowFontHZ_16(uint16_t x, uint16_t y, uint16_t fc, uint16_t bc, uint8_t
 void LCD_ShowFontHZ_12(uint16_t x, uint16_t y, uint16_t fc, uint16_t bc, uint8_t *cn);
 void Show_Str(uint16_t x, uint16_t y, uint16_t fc, uint16_t bc, uint8_t *str, uint8_t size, uint8_t mode);
 
+
+void Buff_DrawPoint(uint16_t x, uint16_t y, uint16_t color);
+void Buff_ShowChar(uint16_t x, uint16_t y, uint16_t fc, uint16_t bc, uint8_t num, uint8_t size, uint8_t mode);
 void debug_show(uint8_t * str, uint16_t len);
 
 #endif
