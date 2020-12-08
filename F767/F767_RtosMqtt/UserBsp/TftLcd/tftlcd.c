@@ -1120,62 +1120,102 @@ void Buff_ShowChar(uint16_t x, uint16_t y, uint16_t fc, uint16_t bc, uint8_t num
 }
 
 
-uint8_t Buff_ShowString(uint16_t x, uint16_t y, uint16_t fc, uint16_t bc, uint16_t width, uint16_t height, uint8_t size, uint8_t *p)
+uint8_t Buff_ShowString(uint16_t x, uint16_t y, uint16_t fc, uint16_t bc, uint8_t size, uint8_t *p, uint8_t len)
 {
     uint8_t res = 1;
-    uint8_t x0 = x;
-    width += x;
-    height += y;
-    while((*p <= '~') && (*p >= ' ')) //判断是不是非法字符!
+
+     //判断是不是非法字符!
+    while(len--)
     {
-        if(x >= width-size/2)
-        {
-            x = x0;
-            y += size;
-            res++;
-        }
-        if(y >= height)
-            break; //退出
+
         Buff_ShowChar(x, y, fc, bc, *p, size, 0);
         x += size / 2;
         p++;
+
     }
     
-    return res;
+    return 0;
 }
 
 
+#if 0
+#define font_size   (12)
+#define x_size      (176*2/font_size)   //一行最大的字节数
 
 uint8_t log_buff[30][100] = {0};
-uint32_t line_num = 0;
-uint32_t line_cur = 0;
-uint8_t log_head = 0;
-uint8_t log_cur = 12;
+uint8_t log_cur = 0;
+
 void debug_show(uint8_t * str, uint16_t len)
 {
-    int font_size = 12;
-    int x_size = 176*2/font_size;   //一行最大的字节数
-    int str_line = len/x_size;      //当前str要占用几行
-    
-    int get_line = 0;
 
-    log_cur++;
-    if(log_cur == 24)
-    {
-        log_cur = 12;
-    }
+    
+    int str_line = len/x_size+1;    //当前str要占用几行
+    
 
     memset(log_buff[log_cur], 0, 100);
     memcpy(log_buff[log_cur], str, len);
     
-    
+    int next_str_len = 0;
     int j = 0;
-    for(int i=12; i>0; i--)
+    int i=13-str_line;
+    
+    __disable_irq();
+    while(1)
     {
-        Buff_ShowString(0, i*font_size, GREEN, BLACK, 176, 220, font_size, log_buff[(log_cur-j)%13]);
+        Buff_ShowString(0, i*font_size, GREEN, BLACK, 176, 220, font_size, log_buff[(log_cur+30-j)%30]);
         j++;
+        next_str_len = (strlen(log_buff[(log_cur+30-j)%30])/x_size+1);
+        if(i>=next_str_len)
+        {
+            i -= next_str_len;
+        }
+        else
+        {
+            break;
+        }
     }
-
+    
+    log_cur++;
+    if(log_cur == 30)
+    {
+        log_cur = 0;
+    }
+    memset(str, 0, len);
+    __enable_irq();
 
 }
+#else
+
+#define font_size   (12)
+#define x_size      (176*2/font_size)   //一行最大的字节数
+#define y_size      (220/font_size)     //最大行数
+
+uint8_t log_buff[y_size][x_size] = {0};
+void debug_show(uint8_t * str, uint16_t len)
+{
+    __disable_irq();
+    int str_line = len/x_size+1;    //当前str要占用几行
+    
+    memcpy(log_buff[0], log_buff[str_line], x_size*(y_size-str_line));
+    memset(log_buff[y_size-str_line], 0, x_size*str_line);
+    memcpy(log_buff[y_size-str_line], str, len);
+    
+    
+    
+    for(int i=0; i<y_size; i++)
+    {
+        Buff_ShowString(0, i*font_size, GREEN, BLACK, font_size, log_buff[i], x_size);
+        print_buff(log_buff[i], x_size);
+        //Buff_ShowString(0, i++*font_size, GREEN, BLACK, font_size, "task_cnt = 44 HelloWordl 1490478564", 20);
+        //Buff_ShowString(0, i++*font_size, GREEN, BLACK, font_size, "56789", 3);
+    }
+
+    memset(str, 0, len);
+    __enable_irq();
+
+}
+
+#endif
+
+
 

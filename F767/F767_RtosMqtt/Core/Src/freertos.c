@@ -169,6 +169,7 @@ void StartDefaultTask(void *argument)
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
 uint32_t task_led_cnt = 0;
+char buff[100] = {0};
 void task_led_entry(void *argument)
 {
     uint8_t led_flag = 1;
@@ -200,7 +201,8 @@ void task_led_entry(void *argument)
 //            task_led_cnt++;
 //        }
 
-
+        sprintf(buff, "1111111111111111111111111");
+        debug_show(buff, strlen(buff));
 
         osDelay(1000);
     }
@@ -210,7 +212,6 @@ DHT11_Data_TypeDef test = {0};
 void task_test_c_entry(void *argument)
 {
     uint32_t task_cnt = 0;
-    char buff[100] = {0};
     
     while(1)
     {
@@ -220,13 +221,11 @@ void task_test_c_entry(void *argument)
         xQueueSend(MQTT_Data_Queue, &test, 0);
 
         task_cnt++;
-        sprintf(buff, "task_cnt = %04d  HelloWordl 1490478564\r\n", task_cnt);
+        sprintf(buff, "task_cnt = %04d  HelloWordl 1490478564", task_cnt);
         debug_show(buff, strlen(buff));
         
         sprintf(buff, "yufei.fan");
-        //debug_show(buff, strlen(buff));
-        
-        memset(buff, 0, strlen(buff));
+        debug_show(buff, strlen(buff));
         
         //Buff_DrawPoint(20, 20, RED);
         //Buff_ShowChar(0, 0, RED, BLACK, 'H', 16, 0);
@@ -255,7 +254,7 @@ void task_test_c_entry(void *argument)
     }
 }
 
-
+extern uint8_t flag_debug;
 void lcd_dis_entry(void *argument)
 {
     uint32_t task_cnt = 0;

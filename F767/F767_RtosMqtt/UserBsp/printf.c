@@ -26,6 +26,8 @@ void print_buff(uint8_t * buff, uint16_t len)
 	{
 		fputc(buff[i], &__stdout);
 	}
+    fputc('\r', &__stdout);
+    fputc('\n', &__stdout);
 }
 
 #else

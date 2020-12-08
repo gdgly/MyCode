@@ -163,17 +163,12 @@
         <Ww>
           <count>2</count>
           <WinNumber>1</WinNumber>
-          <ItemText>head,0x0A</ItemText>
+          <ItemText>flag_debug</ItemText>
         </Ww>
         <Ww>
           <count>3</count>
           <WinNumber>1</WinNumber>
-          <ItemText>cur,0x0A</ItemText>
-        </Ww>
-        <Ww>
-          <count>4</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>len_num,0x0A</ItemText>
+          <ItemText>log_buff</ItemText>
         </Ww>
       </WatchWindow1>
       <MemoryWindow1>
@@ -1766,7 +1761,7 @@
 
   <Group>
     <GroupName>UserApp</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -1970,7 +1965,7 @@
 
   <Group>
     <GroupName>UserBsp</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
