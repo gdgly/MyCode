@@ -114,8 +114,7 @@ void Show_Str(uint16_t x, uint16_t y, uint16_t fc, uint16_t bc, uint8_t *str, ui
 
 
 void Buff_DrawPoint(uint16_t x, uint16_t y, uint16_t color);
-void Buff_ShowChar(uint16_t x, uint16_t y, uint16_t fc, uint16_t bc, uint8_t num, uint8_t size, uint8_t mode);
-void debug_show(uint8_t * str, uint16_t len);
+
 
 #endif
 

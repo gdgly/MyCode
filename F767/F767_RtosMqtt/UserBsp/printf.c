@@ -18,26 +18,23 @@ int fputc(int ch, FILE *f)
     return ch;
 }
 
-#if 1
 
-void print_buff(uint8_t * buff, uint16_t len)
+
+void print_buff_eof(uint8_t * buff, uint16_t len)
 {
-    for(int i=0; i<len; i++)
-	{
-		fputc(buff[i], &__stdout);
-	}
-    fputc('\r', &__stdout);
-    fputc('\n', &__stdout);
+    
+    HAL_UART_Transmit(&huart3, buff, len, 1000);
+    HAL_UART_Transmit(&huart3, "\r\n", 2, 1000);
 }
 
-#else
+
 
 void print_buff(uint8_t * buff, uint16_t len)
 {
     HAL_UART_Transmit_IT(&huart3, buff, len);
 }
 
-#endif
+
 
 #define MAX_PRINT_SIZE  512
 
@@ -48,12 +45,12 @@ void my_printf(const char *format, ...)
     
     va_list arg_ptr;
 
-	memset(my_print, '\0', sizeof(my_print));
+	memset(my_print, '0', sizeof(my_print));
     
 	va_start(arg_ptr, format);
 	vsprintf(my_print, format, arg_ptr);
 	va_end(arg_ptr);
     
-	HAL_UART_Transmit_IT(&huart3, (uint8_t *)my_print, strlen(my_print));
+	HAL_UART_Transmit(&huart3, (uint8_t *)my_print, strlen(my_print), 1000);
 }
 

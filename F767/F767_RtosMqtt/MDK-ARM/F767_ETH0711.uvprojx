@@ -1167,6 +1167,11 @@
               <FileType>1</FileType>
               <FilePath>..\UserBsp\TftLcd\pic.c</FilePath>
             </File>
+            <File>
+              <FileName>lcd_print.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\UserBsp\TftLcd\lcd_print.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

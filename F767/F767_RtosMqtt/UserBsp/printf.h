@@ -11,6 +11,7 @@
 #include "string.h"
 
 void print_buff(uint8_t * buff, uint16_t len);
+void print_buff_eof(uint8_t * buff, uint16_t len);
 void my_printf(const char *format, ...);
 
 

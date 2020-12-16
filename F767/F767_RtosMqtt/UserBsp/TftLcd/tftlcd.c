@@ -3,6 +3,9 @@
 #include "usart.h"
 #include "font.h"
 
+#include "FreeRTOS.h"
+#include "semphr.h"
+#include "queue.h"
 
 uint16_t color_buff[] = {WHITE, BLACK, BLUE, BRED, GRED, GBLUE, RED , MAGENTA, GREEN, CYAN, YELLOW, BROWN, BRRED, GRAY};
 
@@ -1071,6 +1074,7 @@ void Show_Str(uint16_t x, uint16_t y, uint16_t fc, uint16_t bc, uint8_t *str, ui
 
 
 
+
 uint8_t lcd_disp[220][176][2] = {0};
 
 void Buff_DrawPoint(uint16_t x, uint16_t y, uint16_t color)
@@ -1088,13 +1092,13 @@ void Buff_ShowChar(uint16_t x, uint16_t y, uint16_t fc, uint16_t bc, uint8_t num
     for(t = 0; t < csize; t++)
     {
         if(size == 12)
-            temp = ascii_1206[num][t]; 	 	//调用1206字体
+            temp = ascii_1206[num][t];  //调用1206字体
         else if(size == 16)
-            temp = ascii_1608[num][t];	//调用1608字体
+            temp = ascii_1608[num][t];  //调用1608字体
         else if(size == 24)
-            temp = ascii_2412[num][t];	//调用2412字体
+            temp = ascii_2412[num][t];  //调用2412字体
         else
-            return;								//没有的字库
+            return;                     //没有的字库
         
         for(t1 = 0; t1 < 8; t1++)
         {
@@ -1119,103 +1123,6 @@ void Buff_ShowChar(uint16_t x, uint16_t y, uint16_t fc, uint16_t bc, uint8_t num
     }
 }
 
-
-uint8_t Buff_ShowString(uint16_t x, uint16_t y, uint16_t fc, uint16_t bc, uint8_t size, uint8_t *p, uint8_t len)
-{
-    uint8_t res = 1;
-
-     //判断是不是非法字符!
-    while(len--)
-    {
-
-        Buff_ShowChar(x, y, fc, bc, *p, size, 0);
-        x += size / 2;
-        p++;
-
-    }
-    
-    return 0;
-}
-
-
-#if 0
-#define font_size   (12)
-#define x_size      (176*2/font_size)   //一行最大的字节数
-
-uint8_t log_buff[30][100] = {0};
-uint8_t log_cur = 0;
-
-void debug_show(uint8_t * str, uint16_t len)
-{
-
-    
-    int str_line = len/x_size+1;    //当前str要占用几行
-    
-
-    memset(log_buff[log_cur], 0, 100);
-    memcpy(log_buff[log_cur], str, len);
-    
-    int next_str_len = 0;
-    int j = 0;
-    int i=13-str_line;
-    
-    __disable_irq();
-    while(1)
-    {
-        Buff_ShowString(0, i*font_size, GREEN, BLACK, 176, 220, font_size, log_buff[(log_cur+30-j)%30]);
-        j++;
-        next_str_len = (strlen(log_buff[(log_cur+30-j)%30])/x_size+1);
-        if(i>=next_str_len)
-        {
-            i -= next_str_len;
-        }
-        else
-        {
-            break;
-        }
-    }
-    
-    log_cur++;
-    if(log_cur == 30)
-    {
-        log_cur = 0;
-    }
-    memset(str, 0, len);
-    __enable_irq();
-
-}
-#else
-
-#define font_size   (12)
-#define x_size      (176*2/font_size)   //一行最大的字节数
-#define y_size      (220/font_size)     //最大行数
-
-uint8_t log_buff[y_size][x_size] = {0};
-void debug_show(uint8_t * str, uint16_t len)
-{
-    __disable_irq();
-    int str_line = len/x_size+1;    //当前str要占用几行
-    
-    memcpy(log_buff[0], log_buff[str_line], x_size*(y_size-str_line));
-    memset(log_buff[y_size-str_line], 0, x_size*str_line);
-    memcpy(log_buff[y_size-str_line], str, len);
-    
-    
-    
-    for(int i=0; i<y_size; i++)
-    {
-        Buff_ShowString(0, i*font_size, GREEN, BLACK, font_size, log_buff[i], x_size);
-        print_buff(log_buff[i], x_size);
-        //Buff_ShowString(0, i++*font_size, GREEN, BLACK, font_size, "task_cnt = 44 HelloWordl 1490478564", 20);
-        //Buff_ShowString(0, i++*font_size, GREEN, BLACK, font_size, "56789", 3);
-    }
-
-    memset(str, 0, len);
-    __enable_irq();
-
-}
-
-#endif
 
 
 

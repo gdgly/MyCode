@@ -141,6 +141,7 @@
 "f767_eth0711\tool.o"
 "f767_eth0711\tftlcd.o"
 "f767_eth0711\pic.o"
+"f767_eth0711\lcd_print.o"
 --library_type=microlib --strict --scatter "F767_ETH0711\F767_ETH0711.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

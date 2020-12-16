@@ -30,7 +30,11 @@
 #include "tcp_client.h"
 #include "mqttclient.h"
 
+#include "semphr.h"
+#include "queue.h"
+
 #include "tftlcd.h"
+#include "lcd_print.h"
 #include "pic.h"
 /* USER CODE END Includes */
 
@@ -93,6 +97,9 @@ const osThreadAttr_t lcd_dis_attributes = {
     .stack_size = 256 * 4
 };
 void lcd_dis_entry(void *argument);
+
+
+
 /* USER CODE END FunctionPrototypes */
 
 void StartDefaultTask(void *argument);
@@ -169,7 +176,7 @@ void StartDefaultTask(void *argument)
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
 uint32_t task_led_cnt = 0;
-char buff[100] = {0};
+char buff[200] = {0};
 void task_led_entry(void *argument)
 {
     uint8_t led_flag = 1;
@@ -190,19 +197,11 @@ void task_led_entry(void *argument)
         }
         
         uint8_t size = sizeof(color_buff)/sizeof(color_buff[0]);
+        
+        //打印空闲堆栈
+        lcd_print("xPortGetFreeHeapSize = %d", xPortGetFreeHeapSize());
+        //lcd_print("xPortGetMinimumEverFreeHeapSize = %d",xPortGetMinimumEverFreeHeapSize());
 
-//        LCD_ShowPicture(0, 0, 176, 220, gImage_pic);
-//        LCD_ShowString(0, 0, RED, WHITE, 100, 100, 16, "HelloWorld\r\n");
-//        Show_Str(0, 0, RED, BLACK, "HelloWorld12345678901234567890", 16, 0);
-
-//        while(task_led_cnt++ < 1000)
-//        {
-//            LCD_Clear(color_buff[task_led_cnt%size]);
-//            task_led_cnt++;
-//        }
-
-        sprintf(buff, "1111111111111111111111111");
-        debug_show(buff, strlen(buff));
 
         osDelay(1000);
     }
@@ -221,15 +220,11 @@ void task_test_c_entry(void *argument)
         xQueueSend(MQTT_Data_Queue, &test, 0);
 
         task_cnt++;
-        sprintf(buff, "task_cnt = %04d  HelloWordl 1490478564", task_cnt);
-        debug_show(buff, strlen(buff));
-        
-        sprintf(buff, "yufei.fan");
-        debug_show(buff, strlen(buff));
-        
-        //Buff_DrawPoint(20, 20, RED);
-        //Buff_ShowChar(0, 0, RED, BLACK, 'H', 16, 0);
-        //LCD_ShowPicture(0, 0, 176, 220, lcd_disp[0][0]);
+        //lcd_print("task_cnt = %04d", task_cnt);
+        int * temp = malloc(10000);
+        *temp = 1000;
+        (*temp)++;
+        lcd_print("*temp = %d", *temp);
         
         if(task_cnt > 20)
         {
@@ -250,19 +245,20 @@ void task_test_c_entry(void *argument)
 //            HAL_PWR_EnterSTANDBYMode();
         }
         
-        osDelay(500);
+        osDelay(200);
     }
 }
 
-extern uint8_t flag_debug;
+SemaphoreHandle_t lcd_sync;
 void lcd_dis_entry(void *argument)
 {
     uint32_t task_cnt = 0;
-
+    lcd_sync = xSemaphoreCreateBinary();
     while(1)
     {
+        xSemaphoreTake(lcd_sync, 50);
         LCD_ShowPicture(0, 0, 176, 220, lcd_disp[0][0]);
-
+        xSemaphoreGive(lcd_sync);
         osDelay(50);
     }
 }
